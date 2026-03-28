@@ -1,0 +1,25 @@
+{
+  "maxScore": 25000,
+  "teams": [
+    {
+      "name": "HERDEIROS",
+      "score": 22000,
+      "color": "#69daff"
+    },
+    {
+      "name": "ELEITOS",
+      "score": 18000,
+      "color": "#ffd709"
+    },
+    {
+      "name": "EMBAIXADORES",
+      "score": 15000,
+      "color": "#ff7168"
+    },
+    {
+      "name": "RESGATADOS",
+      "score": 12000,
+      "color": "#00cffc"
+    }
+  ]
+}
