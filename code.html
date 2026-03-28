@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="pt-BR"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ADOLESC COIMBRA DNA - Rankings</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@300;400;500;600;700;900&amp;family=Manrope:wght@300;400;500;600;700;800&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+        .glow-blue { shadow-[0_0_20px_rgba(105,218,255,0.3)]; }
+        .glow-gold { shadow-[0_0_20px_rgba(255,215,9,0.3)]; }
+        .glow-red { shadow-[0_0_20px_rgba(255,113,104,0.3)]; }
+        .glow-green { shadow-[0_0_20px_rgba(0,207,252,0.3)]; }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              colors: {
+                "tertiary-fixed": "#ff9289",
+                "on-tertiary-fixed": "#3a0002",
+                "primary-fixed": "#00cffc",
+                "secondary-container": "#705d00",
+                "tertiary-fixed-dim": "#ff7b71",
+                "on-primary-fixed": "#002a35",
+                "inverse-surface": "#f8f9ff",
+                "background": "#0a0e14",
+                "tertiary": "#ff7168",
+                "on-primary-container": "#004050",
+                "primary-dim": "#00c0ea",
+                "on-secondary": "#5b4b00",
+                "on-secondary-fixed": "#453900",
+                "surface-container-highest": "#20262f",
+                "on-tertiary": "#4a0004",
+                "outline": "#72757d",
+                "secondary": "#ffd709",
+                "on-secondary-container": "#fff7e6",
+                "surface-container": "#151a21",
+                "inverse-primary": "#006880",
+                "on-primary": "#004a5d",
+                "on-surface": "#f1f3fc",
+                "on-error-container": "#ffa8a3",
+                "secondary-fixed": "#ffd709",
+                "surface-bright": "#262c36",
+                "error-dim": "#d7383b",
+                "secondary-dim": "#efc900",
+                "primary": "#69daff",
+                "on-secondary-fixed-variant": "#665500",
+                "on-error": "#490006",
+                "primary-container": "#00cffc",
+                "secondary-fixed-dim": "#efc900",
+                "surface-container-high": "#1b2028",
+                "on-background": "#f1f3fc",
+                "on-tertiary-container": "#000000",
+                "surface-dim": "#0a0e14",
+                "surface-variant": "#20262f",
+                "surface-container-lowest": "#000000",
+                "error-container": "#9f0519",
+                "inverse-on-surface": "#51555d",
+                "surface-tint": "#69daff",
+                "on-tertiary-fixed-variant": "#7a000b",
+                "outline-variant": "#44484f",
+                "surface-container-low": "#0f141a",
+                "error": "#ff716c",
+                "tertiary-dim": "#e2242a",
+                "surface": "#0a0e14",
+                "on-primary-fixed-variant": "#004a5c",
+                "primary-fixed-dim": "#00c0ea",
+                "tertiary-container": "#f53335",
+                "on-surface-variant": "#a8abb3"
+              },
+              fontFamily: {
+                "headline": ["Space Grotesk"],
+                "body": ["Manrope"],
+                "label": ["Space Grotesk"]
+              },
+              borderRadius: {"DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px"},
+            },
+          },
+        }
+    </script>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head>
+<body class="bg-background font-body text-on-surface min-h-screen pb-24 selection:bg-primary/30">
+<!-- Top App Bar -->
+<header class="bg-[#0a0e14]/80 backdrop-blur-xl docked full-width top-0 z-50 shadow-[0_8px_32px_rgba(105,218,255,0.15)] flex justify-between items-center w-full px-6 py-4">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-cyan-400 scale-95 active:scale-90 transition-transform">leaderboard</span>
+<h1 class="font-['Space_Grotesk'] uppercase tracking-wider text-sm md:text-base font-bold text-slate-400">
+<span class="text-xl font-black text-cyan-400 tracking-tighter">ADOLESC COIMBRA DNA</span>
+</h1>
+</div>
+<div class="flex gap-4">
+<span class="material-symbols-outlined text-slate-400 hover:text-cyan-200 transition-colors duration-300">notifications</span>
+<span class="material-symbols-outlined text-slate-400 hover:text-cyan-200 transition-colors duration-300">account_circle</span>
+</div>
+</header>
+<main class="px-4 pt-8 max-w-lg mx-auto">
+<!-- Dashboard Hero Section -->
+<section class="mb-10 text-center">
+<h2 class="font-headline text-3xl font-black uppercase tracking-tighter text-on-surface mb-2">Ranking Geral</h2>
+<p class="font-label text-xs uppercase tracking-[0.2em] text-outline">ADOLESC COIMBRA</p>
+</section>
+<!-- Ranking Grid -->
+<div class="grid grid-cols-4 gap-3 h-[420px] items-end mb-12">
+<!-- Team 1: HERDEIROS (#1) -->
+<div class="flex flex-col items-center h-full">
+<div class="flex flex-col items-center justify-end w-full h-full bg-surface-container-high/40 glass-card rounded-xl p-2 border border-primary/10 shadow-[0_0_20px_rgba(105,218,255,0.1)]">
+<div class="mb-auto pt-2 text-center">
+<span class="font-headline font-black text-primary text-lg">#1</span>
+<div class="flex justify-center mt-1">
+<span class="material-symbols-outlined text-primary text-sm" style="font-variation-settings: 'FILL' 1;">crown</span>
+</div>
+</div>
+<span class="font-label font-bold text-[10px] text-primary mb-2">22K</span>
+<div class="w-full bg-surface-container-highest rounded-full h-[65%] overflow-hidden relative">
+<div class="absolute bottom-0 w-full h-full bg-gradient-to-t from-primary/80 to-primary shadow-[0_-4px_12px_rgba(105,218,255,0.5)]"></div>
+</div>
+<p class="font-headline font-black text-[9px] uppercase tracking-tighter text-on-surface mt-4 text-center leading-none">HERDEIROS</p>
+</div>
+</div>
+<!-- Team 2: ELEITOS (#2) -->
+<div class="flex flex-col items-center h-full">
+<div class="flex flex-col items-center justify-end w-full h-full bg-surface-container-high/40 glass-card rounded-xl p-2 border border-secondary/10 shadow-[0_0_20px_rgba(255,215,9,0.1)]">
+<div class="mb-auto pt-2 text-center">
+<span class="font-headline font-black text-secondary text-lg">#2</span>
+<div class="flex justify-center mt-1">
+<span class="material-symbols-outlined text-secondary text-sm" style="font-variation-settings: 'FILL' 1;">star</span>
+</div>
+</div>
+<span class="font-label font-bold text-[10px] text-secondary mb-2">18K</span>
+<div class="w-full bg-surface-container-highest rounded-full h-[55%] overflow-hidden relative">
+<div class="absolute bottom-0 w-full h-full bg-gradient-to-t from-secondary/80 to-secondary shadow-[0_-4px_12px_rgba(255,215,9,0.5)]"></div>
+</div>
+<p class="font-headline font-black text-[9px] uppercase tracking-tighter text-on-surface mt-4 text-center leading-none">ELEITOS</p>
+</div>
+</div>
+<!-- Team 3: EMBAIXADORES (#3) -->
+<div class="flex flex-col items-center h-full">
+<div class="flex flex-col items-center justify-end w-full h-full bg-surface-container-high/40 glass-card rounded-xl p-2 border border-tertiary/10 shadow-[0_0_20px_rgba(255,113,104,0.1)]">
+<div class="mb-auto pt-2 text-center">
+<span class="font-headline font-black text-tertiary text-lg">#3</span>
+<div class="flex justify-center mt-1">
+<span class="material-symbols-outlined text-tertiary text-sm" style="font-variation-settings: 'FILL' 1;">explore</span>
+</div>
+</div>
+<span class="font-label font-bold text-[10px] text-tertiary mb-2">15K</span>
+<div class="w-full bg-surface-container-highest rounded-full h-[45%] overflow-hidden relative">
+<div class="absolute bottom-0 w-full h-full bg-gradient-to-t from-tertiary/80 to-tertiary shadow-[0_-4px_12px_rgba(255,113,104,0.5)]"></div>
+</div>
+<p class="font-headline font-black text-[9px] uppercase tracking-tighter text-on-surface mt-4 text-center leading-none">EMBAIXADORES</p>
+</div>
+</div>
+<!-- Team 4: RESGATADOS (#4) -->
+<div class="flex flex-col items-center h-full">
+<div class="flex flex-col items-center justify-end w-full h-full bg-surface-container-high/40 glass-card rounded-xl p-2 border border-primary-fixed/10 shadow-[0_0_20px_rgba(0,207,252,0.1)]">
+<div class="mb-auto pt-2 text-center">
+<span class="font-headline font-black text-primary-fixed text-lg">#4</span>
+<div class="flex justify-center mt-1">
+<span class="material-symbols-outlined text-primary-fixed text-sm" style="font-variation-settings: 'FILL' 1;">medical_services</span>
+</div>
+</div>
+<span class="font-label font-bold text-[10px] text-primary-fixed mb-2">12K</span>
+<div class="w-full bg-surface-container-highest rounded-full h-[35%] overflow-hidden relative">
+<div class="absolute bottom-0 w-full h-full bg-gradient-to-t from-primary-fixed/80 to-primary-fixed shadow-[0_-4px_12px_rgba(0,207,252,0.5)]"></div>
+</div>
+<p class="font-headline font-black text-[9px] uppercase tracking-tighter text-on-surface mt-4 text-center leading-none">RESGATADOS</p>
+</div>
+</div>
+</div>
+<!-- Rules Section -->
+<section class="bg-surface-container-low rounded-2xl p-6 border border-white/5 relative overflow-hidden">
+<div class="absolute top-0 right-0 p-8 opacity-10">
+<span class="material-symbols-outlined text-6xl">gavel</span>
+</div>
+<h3 class="font-headline text-lg font-bold uppercase tracking-tight mb-6 flex items-center gap-2">
+<span class="w-1.5 h-6 bg-primary rounded-full"></span>
+                Regra de Pontuação Geral
+            </h3>
+<div class="grid grid-cols-2 gap-4">
+<!-- Rule 1 -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-high rounded-xl">
+<div class="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary">person_check</span>
+</div>
+<div>
+<p class="font-label text-[10px] text-outline uppercase">Presença</p>
+<p class="font-headline font-bold text-on-surface">100 PTS</p>
+</div>
+</div>
+<!-- Rule 2 -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-high rounded-xl">
+<div class="w-10 h-10 rounded-lg bg-secondary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-secondary">menu_book</span>
+</div>
+<div>
+<p class="font-label text-[10px] text-outline uppercase">Bíblia</p>
+<p class="font-headline font-bold text-on-surface">50 PTS</p>
+</div>
+</div>
+<!-- Rule 3 -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-high rounded-xl">
+<div class="w-10 h-10 rounded-lg bg-tertiary/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-tertiary">edit_note</span>
+</div>
+<div>
+<p class="font-label text-[10px] text-outline uppercase">Lição</p>
+<p class="font-headline font-bold text-on-surface">100 PTS</p>
+</div>
+</div>
+<!-- Rule 4 -->
+<div class="flex items-center gap-3 p-3 bg-surface-container-high rounded-xl">
+<div class="w-10 h-10 rounded-lg bg-primary-fixed/10 flex items-center justify-center">
+<span class="material-symbols-outlined text-primary-fixed">person_add</span>
+</div>
+<div>
+<p class="font-label text-[10px] text-outline uppercase">Visitante</p>
+<p class="font-headline font-bold text-on-surface">500 PTS</p>
+</div>
+</div>
+</div>
+</section>
+<!-- Decorative Action -->
+<div class="mt-8 mb-12">
+<button class="w-full py-4 bg-gradient-to-r from-primary to-primary-container text-on-primary font-headline font-black uppercase tracking-widest rounded-xl shadow-[0_8px_24px_rgba(105,218,255,0.3)] active:scale-95 transition-transform">
+                Ver Relatório Completo
+            </button>
+</div>
+</main>
+<!-- Bottom Navigation Bar -->
+<nav class="fixed bottom-0 left-0 w-full flex justify-around items-center px-4 pb-4 pt-2 bg-[#151a21]/90 backdrop-blur-lg z-50 rounded-t-lg shadow-[0_-8px_32px_rgba(0,0,0,0.5)] border-t border-white/5">
+<a class="flex flex-col items-center justify-center bg-cyan-500/10 text-cyan-400 rounded-xl px-4 py-1 shadow-[0_0_15px_rgba(105,218,255,0.3)] tap-highlight-transparent active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">emoji_events</span>
+<span class="font-['Space_Grotesk'] uppercase font-medium text-[10px]">RANKING</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-300 transition-all tap-highlight-transparent active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">groups</span>
+<span class="font-['Space_Grotesk'] uppercase font-medium text-[10px]">TEAMS</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-300 transition-all tap-highlight-transparent active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">timeline</span>
+<span class="font-['Space_Grotesk'] uppercase font-medium text-[10px]">HISTORY</span>
+</a>
+<a class="flex flex-col items-center justify-center text-slate-500 hover:text-slate-300 transition-all tap-highlight-transparent active:scale-95 transition-transform" href="#">
+<span class="material-symbols-outlined">gavel</span>
+<span class="font-['Space_Grotesk'] uppercase font-medium text-[10px]">RULES</span>
+</a>
+</nav>
+<!-- Background Decoration -->
+<div class="fixed top-0 left-0 w-full h-full -z-10 overflow-hidden pointer-events-none">
+<div class="absolute -top-[20%] -left-[10%] w-[60%] h-[60%] bg-primary/5 blur-[120px] rounded-full"></div>
+<div class="absolute bottom-[10%] -right-[10%] w-[50%] h-[50%] bg-tertiary/5 blur-[120px] rounded-full"></div>
+<div class="absolute top-[40%] left-[20%] w-full h-[1px] bg-gradient-to-r from-transparent via-white/5 to-transparent rotate-12"></div>
+</div>
+</body></html>

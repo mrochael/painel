@@ -21,7 +21,6 @@
       --border-subtle: rgba(255,255,255,0.06);
       --bar-max-height: 260px;
       --transition-bar: 1.2s cubic-bezier(0.22, 1, 0.36, 1);
-      --poll-interval:  5000;
     }
 
     html, body {
@@ -156,6 +155,20 @@
       transform: translateY(-4px);
     }
 
+    /* ─────────────── LEADER HIGHLIGHT ─────────────── */
+    .card.leader {
+      transform: scale(1.05);
+      box-shadow:
+        0 0 40px color-mix(in srgb, var(--team-color) 50%, transparent),
+        0 0 80px color-mix(in srgb, var(--team-color) 25%, transparent);
+    }
+    .card.leader:hover {
+      transform: scale(1.05) translateY(-4px);
+    }
+    .card.leader::before {
+      opacity: 0.5;
+    }
+
     /* Rank badge */
     .card__rank {
       font-size: clamp(20px, 3vw, 32px);
@@ -282,6 +295,9 @@
       transform: translateY(30px);
       animation: card-enter 0.6s ease forwards;
     }
+    .card.leader {
+      animation: card-enter-leader 0.6s ease forwards;
+    }
     .card:nth-child(1) { animation-delay: 0.1s; }
     .card:nth-child(2) { animation-delay: 0.2s; }
     .card:nth-child(3) { animation-delay: 0.3s; }
@@ -289,6 +305,9 @@
 
     @keyframes card-enter {
       to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes card-enter-leader {
+      to { opacity: 1; transform: scale(1.05); }
     }
 
     /* ─────────────── RESPONSIVE ─────────────── */
@@ -327,14 +346,52 @@
 
   <script>
     /* ════════════════════════════════════════════════
-       CONFIGURAÇÃO
+       CONSTANTES
        ════════════════════════════════════════════════ */
-    var POLL_INTERVAL = 5000;
-    var DATA_URL      = 'data.json';
+    var STORAGE_KEY    = 'rankingData';
+    var SCHEMA_VERSION = 1;
+    var POLL_INTERVAL  = 1000;
+    var DATA_URL       = 'data.json';
+    var FALLBACK_DATA  = {
+      version: 1,
+      maxScore: 25000,
+      teams: [
+        { name: 'HERDEIROS',     score: 0, color: '#69daff' },
+        { name: 'ELEITOS',       score: 0, color: '#ffd709' },
+        { name: 'EMBAIXADORES',  score: 0, color: '#ff7168' },
+        { name: 'RESGATADOS',    score: 0, color: '#00cffc' }
+      ]
+    };
+
+    /* ════════════════════════════════════════════════
+       ESTADO
+       ════════════════════════════════════════════════ */
+    var lastRenderedJSON = '';
 
     /* ════════════════════════════════════════════════
        UTILITÁRIOS
        ════════════════════════════════════════════════ */
+
+    /**
+     * Garante que o valor está entre 0 e maxScore, sem NaN.
+     * @param {number} value
+     * @param {number} maxScore
+     * @returns {number}
+     */
+    function clampScore(value, maxScore) {
+      if (isNaN(value)) return 0;
+      return Math.min(maxScore, Math.max(0, value));
+    }
+
+    /**
+     * Sanitiza todas as equipes do objeto data.
+     * @param {Object} d
+     */
+    function sanitizeTeams(d) {
+      for (var i = 0; i < d.teams.length; i++) {
+        d.teams[i].score = clampScore(d.teams[i].score, d.maxScore);
+      }
+    }
 
     /**
      * Formata número com separador de milhar (pt-BR)
@@ -380,6 +437,108 @@
     }
 
     /* ════════════════════════════════════════════════
+       CARREGAMENTO DE DADOS (localStorage + fallback)
+       ════════════════════════════════════════════════ */
+
+    /**
+     * Tenta carregar o estado do localStorage.
+     * @returns {Object|null}
+     */
+    function loadFromStorage() {
+      try {
+        var raw = localStorage.getItem(STORAGE_KEY);
+        if (!raw) return null;
+
+        var parsed = JSON.parse(raw);
+
+        // Validar version
+        if (!parsed || parsed.version !== SCHEMA_VERSION) return null;
+
+        // Validar shape
+        if (!Array.isArray(parsed.teams) || typeof parsed.maxScore !== 'number') return null;
+
+        // Sanitizar
+        sanitizeTeams(parsed);
+
+        return parsed;
+      } catch (e) {
+        console.warn('[Painel] localStorage corrompido, usando fallback');
+        return null;
+      }
+    }
+
+    /**
+     * Carrega dados do data.json, injeta version, persiste e retorna via callback.
+     * @param {function} callback
+     */
+    function loadFromJSON(callback) {
+      fetch(DATA_URL + '?t=' + new Date().getTime())
+        .then(function(res) {
+          if (!res.ok) throw new Error('HTTP ' + res.status);
+          return res.json();
+        })
+        .then(function(jsonData) {
+          if (!jsonData || !Array.isArray(jsonData.teams)) {
+            throw new Error('Formato inválido');
+          }
+          // Injetar version
+          jsonData.version = SCHEMA_VERSION;
+          // Sanitizar
+          sanitizeTeams(jsonData);
+          // Persistir imediatamente
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(jsonData));
+          } catch (e) {
+            console.warn('[Painel] Falha ao persistir após carga JSON:', e.message);
+          }
+          callback(jsonData);
+        })
+        .catch(function(err) {
+          console.warn('[Painel] fetch falhou (' + err.message + '), usando dados embutidos');
+          var fallback = JSON.parse(JSON.stringify(FALLBACK_DATA));
+          sanitizeTeams(fallback);
+          try {
+            localStorage.setItem(STORAGE_KEY, JSON.stringify(fallback));
+          } catch (e) {
+            console.warn('[Painel] Falha ao persistir fallback:', e.message);
+          }
+          callback(fallback);
+        });
+    }
+
+    /**
+     * Carrega dados (localStorage ou fallback) e renderiza se mudou.
+     */
+    function loadData() {
+      var stored = loadFromStorage();
+      if (stored) {
+        processAndRender(stored);
+      } else {
+        loadFromJSON(function(d) {
+          processAndRender(d);
+        });
+      }
+    }
+
+    /**
+     * Compara estado e renderiza apenas se mudou.
+     * @param {Object} data
+     */
+    function processAndRender(data) {
+      var json = JSON.stringify(data);
+
+      if (json === lastRenderedJSON) {
+        // Dados idênticos — não toca no DOM
+        setLiveStatus(true);
+        return;
+      }
+
+      lastRenderedJSON = json;
+      renderRanking(data);
+      setLiveStatus(true);
+    }
+
+    /* ════════════════════════════════════════════════
        RENDERIZAÇÃO
        ════════════════════════════════════════════════ */
 
@@ -388,14 +547,16 @@
      * @param {Object} team   - { name, score, color }
      * @param {number} rank   - posição (1-indexed)
      * @param {number} maxScore
+     * @param {boolean} isLeader
      * @returns {string} HTML
      */
-    function renderCard(team, rank, maxScore) {
+    function renderCard(team, rank, maxScore, isLeader) {
       var pct   = calcPercent(team.score, maxScore);
       var icon  = rank === 1 ? crownSVG(team.color) : starSVG(team.color);
+      var leaderClass = isLeader ? ' leader' : '';
 
       return '' +
-        '<article class="card" style="--team-color:' + team.color + ';" aria-label="' + team.name + ', posição ' + rank + '">' +
+        '<article class="card' + leaderClass + '" style="--team-color:' + team.color + ';" aria-label="' + team.name + ', posição ' + rank + '">' +
           '<span class="card__rank">#' + rank + '</span>' +
           '<div class="card__rank-icon">' + icon + '</div>' +
           '<div class="card__bar-wrap">' +
@@ -409,7 +570,7 @@
 
     /**
      * Renderiza o ranking completo no container
-     * @param {Object} data - { maxScore, teams }
+     * @param {Object} data - { version, maxScore, teams }
      */
     function renderRanking(data) {
       var container = document.getElementById('ranking');
@@ -419,10 +580,10 @@
         return b.score - a.score;
       });
 
-      // Gera HTML
+      // Gera HTML — primeiro é líder
       var html = '';
       for (var i = 0; i < sorted.length; i++) {
-        html += renderCard(sorted[i], i + 1, data.maxScore);
+        html += renderCard(sorted[i], i + 1, data.maxScore, i === 0);
       }
 
       // Limpa e insere
@@ -435,36 +596,6 @@
           fills[j].style.height = fills[j].getAttribute('data-pct') + '%';
         }
       });
-    }
-
-    /* ════════════════════════════════════════════════
-       CARREGAMENTO DE DADOS
-       ════════════════════════════════════════════════ */
-
-    /**
-     * Busca data.json com cache busting e renderiza
-     */
-    function loadData() {
-      var url = DATA_URL + '?t=' + new Date().getTime();
-
-      fetch(url)
-        .then(function(res) {
-          if (!res.ok) throw new Error('HTTP ' + res.status);
-          return res.json();
-        })
-        .then(function(data) {
-          // Validação básica
-          if (!data || !Array.isArray(data.teams)) {
-            throw new Error('Formato inválido');
-          }
-          renderRanking(data);
-          setLiveStatus(true);
-        })
-        .catch(function(err) {
-          console.warn('[Painel] Erro ao carregar dados:', err.message);
-          setLiveStatus(false);
-          // Não limpa o ranking — mantém último estado válido
-        });
     }
 
     /**
