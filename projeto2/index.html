@@ -1,0 +1,750 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CREDIT INSIGHT ML - Dashboard Executivo</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --accent-color: #0f172a;
+      --accent-light: #3b82f6;
+      --success: #10b981;
+      --danger: #ef4444;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+      --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    html { scroll-behavior: smooth; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.5;
+      overflow-x: hidden;
+      -webkit-font-smoothing: antialiased;
+    }
+    
+    /* Layout */
+    .dashboard-container {
+      max-width: 1440px;
+      margin: 0 auto;
+      padding: 40px 60px;
+    }
+
+    section {
+      margin-bottom: 80px;
+    }
+    
+    /* Typography */
+    .section-header {
+      font-size: 1.25rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 32px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-header::before {
+      content: '';
+      display: block;
+      width: 24px;
+      height: 2px;
+      background: var(--accent-light);
+    }
+    
+    /* Animations */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: opacity 0.8s cubic-bezier(0.16, 1, 0.3, 1), transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .fade-in.visible {
+      opacity: 1; transform: translateY(0);
+    }
+    
+    /* HERO / EXEC SUMMARY */
+    #hero {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 20px;
+      padding: 60px;
+      box-shadow: var(--shadow-sm);
+      margin-top: 40px;
+      margin-bottom: 60px;
+    }
+    
+    #hero h1 {
+      font-size: 3rem;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--accent-color);
+      margin-bottom: 16px;
+    }
+    
+    #hero .subtitle {
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: var(--text-muted);
+      margin-bottom: 48px;
+      max-width: 800px;
+    }
+    
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    
+    .metric-card {
+      background: var(--bg-main);
+      padding: 32px 24px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    
+    .metric-card:hover {
+      transform: translateY(-4px);
+      box-shadow: var(--shadow-md);
+    }
+    
+    .metric-value {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: block;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+    
+    .metric-label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+    }
+    
+    .hero-statements {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 48px;
+    }
+    
+    .statement {
+      font-size: 1rem;
+      padding: 24px;
+      background: var(--bg-main);
+      border-radius: 12px;
+      border-left: 4px solid var(--accent-light);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+    
+    .statement strong {
+      display: block;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 8px;
+    }
+    
+    .cta-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 16px 32px;
+      background: var(--accent-color);
+      color: #fff;
+      text-decoration: none;
+      font-size: 1rem;
+      font-weight: 600;
+      border-radius: 8px;
+      transition: all 0.2s ease;
+    }
+    
+    .cta-button:hover {
+      background: #1e293b;
+      box-shadow: var(--shadow-md);
+      transform: translateY(-2px);
+    }
+
+    /* GRID LAYOUTS FOR SECTIONS */
+    .dashboard-grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 32px;
+    }
+
+    .col-span-12 { grid-column: span 12; }
+    .col-span-8 { grid-column: span 8; }
+    .col-span-6 { grid-column: span 6; }
+    .col-span-4 { grid-column: span 4; }
+
+    .card-panel {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+    }
+    
+    /* PROBLEMA & IMPACTO COMPARISON */
+    .comparison-wrapper {
+      display: flex;
+      gap: 32px;
+    }
+
+    .comparison-panel {
+      flex: 1;
+      border-radius: 16px;
+      padding: 40px;
+    }
+
+    .panel-before {
+      background: #fff1f2;
+      border: 1px solid #ffe4e6;
+    }
+
+    .panel-after {
+      background: #f0fdf4;
+      border: 1px solid #dcfce7;
+    }
+
+    .panel-header {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin-bottom: 24px;
+    }
+
+    .panel-before .panel-header { color: var(--danger); }
+    .panel-after .panel-header { color: var(--success); }
+
+    .fact-list {
+      list-style: none;
+    }
+
+    .fact-item {
+      display: flex;
+      align-items: flex-start;
+      margin-bottom: 20px;
+      font-size: 1.125rem;
+      color: var(--text-main);
+    }
+
+    .fact-item::before {
+      content: '•';
+      margin-right: 12px;
+      font-weight: bold;
+    }
+    .panel-before .fact-item::before { color: var(--danger); }
+    .panel-after .fact-item::before { color: var(--success); }
+
+    .impact-number {
+      font-size: 2.5rem;
+      font-weight: 700;
+      display: block;
+      line-height: 1.2;
+      margin-bottom: 4px;
+    }
+
+    /* OPORTUNIDADE */
+    .opportunity-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      align-items: center;
+    }
+    
+    .opportunity-numbers {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 20px;
+    }
+    
+    .opportunity-number {
+      padding: 32px;
+      background: var(--bg-main);
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+    
+    .opportunity-number .value {
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+    }
+    
+    .opportunity-number .label {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-top: 8px;
+      font-weight: 600;
+    }
+    
+    .opportunity-text {
+      font-size: 1.5rem;
+      font-weight: 400;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+
+    /* INICIATIVA / PIPELINE */
+    .pipeline {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 20px 0;
+      position: relative;
+    }
+    
+    .pipeline::before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 0;
+      right: 0;
+      height: 2px;
+      background: var(--border-color);
+      z-index: 0;
+    }
+
+    .pipeline-step {
+      position: relative;
+      z-index: 1;
+      background: var(--bg-card);
+      padding: 16px 24px;
+      border-radius: 100px;
+      border: 2px solid var(--border-color);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      box-shadow: 0 0 0 4px var(--bg-card);
+    }
+    .pipeline-step:nth-child(even) {
+      border-color: var(--accent-light);
+      color: var(--accent-light);
+    }
+
+    /* VALOR ESTRATÉGICO */
+    .value-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 32px;
+    }
+    
+    .value-card {
+      background: var(--bg-card);
+      padding: 40px;
+      border-radius: 16px;
+      border: 1px solid var(--border-color);
+      box-shadow: var(--shadow-sm);
+    }
+    
+    .value-card h4 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    
+    .value-metric {
+      font-size: 3rem;
+      font-weight: 700;
+      color: var(--accent-light);
+      margin-bottom: 12px;
+      line-height: 1;
+    }
+    
+    .value-impact {
+      font-size: 1rem;
+      color: var(--text-muted);
+      line-height: 1.6;
+    }
+    
+    /* DIRECIONAMENTO */
+    #direcionamento {
+      background: var(--accent-color);
+      color: #fff;
+    }
+
+    #direcionamento .section-header {
+      color: #94a3b8;
+    }
+    
+    .direction-content {
+      max-width: 800px;
+    }
+    
+    .decision-needed {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+      line-height: 1.3;
+    }
+    
+    .next-step {
+      font-size: 1.25rem;
+      font-weight: 400;
+      color: #94a3b8;
+      margin-bottom: 40px;
+    }
+    
+    /* TOPNAV */
+    .topnav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+    }
+    .topnav .logo {
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      letter-spacing: -0.02em;
+    }
+    .topnav .badge {
+      background: #f1f5f9;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    @media (max-width: 1024px) {
+      .metrics-grid { grid-template-columns: repeat(2, 1fr); }
+      .hero-statements { grid-template-columns: 1fr; }
+      .dashboard-grid { grid-template-columns: 1fr; }
+      .col-span-8, .col-span-4, .col-span-6 { grid-column: span 1; }
+      .comparison-wrapper { flex-direction: column; }
+      .opportunity-grid { grid-template-columns: 1fr; }
+      .value-grid { grid-template-columns: 1fr; }
+      .pipeline { flex-direction: column; align-items: flex-start; gap: 24px; padding-left: 24px; }
+      .pipeline::before { top: 0; bottom: 0; left: 4px; height: auto; width: 2px; }
+      .dashboard-container { padding: 24px; }
+      .topnav { padding: 20px 24px; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="topnav">
+    <div class="logo">CREDIT INSIGHT ML</div>
+    <div class="badge">Apresentação Executiva</div>
+  </nav>
+
+  <main class="dashboard-container">
+    
+    <!-- 1. HERO -->
+    <section id="hero" class="fade-in">
+      <h1>Dashboard Operacional</h1>
+      <p class="subtitle">Transformando o histórico de crédito institucional em inteligência analítica preditiva.</p>
+      
+      <div class="metrics-grid">
+        <div class="metric-card">
+          <span class="metric-value" style="font-size: 2.2rem;">2016–2025</span>
+          <span class="metric-label">Período Analisado</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value" style="font-size: 2.2rem;">2021–2025</span>
+          <span class="metric-label">Período GED</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value" data-target="35947">0</span>
+          <span class="metric-label">Operações</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value" data-target="1100000">0</span>
+          <span class="metric-label">Documentos</span>
+        </div>
+        <div class="metric-card">
+          <span class="metric-value" data-target="1800000">0</span>
+          <span class="metric-label">Imagens</span>
+        </div>
+      </div>
+      
+      <div class="hero-statements">
+        <div class="statement">
+          <strong>O Problema</strong>
+          Décadas de conhecimento em crédito operando de forma limitada, retidas em processos estritamente manuais.
+        </div>
+        <div class="statement">
+          <strong>A Oportunidade</strong>
+          Mais de 31 mil processos digitais representam uma base de dados proprietária de valor inestimável.
+        </div>
+        <div class="statement">
+          <strong>A Transformação</strong>
+          Posicionamento de dados históricos não como arquivo morto, mas como vantagem competitiva imediata.
+        </div>
+      </div>
+      
+      <div style="display: flex; gap: 16px; align-items: center; flex-wrap: wrap;">
+        <a href="apresentacao.html" class="cta-button">Acessar Documento Estratégico →</a>
+        <a href="https://youtube.com/shorts/fPl6shUjVVA?si=oj41fzFJaQdAO8Ws" target="_blank" style="display: inline-flex; align-items: center; justify-content: center; padding: 16px 32px; background: #ffffff; color: var(--accent-color); text-decoration: none; font-size: 1rem; font-weight: 600; border-radius: 100px; border: 1px solid var(--border-color); cursor: pointer; box-shadow: var(--shadow-sm); font-family: inherit; transition: all 0.2s ease;" onmouseover="this.style.boxShadow='var(--shadow-md)'; this.style.transform='translateY(-2px)'" onmouseout="this.style.boxShadow='var(--shadow-sm)'; this.style.transform='none'">
+          ▶ Assistir visão executiva
+        </a>
+      </div>
+    </section>
+
+    <!-- ROW 1: PROBLEMA E OPORTUNIDADE -->
+    <div class="dashboard-grid">
+      
+      <!-- PROBLEMA - Before State -->
+      <section class="col-span-6 card-panel fade-in">
+        <h2 class="section-header">Status Operacional: Hoje</h2>
+        <div class="comparison-panel panel-before">
+          <div class="panel-header">Cenário Manual</div>
+          <ul class="fact-list">
+            <li class="fact-item">Análise exige leitura média de 133 páginas por processo aprovado.</li>
+            <li class="fact-item">Tempo de recuperação de informação atinge a escala de dias.</li>
+            <li class="fact-item">Riscos operacionais e regulatórios exponenciados por controles descentralizados.</li>
+          </ul>
+        </div>
+      </section>
+
+      <!-- OPORTUNIDADE - After State -->
+      <section class="col-span-6 card-panel fade-in">
+        <h2 class="section-header">Oportunidade de Escala</h2>
+        <div class="comparison-panel panel-after">
+          <div class="panel-header">Ativo de Dados (Data Asset)</div>
+          <div class="opportunity-numbers">
+            <div class="opportunity-number">
+              <div class="value" data-target="32590">0</div>
+              <div class="label">Volume Total</div>
+            </div>
+            <div class="opportunity-number">
+              <div class="value" data-target="31372">0</div>
+              <div class="label">Ato Contínuo</div>
+            </div>
+          </div>
+          <p style="margin-top: 24px; color: var(--text-muted); font-size: 1.125rem;">
+            Volume histórico nunca parametrizado, vital para geração de inteligência sintética e de crédito.
+          </p>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ROW 2: INICIATIVA E IMPACTO -->
+    <div class="dashboard-grid" style="margin-top: 32px;">
+      
+      <section class="col-span-12 card-panel fade-in">
+        <h2 class="section-header">Pipeline de Transformação (Workflow)</h2>
+        <div class="pipeline">
+          <div class="pipeline-step">CloudDocs / GED</div>
+          <div class="pipeline-step">Ingestão de Dados</div>
+          <div class="pipeline-step">Captura OCR</div>
+          <div class="pipeline-step">Extração Sintática</div>
+          <div class="pipeline-step">Padronização (Cleansing)</div>
+          <div class="pipeline-step">Dataset ML</div>
+          <div class="pipeline-step">Motor de Risco</div>
+        </div>
+      </section>
+
+    </div>
+
+    <!-- ROW 3: IMPACTO -->
+    <section class="card-panel fade-in" style="margin-top: 32px;">
+      <h2 class="section-header">Projeção de Impacto</h2>
+      <div class="comparison-wrapper">
+        <div class="comparison-panel panel-before">
+          <h3 class="panel-header">Modelo Tradicional</h3>
+          <ul class="fact-list">
+            <li class="fact-item"><span style="width:100%"><span class="impact-number">5 dias</span> Tempo estipulado de SLA</span></li>
+            <li class="fact-item"><span style="width:100%"><span class="impact-number">100%</span> Intervenção Humana</span></li>
+            <li class="fact-item"><span style="width:100%"><span class="impact-number">Cap. Máxima</span> Limite Operacional Fixo</span></li>
+          </ul>
+        </div>
+        <div class="comparison-panel panel-after">
+          <h3 class="panel-header">Abordagem Credit Insight</h3>
+          <ul class="fact-list">
+            <li class="fact-item"><span style="width:100%"><span class="impact-number">2 horas</span> Redução projetada de 95% do SLA</span></li>
+            <li class="fact-item"><span style="width:100%"><span class="impact-number">85%</span> Fator de Automação Previsto</span></li>
+            <li class="fact-item"><span style="width:100%"><span class="impact-number">10x</span> Potencial Margem de Escala</span></li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    <!-- ROW 4: VALOR ESTRATÉGICO -->
+    <section class="fade-in" style="margin-top: 80px;">
+      <h2 class="section-header">Entrega de Valor Institucional</h2>
+      <div class="value-grid">
+        <div class="value-card">
+          <h4>Eficiência</h4>
+          <div class="value-metric">80%</div>
+          <div class="value-impact">Redução sensível na latência de análise processual. Feedback ao cliente estabelecido na casa de minutos, não dias.</div>
+        </div>
+        <div class="value-card">
+          <h4>Inteligência</h4>
+          <div class="value-metric">31k+</div>
+          <div class="value-impact">Casos históricos parametrizados para os modelos estocásticos e preditivos. Precisão global esperada: 96%.</div>
+        </div>
+        <div class="value-card">
+          <h4>Governança</h4>
+          <div class="value-metric">100%</div>
+          <div class="value-impact">Rastreabilidade integral da tomada de decisão. Conformidade (compliance) estruturada de ponta a ponta e auditável via log.</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- DIRECIONAMENTO -->
+    <section id="direcionamento" class="card-panel fade-in">
+      <h2 class="section-header" style="color: #94a3b8;">Conclusão & Direcionamento</h2>
+      <div class="direction-content" style="max-width: 1000px; width: 100%; text-align: left; margin: 0 auto;">
+        
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 40px; margin-bottom: 40px;">
+          <!-- Coluna 1: Conclusões Iniciais -->
+          <div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 16px; color: var(--accent-light);">A análise de esforço e custo demonstra que:</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 12px; font-size: 1.125rem; display: flex; align-items: flex-start; gap: 12px;">
+                <span style="color: var(--danger); font-weight: bold;">×</span> A digitalização e tratamento manual não são viáveis em larga escala
+              </li>
+              <li style="margin-bottom: 12px; font-size: 1.125rem; display: flex; align-items: flex-start; gap: 12px;">
+                <span style="color: var(--accent-light); font-weight: bold;">→</span> O volume de dados exige automação
+              </li>
+              <li style="margin-bottom: 12px; font-size: 1.125rem; display: flex; align-items: flex-start; gap: 12px;">
+                <span style="color: var(--accent-light); font-weight: bold;">→</span> A utilização de IA não é opcional — é necessária
+              </li>
+            </ul>
+          </div>
+          <!-- Coluna 2: Adoção Arquitetura -->
+          <div>
+            <h3 style="font-size: 1.5rem; margin-bottom: 16px; color: var(--success);">A adoção de uma arquitetura baseada em IA:</h3>
+            <ul style="list-style: none; padding: 0;">
+              <li style="margin-bottom: 12px; font-size: 1.125rem; display: flex; align-items: flex-start; gap: 12px;">
+                <span style="color: var(--success); font-weight: bold;">✓</span> reduz drasticamente custos
+              </li>
+              <li style="margin-bottom: 12px; font-size: 1.125rem; display: flex; align-items: flex-start; gap: 12px;">
+                <span style="color: var(--success); font-weight: bold;">✓</span> acelera a geração de valor
+              </li>
+              <li style="margin-bottom: 12px; font-size: 1.125rem; display: flex; align-items: flex-start; gap: 12px;">
+                <span style="color: var(--success); font-weight: bold;">✓</span> garante escalabilidade
+              </li>
+              <li style="margin-bottom: 12px; font-size: 1.125rem; display: flex; align-items: flex-start; gap: 12px;">
+                <span style="color: var(--success); font-weight: bold;">✓</span> viabiliza o uso de machine learning
+              </li>
+            </ul>
+          </div>
+        </div>
+
+        <div style="border-top: 1px solid rgba(255,255,255,0.1); padding-top: 40px; margin-bottom: 40px;">
+          <h3 style="font-size: 2rem; margin-bottom: 24px;">🧭 O projeto deve seguir com:</h3>
+          <div style="display: flex; gap: 24px; flex-wrap: wrap;">
+            <div style="flex: 1; background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; border-left: 4px solid var(--accent-light); font-size: 1.125rem;">
+              priorização do acervo já digitalizado
+            </div>
+            <div style="flex: 1; background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; border-left: 4px solid var(--accent-light); font-size: 1.125rem;">
+              automação do pipeline de dados
+            </div>
+            <div style="flex: 1; background: rgba(255,255,255,0.05); padding: 24px; border-radius: 12px; border-left: 4px solid var(--accent-light); font-size: 1.125rem;">
+              uso intensivo de IA para extração e estruturação
+            </div>
+          </div>
+        </div>
+
+        <blockquote style="font-size: 1.5rem; font-style: italic; border-left: 4px solid var(--success); padding-left: 24px; color: #cbd5e1; line-height: 1.6; margin-bottom: 40px; background: rgba(16,185,129,0.05); padding: 32px; border-radius: 0 12px 12px 0;">
+          “O desafio não é obter dados — os dados já existem.<br>
+          <strong style="color: #fff;">O desafio agora é transformar esse volume em inteligência de crédito.</strong>”
+        </blockquote>
+
+        <div style="text-align: center;">
+          <a href="apresentacao.html" class="cta-button" style="background:#fff; color:var(--accent-color);">Ir para Documento Estratégico</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    function animateCounter(element, target, duration = 1500) {
+      const start = 0;
+      const startTime = performance.now();
+      
+      function update(currentTime) {
+        const elapsed = currentTime - startTime;
+        const progress = Math.min(elapsed / duration, 1);
+        const current = Math.floor(start + (target - start) * progress);
+        
+        if (target >= 1000000) {
+          element.textContent = (current / 1000000).toFixed(1) + 'M';
+        } else if (target >= 1000) {
+          element.textContent = current.toLocaleString('pt-BR');
+        } else {
+          element.textContent = current;
+        }
+        
+        if (progress < 1) {
+          requestAnimationFrame(update);
+        }
+      }
+      
+      requestAnimationFrame(update);
+    }
+    
+    // Intersection Observer
+    const observerOptions = {
+      threshold: 0.1,
+      rootMargin: '0px 0px -50px 0px'
+    };
+    
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          
+          const counters = entry.target.querySelectorAll('[data-target]');
+          counters.forEach(counter => {
+            if (!counter.classList.contains('counted')) {
+              counter.classList.add('counted');
+              animateCounter(counter, parseInt(counter.dataset.target));
+            }
+          });
+        }
+      });
+    }, observerOptions);
+    
+    document.querySelectorAll('.fade-in').forEach(section => {
+      observer.observe(section);
+    });
+    
+    document.addEventListener('DOMContentLoaded', () => {
+      const firstSection = document.querySelector('.fade-in');
+      if(firstSection) firstSection.classList.add('visible');
+      const heroCounters = document.querySelectorAll('#hero [data-target]');
+      heroCounters.forEach((counter, index) => {
+        setTimeout(() => {
+          counter.classList.add('counted');
+          animateCounter(counter, parseInt(counter.dataset.target));
+        }, index * 150);
+      });
+    });
+  </script>
+</body>
+</html>

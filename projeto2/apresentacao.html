@@ -1,0 +1,780 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CREDIT INSIGHT ML - Documento Estratégico</title>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-main: #f8fafc;
+      --bg-card: #ffffff;
+      --text-main: #0f172a;
+      --text-muted: #64748b;
+      --border-color: #e2e8f0;
+      --accent-color: #0f172a;
+      --accent-light: #3b82f6;
+      --success: #10b981;
+      --danger: #ef4444;
+      --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+      --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+    }
+    
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    
+    body {
+      font-family: 'Plus Jakarta Sans', sans-serif;
+      background: var(--bg-main);
+      color: var(--text-main);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      padding-bottom: 80px;
+    }
+    
+    .topnav {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 24px 60px;
+      background: var(--bg-card);
+      border-bottom: 1px solid var(--border-color);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: var(--shadow-sm);
+    }
+    .topnav .logo {
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      letter-spacing: -0.02em;
+    }
+    .topnav .nav-group {
+      display: flex;
+      gap: 16px;
+      align-items: center;
+    }
+    .topnav .badge {
+      background: #f1f5f9;
+      color: var(--text-muted);
+      padding: 6px 12px;
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .topnav a.back-link {
+      text-decoration: none;
+      color: var(--text-muted);
+      font-size: 0.875rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .topnav a.back-link:hover {
+      color: var(--accent-light);
+    }
+
+    .doc-container {
+      max-width: 1140px;
+      margin: 60px auto 0;
+      padding: 0 24px;
+    }
+
+    /* Section styling */
+    .slide-section {
+      background: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 16px;
+      padding: 40px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 40px;
+    }
+
+    .slide-header {
+      border-bottom: 2px solid var(--border-color);
+      padding-bottom: 24px;
+      margin-bottom: 32px;
+    }
+
+    .slide-header h1 {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      letter-spacing: -0.02em;
+      margin-bottom: 8px;
+    }
+
+    .slide-header p {
+      font-size: 1.125rem;
+      color: var(--text-muted);
+    }
+
+    .section-title {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      margin-bottom: 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-title::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 4px;
+      background: var(--accent-light);
+      border-radius: 2px;
+    }
+
+    /* Grids */
+    .grid-4 {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .grid-5 {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 24px;
+      margin-bottom: 32px;
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 32px;
+      margin-bottom: 32px;
+    }
+
+    .info-card {
+      background: var(--bg-main);
+      padding: 24px;
+      border-radius: 12px;
+      border: 1px solid var(--border-color);
+    }
+
+    .info-card .big {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent-color);
+      line-height: 1.2;
+      margin-bottom: 8px;
+    }
+
+    .info-card .label {
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .highlight-text {
+      font-size: 1.25rem;
+      font-weight: 500;
+      color: var(--text-main);
+      background: #f1f5f9;
+      padding: 24px;
+      border-radius: 12px;
+      border-left: 4px solid var(--accent-light);
+    }
+
+    .split-panel {
+      border-radius: 12px;
+      padding: 32px;
+    }
+
+    .bad {
+      background: #fff1f2;
+      border: 1px solid #ffe4e6;
+    }
+
+    .good {
+      background: #f0fdf4;
+      border: 1px solid #dcfce7;
+    }
+
+    .split-panel strong {
+      display: block;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 16px;
+    }
+    
+    .bad strong { color: var(--danger); }
+    .good strong { color: var(--success); }
+
+    .split-panel ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .split-panel li {
+      position: relative;
+      padding-left: 20px;
+      margin-bottom: 12px;
+      font-size: 1.125rem;
+    }
+
+    .split-panel li::before {
+      content: '•';
+      position: absolute;
+      left: 0;
+      font-weight: bold;
+    }
+
+    .bad li::before { color: var(--danger); }
+    .good li::before { color: var(--success); }
+
+    /* Pipeline Flow */
+    .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .flow-step {
+      background: var(--bg-card);
+      padding: 12px 20px;
+      border-radius: 100px;
+      border: 1px solid var(--border-color);
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--accent-color);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .flow-arrow {
+      color: var(--text-muted);
+      font-size: 1.25rem;
+    }
+
+    .value-item strong {
+      display: block;
+      font-size: 1.125rem;
+      color: var(--accent-color);
+      margin-bottom: 8px;
+    }
+
+    .value-item p {
+      color: var(--text-muted);
+      font-size: 1rem;
+    }
+
+    .direction-box {
+      background: var(--accent-color);
+      color: #fff;
+      padding: 40px;
+      border-radius: 16px;
+    }
+
+    .direction-box p {
+      margin-bottom: 16px;
+      font-size: 1.125rem;
+    }
+
+    .direction-box strong {
+      color: var(--accent-light);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 16px;
+    }
+    .data-table th, .data-table td {
+      padding: 8px 12px;
+      text-align: left;
+      border-bottom: 1px solid var(--border-color);
+    }
+    .data-table th {
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      font-size: 0.875rem;
+      letter-spacing: 0.05em;
+    }
+    .data-table tr:last-child td {
+      border-bottom: none;
+    }
+
+    @keyframes growWidth {
+      from { width: 0; }
+    }
+    @keyframes growHeight {
+      from { height: 0; }
+    }
+    .chart-bar-horizontal {
+      animation: growWidth 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+    .chart-bar-vertical {
+      animation: growHeight 1.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+    }
+
+    @media (max-width: 768px) {
+      .grid-5, .grid-4, .grid-2 { grid-template-columns: 1fr; }
+      .topnav { padding: 16px 24px; flex-direction: column; gap: 12px; align-items: flex-start; }
+      .doc-container { padding: 0 24px; margin-top: 32px; }
+      .slide-section { padding: 32px; }
+      .slide-header h1 { font-size: 2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav class="topnav">
+    <div class="logo">CREDIT INSIGHT ML</div>
+    <div class="nav-group">
+      <div class="badge">Apresentação Executiva</div>
+      <a href="index.html" class="back-link">← Voltar ao Dashboard</a>
+    </div>
+  </nav>
+
+  <div class="doc-container">
+
+    <!-- HEADER SLIDE -->
+    <div class="slide-section">
+      <div class="slide-header">
+        <h1>Planejamento Estratégico</h1>
+        <p>Iniciativa institucional para evolução da análise de crédito com Machine Learning</p>
+      </div>
+
+      <h2 class="section-title">Visão Geral</h2>
+      <div class="grid-5">
+        <div class="info-card">
+          <div class="big" style="font-size: 2rem;">2016–2025</div>
+          <div class="label">Período Analisado</div>
+        </div>
+        <div class="info-card">
+          <div class="big" style="font-size: 2rem;">2021–2025</div>
+          <div class="label">Período GED</div>
+        </div>
+        <div class="info-card">
+          <div class="big">35.947</div>
+          <div class="label">Operações</div>
+        </div>
+        <div class="info-card">
+          <div class="big">1.1M</div>
+          <div class="label">Docs Estimados</div>
+        </div>
+        <div class="info-card">
+          <div class="big">1.8M</div>
+          <div class="label">Imagens</div>
+        </div>
+      </div>
+      <p class="highlight-text">
+        Temos um altíssimo volume de dados inativos que não está sendo consumido de maneira estruturada para subsidiar a tomada de decisão em novos comitês de crédito.
+      </p>
+      <p class="highlight-text" style="margin-top: 16px;">
+        <span style="display: block; margin-bottom: 8px;">• Documentos distribuídos entre meio físico e digital (Arquivo físico + CloudDocs)</span>
+        <span style="display: block;">• Grande parte sem OCR estruturado</span>
+      </p>
+    </div>
+
+    <!-- DETALHAMENTO SLIDE -->
+    <div class="slide-section">
+      <h2 class="section-title">Detalhamento dos Números</h2>
+      <div class="grid-2">
+        <div class="info-card">
+          <strong style="display:block; font-size:1.25rem; margin-bottom:16px;">Processos Totais</strong>
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Origem</th>
+                <th>Quantidade</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>CloudDocs (base SQL)</td>
+                <td>32.590</td>
+              </tr>
+              <tr>
+                <td>Físico (2016–2020)</td>
+                <td>~3.540</td>
+              </tr>
+              <tr style="border-top: 2px solid var(--border-color); font-weight: 700; background: var(--bg-main);">
+                <td>Total consolidado</td>
+                <td>~35.947</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="info-card">
+          <strong style="display:block; font-size:1.25rem; margin-bottom:16px;">Volume Total Estimado</strong>
+          <p style="margin-bottom: 12px; color: var(--text-muted);">Base da Composição:</p>
+          <ul style="list-style: none; padding-left: 0; margin-bottom: 24px;">
+            <li style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 8px; background: #fff;">
+              Processos ML: <strong>31.372</strong>
+            </li>
+            <li style="padding: 12px; border: 1px solid var(--border-color); border-radius: 8px; margin-bottom: 8px; background: #fff;">
+              Físico (2016–2020): <strong>~3.540</strong>
+            </li>
+          </ul>
+          <div style="background: var(--accent-light); color: #fff; padding: 16px; border-radius: 8px; display: flex; justify-content: space-between; align-items: center; box-shadow: var(--shadow-sm);">
+            <span style="font-weight: 500;">Total aproximado:</span>
+            <strong style="font-size: 1.25rem;">≈ 34.912 processos (~35.000)</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- GRAFICOS SLIDE -->
+    <div class="slide-section" style="padding-top: 40px; padding-bottom: 40px;">
+      <h2 class="section-title">Visualização de Volumes</h2>
+      <div class="grid-2">
+        <!-- Gráfico 1: Volume de Processos -->
+        <div class="info-card">
+          <strong style="display:block; font-size:1.25rem; margin-bottom:24px;">Volume de Processos (Distribuição)</strong>
+          
+          <div style="margin-bottom: 32px;">
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 1rem;">
+              <span style="font-weight: 600; color: var(--text-main);">ML (CloudDocs)</span>
+              <span style="font-weight: 700; color: var(--accent-color);">31.372 <span style="color: var(--text-muted); font-size: 0.875rem;">(~90%)</span></span>
+            </div>
+            <div style="width: 100%; height: 16px; background: #e2e8f0; border-radius: 8px; overflow: hidden;">
+              <div class="chart-bar-horizontal" style="width: 90%; height: 100%; background: var(--accent-light); border-radius: 8px;"></div>
+            </div>
+          </div>
+
+          <div>
+            <div style="display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 1rem;">
+              <span style="font-weight: 600; color: var(--text-main);">Físico (2016–2020)</span>
+              <span style="font-weight: 700; color: var(--text-muted);">3.540 <span style="font-size: 0.875rem;">(~10%)</span></span>
+            </div>
+            <div style="width: 100%; height: 16px; background: #e2e8f0; border-radius: 8px; overflow: hidden;">
+              <div class="chart-bar-horizontal" style="width: 10%; height: 100%; background: var(--text-muted); border-radius: 8px;"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Gráfico 2: Volume Estimado de Documentos -->
+        <div class="info-card">
+          <strong style="display:block; font-size:1.25rem; margin-bottom:24px;">Cenários de Evolução (Documentos)</strong>
+          
+          <div style="display: flex; align-items: flex-end; justify-content: space-around; height: 160px; margin-bottom: 8px; padding-top: 24px;">
+            
+            <div style="display: flex; flex-direction: column; align-items: center; width: 28%;">
+              <span style="font-size: 0.875rem; font-weight: 700; margin-bottom: 8px; color: var(--text-muted);">1.05M</span>
+              <div style="width: 100%; height: 95px; background: #e2e8f0; border-radius: 8px 8px 0 0; position: relative;">
+                <div class="chart-bar-vertical" style="position: absolute; bottom: 0; left: 0; right: 0; height: 85%; background: var(--text-muted); border-radius: 8px 8px 0 0;"></div>
+              </div>
+              <span style="font-size: 0.875rem; font-weight: 600; margin-top: 12px; text-align: center; line-height: 1.2;">Mínimo<br><span style="font-size: 0.75rem; font-weight: 400;">30 / doc</span></span>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; align-items: center; width: 32%; position: relative;">
+              <div style="position: absolute; top: -28px; background: var(--success); color: white; padding: 4px 8px; border-radius: 6px; font-size: 0.75rem; font-weight: bold; letter-spacing: 0.05em; text-transform: uppercase;">Atual</div>
+              <span style="font-size: 1rem; font-weight: 700; margin-bottom: 8px; color: var(--accent-light);">1.10M</span>
+              <div style="width: 100%; height: 110px; background: #e2e8f0; border-radius: 8px 8px 0 0; position: relative; box-shadow: 0 -4px 15px rgba(59,130,246,0.15);">
+                <div class="chart-bar-vertical" style="position: absolute; bottom: 0; left: 0; right: 0; height: 100%; background: var(--accent-light); border-radius: 8px 8px 0 0;"></div>
+              </div>
+              <span style="font-size: 0.875rem; font-weight: 700; margin-top: 12px; text-align: center; color: var(--accent-light); line-height: 1.2;">Consolidado<br><span style="font-size: 0.75rem; font-weight: 500;">~31 / doc</span></span>
+            </div>
+
+            <div style="display: flex; flex-direction: column; align-items: center; width: 28%;">
+              <span style="font-size: 0.875rem; font-weight: 700; margin-bottom: 8px; color: var(--text-muted);">1.22M</span>
+              <div style="width: 100%; height: 120px; background: #e2e8f0; border-radius: 8px 8px 0 0; position: relative;">
+                <div class="chart-bar-vertical" style="position: absolute; bottom: 0; left: 0; right: 0; height: 100%; background: var(--text-muted); border-radius: 8px 8px 0 0;"></div>
+              </div>
+              <span style="font-size: 0.875rem; font-weight: 600; margin-top: 12px; text-align: center; line-height: 1.2;">Máximo<br><span style="font-size: 0.75rem; font-weight: 400;">35 / doc</span></span>
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- PROBLEM SLIDE -->
+    <div class="slide-section">
+      <h2 class="section-title">Análise de GAP Operacional</h2>
+      <div class="grid-2">
+        <div class="split-panel bad">
+          <strong>Cenário Atual (As-Is)</strong>
+          <ul>
+            <li>Processo de leitura e conferência estritamente manual.</li>
+            <li>Tempo SLA elevado por conta de gargalos humanos.</li>
+            <li>Baixíssima escalabilidade frente a picos de demanda.</li>
+            <li>Conhecimento disperso, impossibilitando aprendizado institucional.</li>
+          </ul>
+        </div>
+        <div class="split-panel good">
+          <strong>Potencial Projetado (To-Be)</strong>
+          <ul>
+            <li>Automação sistêmica via processamento natural de dados.</li>
+            <li>Escala elástica (capacidade analítica independente de headcount).</li>
+            <li>Padronização rigorosa nos scores de avaliação.</li>
+            <li>Reuso completo do histórico do cliente no workflow.</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- WORKFLOW SLIDE -->
+    <div class="slide-section">
+      <h2 class="section-title">Abordagem Metodológica / Pipeline</h2>
+      <div class="flow" style="margin-bottom: 24px;">
+        <div class="flow-step">CloudDocs / GED</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Ingestão & Intake</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">OCR / Visão Computacional</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Extração Sintática GenAI</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Padronização</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step">Geração de Dataset</div>
+        <div class="flow-arrow">→</div>
+        <div class="flow-step" style="background:var(--accent-color); color:#fff; border-color:var(--accent-color);">Injeção no Core ML</div>
+      </div>
+      <p class="highlight-text">
+        Busca-se a transformação contínua e assíncrona de documentos físicos/PDFs mortos em features ativas de inteligência de crédito.
+      </p>
+    </div>
+
+    <!-- ESTIMATIVA SLIDE -->
+    <div class="slide-section">
+      <h2 class="section-title">Estimativa de Esforço e Custo</h2>
+      
+      <p style="font-size: 1.125rem; margin-bottom: 32px; color: var(--text-main); line-height: 1.6;">
+        A análise de esforço e custo demonstra que abordagens tradicionais (digitalização e classificação manual) são economicamente inviáveis em larga escala, reforçando a necessidade de uma arquitetura automatizada orientada a dados e inteligência artificial.
+      </p>
+
+      <div style="display: grid; grid-template-columns: 2.8fr 1.2fr; gap: 24px; align-items: stretch;">
+        <div style="display: flex; flex-direction: column; min-width: 0;">
+          <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--accent-light); margin-bottom: 16px;">Tabela: Tratamento de Etapa Atual</h3>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; height: 100%;">
+            <table class="data-table" style="margin-bottom: 0; min-height: 100%; font-size: 0.85rem; table-layout: fixed; width: 100%;">
+              <thead style="background: var(--bg-main);">
+                <tr>
+                  <th style="width: 25%;">Etapa Atual</th>
+                  <th style="width: 18%;">Volume Estimado</th>
+                  <th style="width: 19%;">Tempo Médio</th>
+                  <th style="width: 19%;">Esforço Total</th>
+                  <th style="width: 19%;">Custo Estimado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Localização físicos</td>
+                  <td style="color: var(--danger); font-weight: 600;">Alto</td>
+                  <td style="color: var(--danger); font-weight: 600;">Alto</td>
+                  <td style="color: var(--danger); font-weight: 600;">Elevado</td>
+                  <td style="color: var(--danger); font-weight: 600;">Elevado</td>
+                </tr>
+                <tr style="background: rgba(239, 68, 68, 0.02);">
+                  <td>Digitalização</td>
+                  <td style="color: var(--danger); font-weight: 600;">Alto</td>
+                  <td style="color: var(--danger); font-weight: 600;">Elevado</td>
+                  <td style="color: var(--danger); font-weight: 700;">Muito alto</td>
+                  <td style="color: var(--danger); font-weight: 700;">Muito alto</td>
+                </tr>
+                <tr>
+                  <td colspan="5" style="background: #fff5f5; font-size: 0.8rem; color: var(--danger); border-bottom: 1px solid var(--border-color); line-height: 1.4; white-space: normal;">
+                    <strong>Atenção:</strong> Não recomendado como abordagem inicial. Estratégia proposta prioriza uso do acervo já digitalizado com extração automatizada de dados.
+                  </td>
+                </tr>
+                <tr style="background: rgba(245, 158, 11, 0.02);">
+                  <td>Classificação / Org.</td>
+                  <td style="color: var(--danger); font-weight: 600;">Alto</td>
+                  <td style="color: var(--danger); font-weight: 600;">Alto (manual)</td>
+                  <td style="color: var(--danger); font-weight: 600;">Elevado</td>
+                  <td style="color: var(--danger); font-weight: 600;">Elevado</td>
+                </tr>
+                <tr>
+                  <td colspan="5" style="background: rgba(59, 130, 246, 0.05); font-size: 0.8rem; color: var(--accent-color); border-bottom: 1px solid var(--border-color); line-height: 1.4; white-space: normal;">
+                    <strong>💡 Observação:</strong> Pode ser significativamente reduzido com uso de classificação automatizada via IA.
+                  </td>
+                </tr>
+                <tr>
+                  <td>Validação de dados</td>
+                  <td style="color: #f59e0b; font-weight: 600;">Médio</td>
+                  <td style="color: #f59e0b; font-weight: 600;">Moderado</td>
+                  <td style="color: #f59e0b; font-weight: 600;">Moderado</td>
+                  <td style="color: var(--success); font-weight: 600;">Controlado</td>
+                </tr>
+                <tr>
+                  <td>Consolidação e análise</td>
+                  <td style="color: #f59e0b; font-weight: 600;">Médio</td>
+                  <td style="color: #f59e0b; font-weight: 600;">Moderado</td>
+                  <td style="color: #f59e0b; font-weight: 600;">Moderado</td>
+                  <td style="color: #f59e0b; font-weight: 600;">Baixo a médio</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column;">
+          <h3 style="font-size: 1.125rem; font-weight: 700; color: var(--accent-light); margin-bottom: 16px;">Legenda: Complexidade & Impacto</h3>
+          <div style="background: var(--bg-card); border: 1px solid var(--border-color); border-radius: 12px; overflow: hidden; height: 100%;">
+            <table class="data-table" style="margin-bottom: 0; min-height: 100%; font-size: 0.85rem;">
+              <thead style="background: var(--bg-main);">
+                <tr>
+                  <th style="font-size: 0.75rem;">Nível</th>
+                  <th style="font-size: 0.75rem;">Significado</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td><span style="display:inline-block; padding: 2px 8px; border-radius: 4px; background: rgba(16,185,129,0.1); color: var(--success); font-weight: 700; font-size: 0.6rem; text-transform: uppercase;">Baixo</span></td>
+                  <td>Impacto ou custo reduzido, facilmente absorvido</td>
+                </tr>
+                <tr>
+                  <td><span style="display:inline-block; padding: 2px 8px; border-radius: 4px; background: rgba(245,158,11,0.1); color: #f59e0b; font-weight: 700; font-size: 0.6rem; text-transform: uppercase;">Médio / Mod.</span></td>
+                  <td>Demanda controlada, com impacto gerenciável</td>
+                </tr>
+                <tr>
+                  <td><span style="display:inline-block; padding: 2px 8px; border-radius: 4px; background: rgba(239,68,68,0.1); color: var(--danger); font-weight: 700; font-size: 0.6rem; text-transform: uppercase;">Alto / Elev.</span></td>
+                  <td>Requer esforço significativo, impactando prazos</td>
+                </tr>
+                <tr>
+                  <td><span style="display:inline-block; padding: 2px 8px; border-radius: 4px; background: var(--danger); color: white; font-weight: 700; font-size: 0.6rem; text-transform: uppercase;">Muito alto</span></td>
+                  <td>Alto consumo de tempo/custo. Risco de escala</td>
+                </tr>
+                <tr>
+                  <td><span style="display:inline-block; padding: 2px 8px; border-radius: 4px; background: rgba(59,130,246,0.15); color: var(--accent-color); font-weight: 700; font-size: 0.6rem; text-transform: uppercase;">Controlado</span></td>
+                  <td>Custo sob domínio, previsível e otimizado</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top: 40px; border-top: 1px solid var(--border-color); padding-top: 40px;">
+        <h3 style="font-size: 1.25rem; font-weight: 700; color: var(--accent-color); margin-bottom: 24px;">Detalhamento das Etapas</h3>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 24px;">
+          <!-- 1 -->
+          <div class="info-card" style="box-shadow: var(--shadow-sm);">
+            <strong style="color: var(--accent-light); font-size: 1.125rem; display:block; margin-bottom: 12px;">🔹 Ingestão de documentos</strong>
+            <ul style="list-style: none; padding: 0; font-size: 0.875rem; margin-bottom: 16px;">
+              <li style="margin-bottom: 6px;"><strong>Volume:</strong> Alto (~35 mil processos)</li>
+              <li style="margin-bottom: 6px;"><strong>Complexidade:</strong> Média</li>
+              <li style="margin-bottom: 6px;"><strong>Esforço:</strong> Moderado</li>
+              <li style="margin-bottom: 6px;"><strong>Custo:</strong> Controlado</li>
+            </ul>
+            <div style="background: var(--bg-main); padding: 12px; border-radius: 6px; font-size: 0.875rem; color: var(--text-muted); border-left: 3px solid var(--border-color);">
+              <strong>Obs:</strong> Pode ser automatizado, dependendo do acesso ao GED.
+            </div>
+          </div>
+          <!-- 2 -->
+          <div class="info-card" style="box-shadow: var(--shadow-sm);">
+            <strong style="color: var(--accent-light); font-size: 1.125rem; display:block; margin-bottom: 12px;">🔹 Processamento OCR</strong>
+            <ul style="list-style: none; padding: 0; font-size: 0.875rem; margin-bottom: 16px;">
+              <li style="margin-bottom: 6px;"><strong>Volume:</strong> <span style="color:var(--danger); font-weight: 600;">Muito alto</span> (~1,1M docs)</li>
+              <li style="margin-bottom: 6px;"><strong>Complexidade:</strong> <span style="color:var(--danger); font-weight: 600;">Alta</span></li>
+              <li style="margin-bottom: 6px;"><strong>Esforço:</strong> Elevado</li>
+              <li style="margin-bottom: 6px;"><strong>Custo:</strong> Moderado (open source)</li>
+            </ul>
+            <div style="background: var(--bg-main); padding: 12px; border-radius: 6px; font-size: 0.875rem; color: var(--text-muted); border-left: 3px solid var(--danger);">
+              <strong>Crítico:</strong> Etapa vital para viabilizar extração de dados.
+            </div>
+          </div>
+          <!-- 3 -->
+          <div class="info-card" style="box-shadow: var(--shadow-sm);">
+            <strong style="color: var(--accent-light); font-size: 1.125rem; display:block; margin-bottom: 12px;">🔹 Extração de dados</strong>
+            <ul style="list-style: none; padding: 0; font-size: 0.875rem; margin-bottom: 16px;">
+              <li style="margin-bottom: 6px;"><strong>Volume:</strong> Alto (~432 mil docs)</li>
+              <li style="margin-bottom: 6px;"><strong>Complexidade:</strong> <span style="color:var(--danger); font-weight: 600;">Alta</span></li>
+              <li style="margin-bottom: 6px;"><strong>Esforço:</strong> Elevado</li>
+              <li style="margin-bottom: 6px;"><strong>Custo:</strong> Moderado</li>
+            </ul>
+            <div style="background: var(--bg-main); padding: 12px; border-radius: 6px; font-size: 0.875rem; color: var(--text-muted); border-left: 3px solid var(--accent-light);">
+              <strong>Obs:</strong> Uso de abordagem híbrida (regex + IA).
+            </div>
+          </div>
+          <!-- 4 -->
+          <div class="info-card" style="box-shadow: var(--shadow-sm);">
+            <strong style="color: var(--text-main); font-size: 1.125rem; display:block; margin-bottom: 12px;">🔹 Padronização e validação</strong>
+            <ul style="list-style: none; padding: 0; font-size: 0.875rem; margin-bottom: 0;">
+              <li style="margin-bottom: 6px;"><strong>Volume:</strong> Médio</li>
+              <li style="margin-bottom: 6px;"><strong>Complexidade:</strong> Média</li>
+              <li style="margin-bottom: 6px;"><strong>Esforço:</strong> Moderado</li>
+              <li style="margin-bottom: 6px;"><strong>Custo:</strong> <span style="color:var(--success); font-weight: 600;">Baixo</span></li>
+            </ul>
+          </div>
+          <!-- 5 -->
+          <div class="info-card" style="box-shadow: var(--shadow-sm);">
+            <strong style="color: var(--text-main); font-size: 1.125rem; display:block; margin-bottom: 12px;">🔹 Construção do dataset</strong>
+            <ul style="list-style: none; padding: 0; font-size: 0.875rem; margin-bottom: 0;">
+              <li style="margin-bottom: 6px;"><strong>Volume:</strong> Médio</li>
+              <li style="margin-bottom: 6px;"><strong>Complexidade:</strong> Média</li>
+              <li style="margin-bottom: 6px;"><strong>Esforço:</strong> Moderado</li>
+              <li style="margin-bottom: 6px;"><strong>Custo:</strong> <span style="color:var(--success); font-weight: 600;">Baixo</span></li>
+            </ul>
+          </div>
+          <!-- 6 -->
+          <div class="info-card" style="box-shadow: var(--shadow-sm); border-color: #fecaca; background: #fff5f5;">
+            <strong style="color: var(--danger); font-size: 1.125rem; display:block; margin-bottom: 12px;">🔹 Digitalização adicional</strong>
+            <ul style="list-style: none; padding: 0; font-size: 0.875rem; margin-bottom: 16px;">
+              <li style="margin-bottom: 6px;"><strong>Volume:</strong> Alto</li>
+              <li style="margin-bottom: 6px;"><strong>Complexidade:</strong> Baixa (operacional)</li>
+              <li style="margin-bottom: 6px;"><strong>Esforço:</strong> <span style="color:var(--danger); font-weight: 600;">Muito elevado</span></li>
+              <li style="margin-bottom: 6px;"><strong>Custo:</strong> <span style="color:var(--danger); font-weight: 600;">Muito alto</span></li>
+            </ul>
+            <div style="background: rgba(255,255,255,0.7); padding: 12px; border-radius: 6px; font-size: 0.875rem; color: var(--danger); border-left: 3px solid var(--danger);">
+              <strong>Alerta:</strong> Não recomendado como abordagem inicial.
+            </div>
+          </div>
+          <!-- 7 -->
+          <div class="info-card" style="box-shadow: var(--shadow-sm); border-color: #fecaca; background: #fff5f5;">
+            <strong style="color: var(--danger); font-size: 1.125rem; display:block; margin-bottom: 12px;">🔹 Classificação manual</strong>
+            <ul style="list-style: none; padding: 0; font-size: 0.875rem; margin-bottom: 16px;">
+              <li style="margin-bottom: 6px;"><strong>Volume:</strong> Alto</li>
+              <li style="margin-bottom: 6px;"><strong>Esforço:</strong> Elevado</li>
+              <li style="margin-bottom: 6px;"><strong>Custo:</strong> <span style="color:var(--danger); font-weight: 600;">Elevado</span></li>
+            </ul>
+            <div style="background: rgba(255,255,255,0.7); padding: 12px; border-radius: 6px; font-size: 0.875rem; color: var(--text-main); border-left: 3px solid var(--text-muted);">
+              <strong>Alternativa:</strong> Pode ser substituído por IA.
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- IMPACT & VALUE SLIDE -->
+    <div class="slide-section">
+      <h2 class="section-title">Valor Institucional & Retorno</h2>
+      <div class="grid-4">
+        <div class="info-card value-item">
+          <strong>Eficiência Operacional</strong>
+          <p>Profunda redução de esforço cognitivo em análises de rotina.</p>
+        </div>
+        <div class="info-card value-item">
+          <strong>Produtividade Ativa</strong>
+          <p>Multiplicação da capacidade analítica em pelo menos uma ordem de grandeza (10x).</p>
+        </div>
+        <div class="info-card value-item">
+          <strong>Inteligência de Rede</strong>
+          <p>Score decision-making fundamentado empiricamente em longo histórico real.</p>
+        </div>
+        <div class="info-card value-item">
+          <strong>Segurança & Governança</strong>
+          <p>Total rastreabilidade. Redução de falhas humanas (Falso Positivos/Negativos).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- CONCLUSION SLIDE -->
+    <div class="slide-section">
+      <h2 class="section-title">Direcionamento Estratégico</h2>
+      <div class="direction-box">
+        <p><strong>Decisão de C-Level Requerida:</strong> Investimento de P&D para a evolução definitiva da mesa de análise de crédito em prol de um modelo proprietário baseado 100% em dados (Data-Driven).</p>
+        <p><strong>Próximo Marco Operacional:</strong> Kick-off do desenvolvimento do MVP utilizando a base digitalizada já higienizada (Camada 1). Prazo: Início imediato após aprovação executiva, com primeiros resultados esperados em até 30 dias.</p>
+      </div>
+    </div>
+
+  </div>
+
+</body>
+</html>
