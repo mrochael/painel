@@ -1,0 +1,1183 @@
+<!DOCTYPE html>
+<html lang="pt-BR" class="h-full bg-[#f8fafc]">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GoiásFomento - Painel Administrativo</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        gf: {
+                            purple: '#635bff',
+                            dark: '#0a2540',
+                            gray: '#4f5b66',
+                            lightBg: '#f8fafc',
+                            border: '#e3e8ee'
+                        }
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; }
+    </style>
+</head>
+<body class="h-full flex flex-col md:flex-row text-gf-dark antialiased">
+
+    <aside class="w-full md:w-64 bg-white border-r border-gf-border flex flex-col justify-between shrink-0">
+        <div class="overflow-y-auto flex-1">
+            <div class="h-16 flex items-center px-6 border-b border-gf-border sticky top-0 bg-white z-10">
+                <div class="flex items-center gap-2 font-bold text-lg tracking-tight text-gf-dark">
+                    <div class="w-6 h-6 bg-gf-purple rounded flex items-center justify-center text-white text-xs">G</div>
+                    <span>Goiás<span class="text-gf-purple font-medium">Fomento</span></span>
+                </div>
+            </div>
+            
+            <nav class="p-4 space-y-4">
+                <div>
+                    <div class="text-[10px] font-bold uppercase tracking-wider text-gf-gray px-3 mb-1.5 block">Cadastros</div>
+                    <div class="space-y-0.5">
+                        <button onclick="switchTab('fonte-recursos')" id="btn-fonte-recursos" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-purple bg-violet-50/70">
+                            <i data-lucide="database" class="w-4 h-4"></i> Fonte de Recursos
+                        </button>
+                        <button onclick="switchTab('clientes-cl01')" id="btn-clientes-cl01" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50">
+                            <i data-lucide="users" class="w-4 h-4"></i> Clientes - CL01
+                        </button>
+                        <button onclick="switchTab('contrato-em01')" id="btn-contrato-em01" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50">
+                            <i data-lucide="file-text" class="w-4 h-4"></i> Contrato - EM01
+                        </button>
+                        <button onclick="switchTab('limites-operar')" id="btn-limites-operar" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50">
+                            <i data-lucide="trending-up" class="w-4 h-4"></i> Limites a Operar
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-[10px] font-bold uppercase tracking-wider text-gf-gray px-3 mb-1.5 block">Interface</div>
+                    <div class="space-y-0.5">
+                        <button onclick="switchTab('envio-remessa')" id="btn-envio-remessa" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50">
+                            <i data-lucide="send" class="w-4 h-4"></i> Envio de Remessa
+                        </button>
+						<button class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50" id="btn-declaracao-mensal" onclick="switchTab('declaracao-mensal')">
+						<i class="w-4 h-4" data-lucide="calendar-range"></i> Declaração Mensal
+						</button>
+                        <button onclick="switchTab('retorno-lotes')" id="btn-retorno-lotes" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50">
+                            <i data-lucide="receipt" class="w-4 h-4"></i> Retorno de Lotes
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <div class="text-[10px] font-bold uppercase tracking-wider text-gf-gray px-3 mb-1.5 block">Integração & TI</div>
+                    <div class="space-y-0.5">
+                        <button onclick="switchTab('fluxo-contratacao')" id="btn-fluxo-contratacao" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50">
+                            <i data-lucide="git-commit" class="w-4 h-4"></i> Fluxo Contratação
+                        </button>
+                        <button onclick="switchTab('fluxo-gerenciamento')" id="btn-fluxo-gerenciamento" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50">
+                            <i data-lucide="git-branch" class="w-4 h-4"></i> Fluxo Gerenciamento
+                        </button>
+                        <button onclick="switchTab('config-api')" id="btn-config-api" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50">
+                            <i data-lucide="key-round" class="w-4 h-4"></i> Configuração API
+                        </button>
+                        <button onclick="switchTab('impacto-legado')" id="btn-impacto-legado" class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50 border border-dashed border-amber-200 bg-amber-50/40">
+                            <i data-lucide="book-open" class="w-4 h-4 text-amber-600"></i> Documentação
+                        </button>
+                    </div>
+                </div>
+            </nav>
+        </div>
+
+        <div class="p-4 border-t border-gf-border flex items-center gap-3 bg-white">
+            <div class="w-8 h-8 rounded-full bg-slate-200 flex items-center justify-center font-semibold text-xs text-slate-700">LC</div>
+            <div class="overflow-hidden">
+                <p class="text-xs font-medium truncate">Luiz Carlos</p>
+                <p class="text-[10px] text-gf-gray truncate">luiz@empresa.com.br</p>
+            </div>
+        </div>
+    </aside>
+
+    <main class="flex-1 overflow-y-auto h-full">
+        <header class="h-16 border-b border-gf-border bg-white flex items-center justify-between px-8 sticky top-0 z-10">
+            <div class="flex items-center gap-4">
+                <span class="text-xs bg-amber-50 text-amber-700 font-semibold px-3 py-1 rounded-full border border-amber-200 uppercase tracking-wider">Protótipo</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="text-gf-gray hover:text-gf-dark transition-colors"><i data-lucide="bell" class="w-5 h-5"></i></button>
+                <button class="text-gf-gray hover:text-gf-dark transition-colors"><i data-lucide="help-circle" class="w-5 h-5"></i></button>
+            </div>
+        </header>
+
+        <div class="p-8 max-w-6xl mx-auto space-y-8">
+
+            <section id="tab-fonte-recursos" class="tab-content block space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-semibold tracking-tight">Fonte de Recursos</h1>
+                        <p class="text-sm text-gf-gray mt-1">Configure as origens de capital financeiro e as parametrizações de spreads institucionais.</p>
+                    </div>
+                    <button type="button" onclick="openLegacyModal('fonte_recurso.png')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-orange-600 hover:bg-orange-700 active:bg-orange-800 rounded-md transition-colors shadow-sm self-start sm:self-center">
+                        <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                        <span>Ver Tela Legada (Evertec)</span>
+                    </button>
+                </div>
+
+                <div class="bg-white border border-gf-border rounded-xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-gf-border text-[11px] font-semibold uppercase tracking-wider text-gf-gray">
+                                    <th class="py-3 px-5 w-20">Cód. Inst.</th>
+                                    <th class="py-3 px-5">Instituição / Fundo</th>
+                                    <th class="py-3 px-5">Nome Resumido</th>
+                                    <th class="py-3 px-5">Tipo de Fonte</th>
+                                    <th class="py-3 px-5 text-right">Spread Repasse</th>
+                                    <th class="py-3 px-5 text-right">Spread Risco</th>
+                                    <th class="py-3 px-5 w-20 text-center">Ações</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gf-border text-sm text-[#333d47]">
+                                <!-- BNDES -->
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-3.5 px-5 font-mono text-xs text-stripe-dark font-medium">007</td>
+                                    <td class="py-3.5 px-5"><div class="font-medium text-stripe-dark">Banco Nacional de Desenvolvimento...</div></td>
+                                    <td class="py-3.5 px-5"><span class="font-semibold text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200">BNDES</span></td>
+                                    <td class="py-3.5 px-5 text-stripe-gray text-xs">Banco de Desenvolvimento</td>
+									<td class="py-3.5 px-5 text-right font-mono text-xs">1,00%</td>
+                                    <td class="py-3.5 px-5 text-right font-mono text-xs">1,50%</td>
+                                    <td class="py-3.5 px-5 text-center"><button class="text-stripe-gray hover:text-stripe-purple transition-colors"><i data-lucide="edit-3" class="w-4 h-4 inline"></i></button></td>
+                                </tr>
+                                <!-- FCO -->
+								<tr class="hover:bg-slate-50/60 transition-colors">
+									<td class="py-3.5 px-5 font-mono text-xs text-gf-dark font-medium">001</td>
+									<td class="py-3.5 px-5"><div class="font-medium text-gf-dark">Fundo Constitucional do Centro-Oeste</div></td>
+									<td class="py-3.5 px-5"><span class="font-semibold text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200">FCO</span></td>
+									<td class="py-3.5 px-5 text-gf-gray text-xs">Fundo Constitucional</td>
+									<td class="py-3.5 px-5 text-right font-mono text-xs">1,50%</td>
+									<td class="py-3.5 px-5 text-right font-mono text-xs">0,60%</td>
+									<td class="py-3.5 px-5 text-center"><button class="text-gf-gray hover:text-gf-purple transition-colors"><i class="w-4 h-4 inline" data-lucide="edit-3"></i></button></td>
+								</tr>
+                                <!-- FUNGETUR -->
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-3.5 px-5 font-mono text-xs text-gf-dark font-medium">010</td>
+                                    <td class="py-3.5 px-5"><div class="font-medium text-gf-dark">Fundo Geral do Turismo</div></td>
+									<td class="py-3.5 px-5"><span class="font-semibold text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200">FUNGETUR</span></td>
+                                    <td class="py-3.5 px-5 text-gf-gray text-xs">Fundo Federal</td>
+                                    <td class="py-3.5 px-5 text-right font-mono text-xs">1,00%</td>
+                                    <td class="py-3.5 px-5 text-right font-mono text-xs">0,80%</td>
+                                    <td class="py-3.5 px-5 text-center"><button class="text-gf-gray hover:text-gf-purple transition-colors"><i data-lucide="edit-3" class="w-4 h-4 inline"></i></button></td>
+                                </tr>
+                                <!-- FINEP -->
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-3.5 px-5 font-mono text-xs text-stripe-dark font-medium">054</td>
+                                    <td class="py-3.5 px-5"><div class="font-medium text-stripe-dark">Financiadora de Estudos e Projetos</div></td>
+                                    <td class="py-3.5 px-5"><span class="font-semibold text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200">FINEP</span></td>
+                                    <td class="py-3.5 px-5 text-stripe-gray text-xs">Banco de Fomento</td>
+                                    <td class="py-3.5 px-5 text-right font-mono text-xs">1,00%</td>
+                                    <td class="py-3.5 px-5 text-right font-mono text-xs">1,20%</td>
+                                    <td class="py-3.5 px-5 text-center"><button class="text-stripe-gray hover:text-stripe-purple transition-colors"><i data-lucide="edit-3" class="w-4 h-4 inline"></i></button></td>
+                                </tr>
+                                <!-- CAIXA -->
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-3.5 px-5 font-mono text-xs text-stripe-dark font-medium">104</td>
+                                    <td class="py-3.5 px-5"><div class="font-medium text-stripe-dark">Caixa Econômica Federal</div></td>
+                                    <td class="py-3.5 px-5"><span class="font-semibold text-xs bg-slate-100 text-slate-700 px-2 py-0.5 rounded border border-slate-200">CEF</span></td>
+                                    <td class="py-3.5 px-5 text-stripe-gray text-xs">Instituição Pública Federal</td>
+                                    <td class="py-3.5 px-5 text-right font-mono text-xs">1,00%</td>
+                                    <td class="py-3.5 px-5 text-right font-mono text-xs">2,50%</td>
+                                    <td class="py-3.5 px-5 text-center"><button class="text-stripe-gray hover:text-stripe-purple transition-colors"><i data-lucide="edit-3" class="w-4 h-4 inline"></i></button></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gf-border shadow-sm p-6">
+                    <form class="space-y-6" onsubmit="event.preventDefault();">
+                        <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                            <div>
+                                <label class="block text-xs font-semibold text-gf-gray mb-1.5">Código do Cliente [Pesquisa]</label>
+                                <div class="relative">
+                                    <input type="text" placeholder="Buscar código..." class="w-full pl-9 pr-3 py-1.5 border border-gf-border rounded-md text-sm focus:outline-none">
+                                    <div class="absolute inset-y-0 left-0 pl-3 flex items-center text-slate-400"><i data-lucide="search" class="w-3.5 h-3.5"></i></div>
+                                </div>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gf-gray mb-1.5">Código do Agente Financeiro</label>
+                                <input type="text" placeholder="Identificador na Fonte" class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gf-gray mb-1.5">Tipo de Fonte de Recursos</label>
+                                <select class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none">
+                                    <option>Fundo Constitucional</option>
+                                    <option>Banco de Desenvolvimento</option>
+									<option>Fundo Internacional</option>
+                                    <option>Fundo Federal</option>
+									<option>Fundo Estadual</option>
+									<option>Fundo Municipal</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gf-gray mb-1.5">Spread de Repasse (Custo da Fonte)</label>
+                                <input type="text" placeholder="0,00%" class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm text-right focus:outline-none">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gf-gray mb-1.5">Spread de Risco (Agente)</label>
+                                <input type="text" placeholder="0,00%" class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm text-right focus:outline-none">
+                            </div>
+                        </div>
+
+						<!-- Fundos Garantidores Aceitos -->
+						<div class="md:col-span-3">
+							<label class="block text-xs font-semibold text-gf-gray mb-1.5">Fundos Garantidores Aceitos</label>
+							<div class="grid grid-cols-2 sm:grid-cols-4 gap-3 mt-1">
+								<label class="flex items-center gap-3 p-3 border border-stripe-border rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+									<input type="checkbox" class="rounded text-stripe-purple focus:ring-stripe-purple w-4 h-4">
+									<span class="text-sm font-medium">FAMPE</span>
+								</label>
+								<label class="flex items-center gap-3 p-3 border border-stripe-border rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+									<input type="checkbox" class="rounded text-stripe-purple focus:ring-stripe-purple w-4 h-4">
+									<span class="text-sm font-medium">FGO</span>
+								</label>
+								<label class="flex items-center gap-3 p-3 border border-stripe-border rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+									<input type="checkbox" class="rounded text-stripe-purple focus:ring-stripe-purple w-4 h-4">
+									<span class="text-sm font-medium">FGI</span>
+								</label>
+								<label class="flex items-center gap-3 p-3 border border-stripe-border rounded-md cursor-pointer hover:bg-slate-50 transition-colors">
+									<input type="checkbox" class="rounded text-stripe-purple focus:ring-stripe-purple w-4 h-4">
+									<span class="text-sm font-medium">...</span>
+								</label>
+							</div>
+						</div>
+
+                        <div class="flex justify-end pt-4 border-t border-gf-border gap-3">
+                            <button type="button" class="px-4 py-2 text-sm font-medium text-gf-gray hover:text-gf-dark transition-colors">Cancelar</button>
+                            <button type="submit" class="bg-gf-purple text-white font-medium text-sm px-5 py-2 rounded-md shadow">Salvar Fonte</button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="tab-clientes-cl01" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-semibold tracking-tight">Manutenção de Clientes - CL01</h1>
+                    <p class="text-sm text-gf-gray mt-1">Visão estrutural da rotina core com marcações técnicas de adequação das chaves de barramento.</p>
+                </div>
+
+                <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 flex items-start gap-3">
+                    <i data-lucide="alert-circle" class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"></i>
+                    <div>
+                        <span class="text-sm font-bold text-rose-900 block">Nota de Engenharia</span>
+                        <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
+                            A imagem mapeada do legado abaixo demonstra a interface de manutenção ativa. Os campos destacados em **Vermelho** indicam as novas colunas e chaves estruturais necessárias para suportar a validação transacional do CADASTUR.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gf-border rounded-xl shadow-sm p-4 flex justify-center">
+                    <img src="cliente.png" alt="Tela de Clientes Legada CL01" class="rounded-lg max-w-full h-auto border border-slate-200">
+                </div>
+            </section>
+
+            <section id="tab-contrato-em01" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-semibold tracking-tight">Manutenção de Contratos - EM01</h1>
+                    <p class="text-sm text-gf-gray mt-1">Estrutura de dados adicionais e amarração de limites operatórios.</p>
+                </div>
+
+                <div class="bg-rose-50 border border-rose-200 rounded-xl p-4 flex items-start gap-3">
+                    <i data-lucide="alert-circle" class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"></i>
+                    <div>
+                        <span class="text-sm font-bold text-rose-900 block">Nota de Engenharia</span>
+                        <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
+                            Abaixo é exibida a tela legada de Propostas/Contratos. A caixa marcada em **Vermelho** na aba de Dados Adicionais indica a inclusão dos campos de número único do contrato da fonte, destinação do recurso e ID do projeto no MTur.
+                        </p>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gf-border rounded-xl shadow-sm p-4 flex justify-center">
+                    <img src="contrato.png" alt="Tela de Contratos Legada EM01" class="rounded-lg max-w-full h-auto border border-slate-200">
+                </div>
+            </section>
+
+            <section id="tab-limites-operar" class="tab-content hidden space-y-6">
+                <div class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                    <div>
+                        <h1 class="text-2xl font-semibold tracking-tight">Limites a Operar</h1>
+                        <p class="text-sm text-gf-gray mt-1">Gerencie os tetos operacionais, regras de consistências e o lançamento de termos aditivos.</p>
+                    </div>
+                    <button type="button" onclick="openLegacyModal('limite.png')" class="inline-flex items-center gap-1.5 px-3 py-1.5 text-xs font-bold text-white bg-orange-600 hover:bg-orange-700 active:bg-orange-800 rounded-md transition-colors shadow-sm self-start sm:self-center">
+                        <i data-lucide="eye" class="w-3.5 h-3.5"></i>
+                        <span>Ver Tela Legada (Evertec)</span>
+                    </button>
+                </div>
+
+                <div class="bg-white border border-gf-border rounded-xl shadow-sm overflow-hidden">
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-gf-border text-[11px] font-semibold uppercase tracking-wider text-gf-gray">
+                                    <th class="py-3 px-4">Cod.</th>
+                                    <th class="py-3 px-4">Nome do Limite</th>
+                                    <th class="py-3 px-4 text-right">Valor Inicial</th>
+                                    <th class="py-3 px-4 text-right">Total Aditivado</th>
+                                    <th class="py-3 px-4 text-right">Valor Limite Total</th>
+                                    <th class="py-3 px-4 text-right">Vlr. Utilizado</th>
+                                    <th class="py-3 px-4 text-right">Vlr. Restante</th>
+                                    <th class="py-3 px-4">Vigência</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gf-border text-xs text-[#333d47]">
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-3 px-4 font-mono font-medium">L-010</td>
+                                    <td class="py-3 px-4 font-medium">Lote Global de Repasse FUNGETUR Giro</td>
+                                    <td class="py-3 px-4 text-right font-mono">10.000.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono text-purple-600">+ 3.500.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono text-emerald-600 font-semibold">13.500.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono">3.000.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono text-emerald-600 font-semibold">10.500.000,00</td>
+                                    <td class="py-3 px-4 font-mono">31/12/2027</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-3 px-4 font-mono font-medium">L-042</td>
+                                    <td class="py-3 px-4 font-medium">Limite Global FCO Empresarial</td>
+                                    <td class="py-3 px-4 text-right font-mono">15.000.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono">4.250.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono text-emerald-600 font-semibold">10.750.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono">0,00</td>
+									<td class="py-3 px-4 text-right font-mono">0,00</td>
+                                    <td class="py-3 px-4 font-mono">31/12/2026</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-3 px-4 font-mono font-medium">L-089</td>
+                                    <td class="py-3 px-4 font-medium">Teto Financiamento BNDES Automotivo</td>
+                                    <td class="py-3 px-4 text-right font-mono">8.000.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono">7.100.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono text-amber-600 font-semibold">900.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono">0,00</td>
+									<td class="py-3 px-4 text-right font-mono">0,00</td>
+                                    <td class="py-3 px-4 font-mono">15/10/2026</td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/60 transition-colors">
+                                    <td class="py-3 px-4 font-mono font-medium">L-112</td>
+                                    <td class="py-3 px-4 font-medium">Fundo de Apoio ao Turismo - Fungetur Capital</td>
+                                    <td class="py-3 px-4 text-right font-mono">5.000.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono">0,00</td>
+                                    <td class="py-3 px-4 text-right font-mono text-emerald-600 font-semibold">5.000.000,00</td>
+                                    <td class="py-3 px-4 text-right font-mono">0,00</td>
+									<td class="py-3 px-4 text-right font-mono">0,00</td>
+                                    <td class="py-3 px-4 font-mono">01/06/2027</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gf-border shadow-sm p-6 space-y-6">
+                    <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
+                        <div class="md:col-span-3">
+                            <label class="block text-xs font-semibold text-gf-gray mb-1.5">Limite <span class="text-rose-500">*</span></label>
+                            <input type="text" placeholder="Código" class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm focus:outline-none">
+                        </div>
+                        <div class="md:col-span-6">
+                            <label class="block text-xs font-semibold text-gf-gray mb-1.5">Descrição <span class="text-rose-500">*</span></label>
+                            <input type="text" placeholder="Nome descritivo da regra de limite" class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm focus:outline-none">
+                        </div>
+                        <div class="md:col-span-3">
+                            <label class="block text-xs font-semibold text-gf-gray mb-1.5">Vigência Geral <span class="text-rose-500">*</span></label>
+                            <input type="date" class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm text-gf-gray focus:outline-none">
+                        </div>
+
+                        <div class="md:col-span-4">
+                            <label class="block text-xs font-semibold text-gf-gray mb-1.5">Tipo Limite</label>
+                            <select class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none">
+                                <option>Por instituição</option>
+                                <option>Global</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-4">
+                            <label class="block text-xs font-semibold text-gf-gray mb-1.5">Quando baixar limite</label>
+                            <select class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none">
+                                <option>Na baixa</option>
+                                <option>Na contratação</option>
+                            </select>
+                        </div>
+                        <div class="md:col-span-4">
+                            <label class="block text-xs font-semibold text-gf-gray mb-1.5">Tp. vlr. lim.</label>
+                            <select class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none">
+                                <option>Valor presente</option>
+                            </select>
+                        </div>
+
+                        <div class="md:col-span-12 grid grid-cols-1 md:grid-cols-12 gap-3 bg-slate-50/50 p-4 rounded-lg border border-gf-border">
+                            <div class="md:col-span-3">
+                                <label class="block text-[11px] font-semibold text-gf-gray mb-1">Carteira</label>
+                                <div class="flex gap-1"><input type="text" class="w-12 px-2 py-1 border rounded text-sm text-center"><input type="text" disabled class="flex-1 px-2 py-1 border rounded text-sm bg-slate-100 text-gf-gray"></div>
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="block text-[11px] font-semibold text-gf-gray mb-1">Produto</label>
+                                <div class="flex gap-1"><input type="text" class="w-12 px-2 py-1 border rounded text-sm text-center"><input type="text" disabled class="flex-1 px-2 py-1 border rounded text-sm bg-slate-100 text-gf-gray"></div>
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="block text-[11px] font-semibold text-gf-gray mb-1">Segmento</label>
+                                <div class="flex gap-1"><input type="text" class="w-12 px-2 py-1 border rounded text-sm text-center"><input type="text" disabled class="flex-1 px-2 py-1 border rounded text-sm bg-slate-100 text-gf-gray"></div>
+                            </div>
+                            <div class="md:col-span-3">
+                                <label class="block text-[11px] font-semibold text-gf-gray mb-1">Cond. Oper.</label>
+                                <div class="flex gap-1"><input type="text" class="w-12 px-2 py-1 border rounded text-sm text-center"><input type="text" disabled class="flex-1 px-2 py-1 border rounded text-sm bg-slate-100 text-gf-gray"></div>
+                            </div>
+                        </div>
+
+                        <div class="md:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-4 pt-2">
+                            <div><label class="block text-xs font-semibold text-gf-gray mb-1.5">Valor Inicial Contratado *</label><input type="text" placeholder="10.000.000,00" class="w-full px-3 py-1.5 border rounded-md text-sm text-right"></div>
+                            <div><label class="block text-xs font-semibold text-gf-gray mb-1.5">(-) Valor Utilizado</label><input type="text" placeholder="3.000.000,00" class="w-full px-3 py-1.5 border rounded-md text-sm text-right"></div>
+                            <div><label class="block text-xs font-semibold text-amber-700 mb-1.5">(-) Propostas em Análise</label><input type="text" placeholder="1.500.000,00" class="w-full px-3 py-1.5 border border-amber-200 bg-amber-50/20 rounded-md text-sm text-right font-medium"></div>
+                            <div><label class="block text-xs font-semibold text-emerald-700 mb-1.5">(=) Valor Restante Disponível</label><input type="text" placeholder="9.000.000,00" disabled class="w-full px-3 py-1.5 border border-emerald-200 bg-emerald-50/30 text-emerald-900 rounded-md text-sm text-right font-bold cursor-not-allowed"></div>
+                        </div>
+                    </div>
+
+                    <div class="bg-slate-50 p-4 rounded-xl border border-gf-border space-y-4">
+                        <div>
+                            <h3 class="text-xs font-bold uppercase tracking-wider text-gf-dark flex items-center gap-1.5"><i data-lucide="layers-3" class="w-3.5 h-3.5 text-gf-purple"></i> Composição Financeira (Contrato Base e Aditivos)</h3>
+                            <p class="text-[11px] text-gf-gray">Insira termos aditivos de aporte para somar dinamicamente ao valor total do limite contratado.</p>
+                        </div>
+                        <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-white p-3 rounded-lg border border-gf-border">
+                            <div><label class="block text-[10px] font-semibold text-gf-gray mb-1">Data Lançamento</label><input type="date" id="adt-data" class="w-full px-2 py-1 border rounded text-xs"></div>
+                            <div><label class="block text-[10px] font-semibold text-gf-gray mb-1">Nr Documento / Aditivo</label><input type="text" id="adt-doc" placeholder="Ex: Termo Aditivo 02/2026" class="w-full px-2 py-1 border rounded text-xs focus:outline-none"></div>
+                            <div><label class="block text-[10px] font-semibold text-gf-gray mb-1">Valor Aporte</label><input type="text" id="adt-valor" placeholder="0,00" class="w-full px-2 py-1 border rounded text-xs text-right focus:outline-none"></div>
+                            <div><label class="block text-[10px] font-semibold text-gf-gray mb-1">Vigência Específica</label><div class="flex gap-2"><input type="date" id="adt-vigencia" class="flex-1 px-2 py-1 border rounded text-xs"><button type="button" onclick="addAditivoMock()" class="bg-gf-purple text-white px-3 py-1 rounded text-xs font-medium">Adicionar</button></div></div>
+                        </div>
+                        <div class="bg-white rounded-lg border overflow-hidden">
+                            <table class="w-full text-left text-xs">
+                                <thead class="bg-slate-100 text-gf-gray font-semibold text-[10px] uppercase">
+                                    <tr><th class="p-2">Data</th><th class="p-2">Nº Documento / Descrição</th><th>Vigência</th><th class="p-2 text-right">Valor do Aporte</th></tr>
+                                </thead>
+                                <tbody id="aditivos-body" class="divide-y text-[#444]">
+                                    <tr><td class="p-2 font-mono">10/02/2026</td><td class="p-2 font-medium">Contrato de Repasse Mãe Principal</td><td class="p-2 font-mono">31/12/2027</td><td class="p-2 text-right font-mono">10.000.000,00</td></tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <div class="pt-4 border-t border-gf-border space-y-4">
+                        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                            <h2 class="text-sm font-semibold uppercase tracking-wider text-gf-purple mb-1 flex items-center gap-2"><i data-lucide="shield-check" class="w-4 h-4"></i> Consistências do Sistema (Cálculo Dinâmico)</h2>
+                        </div>
+                        <div class="space-y-3">
+							<div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-slate-50/30 p-2.5 rounded border border-gf-border mb-3">
+								<div class="lg:col-span-2 text-xs font-semibold">Cadastro:</div>
+								<div class="lg:col-span-3">
+									<select class="w-full px-2 py-1 border rounded text-sm bg-white">
+										<option>Não consistir</option>
+									</select>
+								</div>
+								<div class="lg:col-span-3 flex items-center gap-2">
+									<span class="text-[11px] text-gf-gray shrink-0">% s/ Limite Aditivado</span>
+									<input type="text" value="0,00" class="w-full px-2 py-1 border rounded text-sm text-right">
+								</div>
+								<div class="lg:col-span-2 flex items-center gap-2">
+									<span class="text-[11px] text-gf-gray shrink-0">Cons. em:</span>
+									<input type="text" class="w-full px-2 py-1 border rounded text-sm">
+								</div>
+								<div class="lg:col-span-2 flex items-center gap-2">
+									<span class="text-[11px] text-amber-800 font-semibold shrink-0">Disp. Real:</span>
+									<input type="text" value="9.000.000,00" disabled class="w-full px-2 py-1 border border-amber-200 rounded text-sm bg-amber-50/40 text-right font-mono text-amber-900">
+								</div>
+							</div>
+
+							<div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-slate-50/30 p-2.5 rounded border border-gf-border mb-3">
+								<div class="lg:col-span-2 text-xs font-semibold">Jurídico:</div>
+								<div class="lg:col-span-3">
+									<select class="w-full px-2 py-1 border rounded text-sm bg-white">
+										<option>Não consistir</option>
+									</select>
+								</div>
+								<div class="lg:col-span-3 flex items-center gap-2">
+									<span class="text-[11px] text-gf-gray shrink-0">% s/ Limite Aditivado</span>
+									<input type="text" value="0,00" class="w-full px-2 py-1 border rounded text-sm text-right">
+								</div>
+								<div class="lg:col-span-2 flex items-center gap-2">
+									<span class="text-[11px] text-gf-gray shrink-0">Cons. em:</span>
+									<input type="text" class="w-full px-2 py-1 border rounded text-sm">
+								</div>
+								<div class="lg:col-span-2 flex items-center gap-2">
+									<span class="text-[11px] text-amber-800 font-semibold shrink-0">Disp. Real:</span>
+									<input type="text" value="9.000.000,00" disabled class="w-full px-2 py-1 border border-amber-200 rounded text-sm bg-amber-50/40 text-right font-mono text-amber-900">
+								</div>
+							</div>
+
+							<div class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-slate-50/30 p-2.5 rounded border border-gf-border">
+								<div class="lg:col-span-2 text-xs font-semibold">Financeiro:</div>
+								<div class="lg:col-span-3">
+									<select class="w-full px-2 py-1 border rounded text-sm bg-white">
+										<option>Consistir e Bloquear Novo Contrato</option>
+									</select>
+								</div>
+								<div class="lg:col-span-3 flex items-center gap-2">
+									<span class="text-[11px] text-gf-gray shrink-0">% s/ Limite Aditivado</span>
+									<input type="text" value="0,00" class="w-full px-2 py-1 border rounded text-sm text-right">
+								</div>
+								<div class="lg:col-span-2 flex items-center gap-2">
+									<span class="text-[11px] text-gf-gray shrink-0">Cons. em:</span>
+									<input type="text" class="w-full px-2 py-1 border rounded text-sm">
+								</div>
+								<div class="lg:col-span-2 flex items-center gap-2">
+									<span class="text-[11px] text-amber-800 font-semibold shrink-0">Disp. Real:</span>
+									<input type="text" value="9.000.000,00" disabled class="w-full px-2 py-1 border border-amber-200 rounded text-sm bg-amber-50/40 text-right font-mono text-amber-900">
+								</div>
+							</div>
+
+                        </div>
+                    </div>
+                </div>
+				
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+<div class="bg-white rounded-xl border border-gf-border p-4">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-[11px] font-bold uppercase tracking-wider text-gf-purple">
+                Memória de Cálulo — Disponível Contratação
+            </h3>
+<span class="text-[10px] text-gf-gray">Snapshot Abril/2026</span>
+</div>
+<table class="w-full text-xs">
+<tbody class="divide-y divide-slate-100">
+<tr>
+<td class="py-2">Repasses MTUR</td>
+<td class="py-2 text-right font-mono text-emerald-700">+113.398.556,40</td>
+</tr>
+<tr>
+<td class="py-2">Operações Contratadas</td>
+<td class="py-2 text-right font-mono text-rose-700">-77.019.129,96</td>
+</tr>
+<tr>
+<td class="py-2">Devoluções Extraordinárias</td>
+<td class="py-2 text-right font-mono text-rose-700">-18.168.769,01</td>
+</tr>
+<tr class="font-semibold bg-emerald-50/30">
+<td class="py-2">Saldo Disponível</td>
+<td class="py-2 text-right font-mono text-emerald-900">18.210.657,43</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="bg-white rounded-xl border border-gf-border p-4">
+<div class="flex items-center justify-between mb-3">
+<h3 class="text-[11px] font-bold uppercase tracking-wider text-gf-purple">
+                Apoio Auditoria / Prestação de Contas
+            </h3>
+<span class="text-[10px] text-gf-gray">GEFIN / GENEG</span>
+</div>
+<div class="space-y-2 text-xs">
+<div class="flex justify-between border-b border-slate-100 pb-1">
+<span>Processo SEI Juros</span>
+<span class="font-mono font-semibold">202500059000004</span>
+</div>
+<div class="flex justify-between border-b border-slate-100 pb-1">
+<span>Origem Remuneração SELIC</span>
+<span class="font-semibold">GEFIN</span>
+</div>
+<div class="flex justify-between border-b border-slate-100 pb-1">
+<span>Origem Amortizações</span>
+<span class="font-semibold">GENEG</span>
+</div>
+<div class="flex justify-between border-b border-slate-100 pb-1">
+<span>Status Snapshot</span>
+<span class="text-emerald-700 font-semibold">CONGELADO</span>
+</div>
+<div class="flex justify-between">
+<span>Rastreabilidade</span>
+<span class="text-gf-purple font-semibold">ATIVA</span>
+</div>
+</div>
+</div>
+</div>
+            </section>
+
+            <section id="tab-envio-remessa" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-semibold tracking-tight">Envio de Remessa (Fontes)</h1>
+                    <p class="text-sm text-gf-gray mt-1">Filtre os contratos elegíveis e gerencie os lotes consolidados de transmissão.</p>
+                </div>
+
+                <div class="bg-white border border-gf-border rounded-xl shadow-sm overflow-hidden">
+                    <div class="p-4 bg-slate-50/50 border-b border-gf-border flex justify-between items-center">
+                        <span class="text-xs font-semibold uppercase tracking-wider text-gf-gray">Contratos Incluídos na Remessa</span>
+                        
+                        <span class="text-xs bg-violet-50 text-gf-purple border border-violet-100 px-3 py-1 rounded-full font-bold inline-flex items-center gap-1.5 shadow-sm">
+                            <i data-lucide="layers" class="w-3.5 h-3.5"></i> Lote Ativo: 2 Registros Selecionados
+                        </span>
+                    </div>
+                    
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-gf-border text-[11px] font-semibold uppercase tracking-wider text-gf-gray">
+                                    <th class="py-3 px-4 w-12"><input type="checkbox" checked class="rounded text-gf-purple"></th>
+                                    <th class="py-3 px-4">Sequencial</th>
+                                    <th class="py-3 px-4">Fonte Recurso</th>
+									<th class="py-3 px-4">Tipo</th>
+                                    <th class="py-3 px-4">Total registros</th>
+                                    <th class="py-3 px-4 text-right">Total do lote</th>
+                                    <th class="py-3 px-4 text-center">Situação</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-gf-border text-sm text-[#333d47]">
+                                <tr class="hover:bg-slate-50/80 transition-colors">
+                                    <td class="py-3.5 px-4"><input type="checkbox" checked class="rounded text-gf-purple"></td>
+                                    <td class="py-3.5 px-4 font-mono text-xs font-semibold">FUN-2026-01</td>
+                                    <td class="py-3.5 px-4"><span class="text-xs font-semibold bg-slate-100 px-2 py-0.5 rounded border">FUNGETUR</span></td>
+									<td class="py-3.5 px-4 font-mono text-xs font-semibold">Saldos</td>
+                                    <td class="py-3.5 px-4 font-mono text-xs font-semibold">522</td>
+                                    <td class="py-3.5 px-4 text-right font-mono font-medium">1.250.000,00</td>
+                                    <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 text-xs font-medium bg-blue-50 text-blue-700 rounded-full border border-blue-100">Enviado</span></td>
+                                </tr>
+                                <tr class="hover:bg-slate-50/80 transition-colors">
+                                    <td class="py-3.5 px-4"><input type="checkbox" checked class="rounded text-gf-purple"></td>
+                                    <td class="py-3.5 px-4 font-mono text-xs font-semibold">FCO-2026-89</td>
+                                    <td class="py-3.5 px-4"><span class="text-xs font-semibold bg-slate-100 px-2 py-0.5 rounded border">FCO</span></td>
+									<td class="py-3.5 px-4 font-mono text-xs font-semibold">Propostas</td>
+                                    <td class="py-3.5 px-4 font-mono text-xs font-semibold">102</td>
+                                    <td class="py-3.5 px-4 text-right font-mono font-medium">4.500.000,00</td>
+                                    <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 text-xs font-medium bg-purple-50 text-purple-700 rounded-full border border-purple-100">Rejeitado</span></td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gf-border shadow-sm p-6">
+                    <div class="mb-4 pb-3 border-b border-gf-border flex items-center gap-2 text-gf-purple">
+                        <i data-lucide="sliders-horizontal" class="w-5 h-5"></i>
+                        <h2 class="font-semibold text-sm uppercase tracking-wider">Filtros e Parâmetros de Lote</h2>
+                    </div>
+                    <form class="space-y-6" onsubmit="event.preventDefault();">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4">
+                            <div>
+                                <label class="block text-xs font-semibold text-gf-gray mb-1.5">Nº Sequencial Remessa</label>
+                                <input type="text" value="REM-20260528-088" disabled class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-slate-50 text-gf-gray font-mono cursor-not-allowed">
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gf-gray mb-1.5">Fonte de Recurso</label>
+                                <select class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white"><option>FUNGETUR</option><option>FCO</option></select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gf-gray mb-1.5">Tipo Envio</label>
+                                <select class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white">
+                                    <option>Propostas</option>
+									<option>Contratos</option>
+									<option>Movimento contratos</option>
+									<option>Renegociados</option>
+									<option>Saldos</option>
+									<option>Quitados</option>
+									<option>Todos</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-xs font-semibold text-gf-gray mb-1.5">Situação</label>
+                                <select class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white"><option>Elegível para Envio</option></select>
+                            </div>
+                            <div><label class="block text-xs font-semibold text-gf-gray mb-1.5">Data Inicial</label><input type="date" class="w-full px-3 py-1.5 border rounded-md text-sm"></div>
+                            <div><label class="block text-xs font-semibold text-gf-gray mb-1.5">Data Final</label><input type="date" class="w-full px-3 py-1.5 border rounded-md text-sm"></div>
+                            <div><label class="block text-xs font-semibold text-gf-gray mb-1.5">Produto</label><input type="text" placeholder="Ex: Giro" class="w-full px-3 py-1.5 border rounded-md text-sm"></div>
+                            <div><label class="block text-xs font-semibold text-gf-gray mb-1.5">Cliente</label><input type="text" placeholder="Código ou Nome" class="w-full px-3 py-1.5 border rounded-md text-sm"></div>
+                        </div>
+                        <div class="flex justify-end pt-4 border-t border-gf-border gap-3">
+                            <button type="button" class="bg-white text-gf-dark border border-gf-border px-5 py-2 rounded-md text-sm font-medium flex items-center gap-2 hover:bg-slate-50">
+                                <i data-lucide="filter" class="w-4 h-4 text-gf-gray"></i> Filtrar Contratos
+                            </button>
+                            <button type="submit" class="bg-gf-purple text-white font-medium text-sm px-5 py-2 rounded-md shadow flex items-center gap-2">
+                                <i data-lucide="send-to-back" class="w-4 h-4"></i> Transmitir para o Web Service
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="tab-retorno-lotes" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-semibold tracking-tight">Retorno de Lotes / Críticas</h1>
+                    <p class="text-sm text-gf-gray mt-1">Monitore o processamento síncrono/assíncrono dos Web Services e trate rejeições.</p>
+                </div>
+                <div class="bg-white border border-gf-border rounded-xl shadow-sm overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-slate-50 border-b border-gf-border text-[11px] font-semibold uppercase tracking-wider text-gf-gray">
+                                <th class="py-3 px-4">ID Lote</th>
+								<th class="py-3 px-4">Fonte</th>
+								<th class="py-3 px-4">Data Envio</th>
+								<th class="py-3 px-4 text-right">Contratos Transmitidos</th>
+								<th class="py-3 px-4 text-center">Status Integração</th>
+								<th class="py-3 px-4">Log de Retorno / Erro</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm">
+                            <tr>
+                                <td class="py-3.5 px-4 font-mono">FG-2026-088</td><td class="py-3.5 px-4">FUNGETUR</td>
+								<td class="py-3.5 px-4 font-mono text-xs">28/05/2026 08:30</td>
+								<td class="py-3.5 px-4 text-right font-mono">152</td>
+                                <td class="py-3.5 px-4 text-center"><span class="px-2 py-0.5 bg-rose-50 text-rose-700 rounded-full text-xs">Processado com Erros</span></td>
+                                <td class="py-3.5 px-4 text-xs font-medium text-rose-600">Contrato EM-2026-0041 rejeitado: CADASTUR do Proponente inativo ou inválido no Ministério.</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </section>
+			
+            <section id="tab-fluxo-contratacao" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-semibold tracking-tight">Fluxo de Integração: Contratação</h1>
+                    <p class="text-sm text-gf-gray mt-1">Esteira lógica de onboarding operacional e provisionamento síncrono via API de Importação do FUNGETUR.</p>
+                </div>
+
+                <div class="bg-white rounded-xl border border-gf-border shadow-sm p-6">
+                    <div class="relative pl-6 space-y-8 before:absolute before:bottom-2 before:top-2 before:left-2 before:w-0.5 before:bg-slate-200">
+                        
+                        <div class="relative flex gap-4 items-start">
+                            <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-purple text-white text-[11px] font-bold">1</div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-gf-dark">Solicitação de Crédito</h3>
+                                <p class="text-xs text-gf-gray mt-0.5">O cliente inicia a proposta de repasse de fomento nas agências ou portal digital.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex gap-4 items-start">
+                            <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-purple text-white text-[11px] font-bold">2</div>
+                            <div class="w-full space-y-2">
+                                <h3 class="text-sm font-semibold text-gf-dark">Enquadramento Regulatório FUNGETUR</h3>
+                                <p class="text-xs text-gf-gray mt-0.5">Motor interno roda validações automatizadas de pré-requisitos fundamentais:</p>
+                                <div class="grid grid-cols-2 md:grid-cols-4 gap-2 pt-1">
+                                    <div class="p-2 border rounded-md text-xs bg-slate-50"><span class="font-bold block text-gf-dark">CADASTUR</span>Validade do proponente</div>
+                                    <div class="p-2 border rounded-md text-xs bg-slate-50"><span class="font-bold block text-gf-dark">CNAE Elegível</span>Atividade do setor turismo</div>
+                                    <div class="p-2 border rounded-md text-xs bg-slate-50"><span class="font-bold block text-gf-dark">Finalidade</span>Financiamento aderente</div>
+                                    <div class="p-2 border rounded-md text-xs bg-slate-50"><span class="font-bold block text-gf-dark">Estrutura</span>Limites, carência e prazos</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative flex gap-4 items-start">
+                            <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-purple text-white text-[11px] font-bold">3</div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-gf-dark">Análise de Risco Interna</h3>
+                                <p class="text-xs text-gf-gray mt-0.5">Aprovação do comitê de crédito da GoiásFomento conforme governança interna.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex gap-4 items-start">
+                            <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-purple text-white text-[11px] font-bold">4</div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-gf-dark">Geração da Operação / Emissão de CCB</h3>
+                                <p class="text-xs text-gf-gray mt-0.5">Assinatura da Cédula de Crédito Bancário. A operação fica em estado <span class="font-semibold text-amber-600">Aguardando Homologação</span> (sem liberação de caixa).</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex gap-4 items-start">
+                            <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-purple text-white text-[11px] font-bold">5</div>
+                            <div class="w-full">
+                                <h3 class="text-sm font-semibold text-gf-dark">Disparo via API de Importação</h3>
+                                <p class="text-xs text-gf-gray mt-0.5">Geração do JSON estruturado e transmissão síncrona para o endpoint regulador.</p>
+                                <div class="mt-1.5 p-2 bg-slate-900 rounded font-mono text-[10px] text-slate-300">POST https://fungetur.turismo.gov.br/fungeturimportacao/api/v1/financiamento</div>
+                            </div>
+                        </div>
+
+                        <div class="relative flex gap-4 items-start">
+                            <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-purple text-white text-[11px] font-bold">6</div>
+                            <div class="w-full space-y-2">
+                                <h3 class="text-sm font-semibold text-gf-dark">Validação de Retornos da Fonte</h3>
+                                <p class="text-xs text-gf-gray mt-0.5">O barramento captura as respostas do Swagger e altera a flag de consistência:</p>
+                                <div class="flex flex-wrap gap-2 text-[10px] font-medium font-sans">
+                                    <span class="px-2 py-0.5 bg-emerald-50 text-emerald-700 border border-emerald-200 rounded">Sucesso / Homologado</span>
+                                    <span class="px-2 py-0.5 bg-amber-50 text-amber-700 border border-amber-200 rounded">Pendência Cadastral</span>
+                                    <span class="px-2 py-0.5 bg-blue-50 text-blue-700 border border-blue-200 rounded">Inconsistência Corrigível</span>
+                                    <span class="px-2 py-0.5 bg-rose-50 text-rose-700 border border-rose-200 rounded">Rejeição / Reprocessar</span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="relative flex gap-4 items-start">
+                            <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-purple text-white text-[11px] font-bold">7</div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-gf-dark">Liberação e Desembolso Real</h3>
+                                <p class="text-xs text-gf-gray mt-0.5">Após validação positiva da API, o caixa liquida o contrato e efetua o TED/PIX de repasse ao cliente final.</p>
+                            </div>
+                        </div>
+
+                        <div class="relative flex gap-4 items-start">
+                            <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-purple text-white text-[11px] font-bold">8</div>
+                            <div>
+                                <h3 class="text-sm font-semibold text-gf-dark">Conciliação do Dossiê</h3>
+                                <p class="text-xs text-gf-gray mt-0.5">Gravação do hash de recibo da API no campo <code class="bg-slate-100 p-0.5 rounded border text-purple-700 font-mono text-[10px]">EM01_NR_CONTRA_FONTE</code> e arquivo digital.</p>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </section>
+
+            
+
+<section id="tab-fluxo-gerenciamento" class="tab-content hidden space-y-6">
+    <div>
+        <h1 class="text-2xl font-semibold tracking-tight">Fluxo de Integração: Gerenciamento Mensal</h1>
+        <p class="text-sm text-gf-gray mt-1">Rotina batch de consolidação de parcelas, conta gráfica e prestação de contas contábil com o Ministério.</p>
+    </div>
+
+    <div class="bg-white rounded-xl border border-gf-border shadow-sm p-6">
+        <div class="relative pl-6 space-y-8 before:absolute before:bottom-2 before:top-2 before:left-2 before:w-0.5 before:bg-slate-200">
+
+            <div class="relative">
+                <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-dark text-white text-[11px] font-bold">1</div>
+                <h3 class="text-sm font-semibold">Fechamento de Competência (Batch EM)</h3>
+                <p class="text-sm text-gf-gray">A TI roda a rotina contábil mensal consolidando juros, saldos devedores e amortizações em carteira.</p>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-dark text-white text-[11px] font-bold">2</div>
+                <h3 class="text-sm font-semibold">Varredura e Agrupamento de Eventos</h3>
+                <p class="text-sm text-gf-gray mb-3">Separação automática das ocorrências individuais vinculadas à fonte ocorridas nos 30 dias.</p>
+                <div class="flex flex-wrap gap-2 text-xs">
+                    <span class="px-3 py-1 border rounded">• Novas Liberações</span>
+                    <span class="px-3 py-1 border rounded">• Amortizações Normais</span>
+                    <span class="px-3 py-1 border rounded">• Liquidações Extraordinárias</span>
+                    <span class="px-3 py-1 border rounded">• Mutações de Inadimplência</span>
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-dark text-white text-[11px] font-bold">3</div>
+                <h3 class="text-sm font-semibold">Conciliação Prévia de Balancete</h3>
+                <p class="text-sm text-gf-gray">Validação interna se o saldo devedor consolidado bate com os protocolos anteriores para evitar quebras contábeis na fonte.</p>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-dark text-white text-[11px] font-bold">4</div>
+                <h3 class="text-sm font-semibold">Transmissão para a API de Crédito e Gerenciamento</h3>
+                <p class="text-sm text-gf-gray mb-3">Disparo automatizado do fechamento de conta gráfica.</p>
+                <div class="bg-slate-900 text-slate-200 rounded p-3 font-mono text-xs">
+                    PUT https://fungetur.turismo.gov.br/fungeturcredito/api/v1/declaracao-mensal
+                </div>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-dark text-white text-[11px] font-bold">5</div>
+                <h3 class="text-sm font-semibold">Tratamento de Rejeições de Lote</h3>
+                <p class="text-sm text-gf-gray">Em caso de erros analíticos, os contratos impactados são isolados para correção manual dos operadores e reenvio imediato do lote.</p>
+            </div>
+
+            <div class="relative">
+                <div class="absolute -left-[22px] flex h-5 w-5 items-center justify-center rounded-full bg-gf-dark text-white text-[11px] font-bold">6</div>
+                <h3 class="text-sm font-semibold">Auditoria de Payload</h3>
+                <p class="text-sm text-gf-gray">Gravação permanente do histórico e logs completos ('Payload Sent', 'Response Received' e carimbo de data/hora) para fins de fiscalização do TCU/MTur.</p>
+            </div>
+
+        </div>
+    </div>
+</section>
+
+
+
+
+<section id="tab-declaracao-mensal" class="tab-content hidden space-y-6">
+<div>
+<h1 class="text-2xl font-semibold tracking-tight">Declaração Mensal FUNGETUR</h1>
+<p class="text-sm text-gf-gray mt-1">Fechamento regulatório mensal e integração da declaração via API.</p>
+</div>
+
+<div class="border rounded-2xl p-6" style="border-color:#d9ccff;background:#fcfbff;">
+    <div class="flex justify-between items-start mb-4">
+        <div>
+            <h2 class="text-lg font-bold tracking-wide text-gf-purple flex items-center gap-2">
+                <i data-lucide="calendar-range" class="w-4 h-4"></i>
+                COMPETÊNCIA MENSAL FUNGETUR
+            </h2>
+            <p class="text-xs text-gf-gray mt-1">Snapshot regulatório congelado para auditoria e prestação de contas.</p>
+        </div>
+        <span class="px-4 py-2 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-700 border border-emerald-200">
+            DECLARAÇÃO GERADA
+        </span>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-6 gap-4 pb-4 border-b border-gf-border">
+        <div><label class="block text-xs font-semibold text-gf-gray mb-2">Ano</label><input value="2026" class="w-full border rounded-md px-3 py-2 text-lg"></div>
+        <div><label class="block text-xs font-semibold text-gf-gray mb-2">Competência</label><input value="Abril" class="w-full border rounded-md px-3 py-2 text-lg"></div>
+        <div><label class="block text-xs font-semibold text-gf-gray mb-2">Data Fechamento</label><input value="30/04/2026" class="w-full border rounded-md px-3 py-2 text-lg"></div>
+        <div><label class="block text-xs font-semibold text-gf-gray mb-2">ID Declaração</label><input value="DEC-2026-04" class="w-full border rounded-md px-3 py-2 font-mono"></div>
+        <div><label class="block text-xs font-semibold text-gf-gray mb-2">Protocolo API</label><input value="FUNGETUR-882991" class="w-full border rounded-md px-3 py-2 font-mono"></div>
+        <div>
+            <label class="block text-xs font-semibold text-gf-gray mb-2">Status</label>
+            <div class="px-3 py-2 rounded-md border bg-emerald-50 text-emerald-700 text-center font-bold">
+                ENVIADO FUNGETU
+            </div>
+        </div>
+    </div>
+
+    <div class="flex flex-wrap gap-3 pt-5">
+        <button class="bg-gf-dark text-white px-4 py-2 rounded-md text-sm font-semibold">Calcular Competência</button>
+        <button class="bg-gf-purple text-white px-4 py-2 rounded-md text-sm font-semibold">Gerar Declaração</button>
+        <button class="bg-white border border-gf-border px-4 py-2 rounded-md text-sm">Enviar Declaração</button>
+        <button class="bg-amber-50 border border-amber-300 text-amber-700 px-4 py-2 rounded-md text-sm">Histórico Competências</button>
+    </div>
+</div>
+
+<div class="bg-white rounded-2xl border border-gf-border p-5">
+    <h3 class="text-sm font-bold uppercase tracking-wider text-gf-dark flex items-center gap-2 mb-4">
+        <i data-lucide="building-2" class="w-4 h-4 text-gf-purple"></i>
+        APURAÇÃO FINANCEIRA FUNGETUR
+    </h3>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+        <div>
+            <label class="block text-xs font-semibold text-gf-gray mb-2">Valor Repassado MTUR</label>
+            <input value="113.398.556,40" class="w-full border rounded-md px-3 py-2 text-right font-mono">
+        </div>
+        <div>
+            <label class="block text-xs font-semibold text-gf-gray mb-2">Valor Contratado</label>
+            <input value="77.019.129,96" class="w-full border rounded-md px-3 py-2 text-right font-mono">
+        </div>
+        <div>
+            <label class="block text-xs font-semibold text-gf-gray mb-2">Saldo Financeiro</label>
+            <input value="19.268.516,69" class="w-full border rounded-md px-3 py-2 text-right font-mono">
+        </div>
+        <div>
+            <label class="block text-xs font-semibold text-gf-gray mb-2">Valor Amortizado</label>
+            <input value="767.815,77" class="w-full border rounded-md px-3 py-2 text-right font-mono">
+        </div>
+    </div>
+</div>
+</section>
+
+
+<section id="tab-config-api" class="tab-content hidden space-y-6">
+                <div>
+                    <h1 class="text-2xl font-semibold tracking-tight">Configuração de APIs / OAuth2</h1>
+                    <p class="text-sm text-gf-gray mt-1">Gerencie os endpoints do Swagger, tokens e chaves criptográficas de segurança.</p>
+                </div>
+                <div class="bg-white rounded-xl border border-gf-border p-6">
+                    <form class="space-y-4" onsubmit="event.preventDefault();">
+                        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                            <div><label class="block text-xs font-semibold text-gf-gray mb-1.5">URL Base do Endpoint da Fonte</label><input type="text" value="https://fungetur.turismo.gov.br/fungeturseguranca" class="w-full px-3 py-1.5 border rounded-md text-sm font-mono text-xs"></div>
+                            <div><label class="block text-xs font-semibold text-gf-gray mb-1.5">Client ID</label><input type="text" value="goias_fomento_agent_prod_099" class="w-full px-3 py-1.5 border rounded-md text-sm font-mono text-xs"></div>
+                        </div>
+                    </form>
+                </div>
+            </section>
+
+            <section id="tab-impacto-legado" class="tab-content hidden space-y-6">
+                <div class="bg-gradient-to-r from-amber-500 to-amber-600 rounded-xl p-6 text-white shadow-sm">
+                    <h1 class="text-2xl font-bold tracking-tight">Especificação e Documentação Técnica do Legado</h1>
+                    <p class="text-sm text-amber-100 mt-1">Orientações de engenharia para adaptação das tabelas corporativas e dicionário de dados.</p>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    <div class="bg-white rounded-xl border border-gf-border shadow-sm overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="p-4 bg-slate-900 text-white font-semibold text-sm flex items-center gap-2"><i data-lucide="user" class="w-4 h-4"></i> Mapeamento: Tela de Cliente Legada</div>
+                            <div class="p-5 space-y-4">
+                                <div class="bg-amber-50 border border-amber-200 rounded-lg p-3 space-y-2">
+                                    <span class="text-xs font-bold text-amber-800 uppercase block">Observação Técnica / Campo:</span>
+                                    <div class="flex justify-between items-center bg-white px-3 py-1.5 rounded border border-amber-300">
+                                        <span class="text-xs font-semibold">Número do CADASTUR do Cliente</span>
+                                        <span class="text-[10px] bg-slate-100 px-1.5 py-0.5 rounded text-mono">VARCHAR(20)</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-slate-50 border-t border-gf-border font-mono text-[10px] text-slate-600">ALTER TABLE cliente ADD nr_cadastur VARCHAR(20) NULL;</div>
+                    </div>
+
+                    <div class="bg-white rounded-xl border border-gf-border shadow-sm overflow-hidden flex flex-col justify-between">
+                        <div>
+                            <div class="p-4 bg-slate-900 text-white font-semibold text-sm flex items-center gap-2"><i data-lucide="file-text" class="w-4 h-4"></i> Mapeamento: Tela de Contrato Legada</div>
+                            <div class="p-5 space-y-3">
+                                <div class="bg-amber-50/70 border border-amber-200 rounded-lg p-3 space-y-2">
+                                    <div class="flex justify-between items-center bg-white px-2 py-1 rounded border border-amber-300 font-medium text-xs">
+                                        <span class="text-gf-purple font-bold">1. EM01_NR_CONTRA_FONTE</span>
+                                        <span class="text-[9px] bg-slate-100 px-1 rounded text-mono">VARCHAR(50)</span>
+                                    </div>
+                                    <p class="text-[11px] text-amber-900 leading-relaxed"><strong>Destinação:</strong> Chave de integração contendo o Número Único retornado pelo Web Service regulador.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="p-4 bg-slate-50 border-t border-gf-border font-mono text-[10px] text-slate-600 space-y-1">
+                            <div>ALTER TABLE contrato_em01 ADD EM01_NR_CONTRA_FONTE VARCHAR(50) NULL;</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gf-border rounded-xl shadow-sm overflow-hidden">
+                    <div class="p-4 bg-slate-50 border-b border-gf-border font-semibold text-xs uppercase tracking-wider text-gf-dark">Mapeamento De-Para Geral Corporativo</div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs font-mono">
+                            <thead>
+                                <tr class="bg-slate-100 text-gf-gray font-bold uppercase border-b border-gf-border"><th class="p-2.5 px-4">Propriedade API</th><th class="p-2.5 px-4">Campo Banco Legado</th><th class="p-2.5 px-4 text-center">Status</th></tr>
+                            </thead>
+                            <tbody class="divide-y text-slate-700">
+                                <tr><td class="p-2 px-4 font-bold">empresa</td><td class="p-2 px-4 text-blue-700">CL01_NR_CLIENT</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">cnpj</td><td class="p-2 px-4 text-blue-700">CL01_NR_CPFCNPJ</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">cpfPrestador</td><td class="p-2 px-4 text-blue-700">CO763_NR_CNPJ</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">porteDaEmpresa</td><td class="p-2 px-4 text-blue-700">CL03_CD_PORTBC</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">estado</td><td class="p-2 px-4 text-blue-700">CL13_SG_ESTADO</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">municipio</td><td class="p-2 px-4 text-blue-700">CL13_NM_CIDAD</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">codigoIBGE</td><td class="p-2 px-4 text-blue-700">CL13_CD_CIDADE</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">identificadorUnicoDoContrato</td><td class="p-2 px-4 text-blue-700">EM01_NR_CONTRA</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">projetoFinalidadeDoFinanciamento</td><td class="p-2 px-4 text-blue-700">EM396_CD_FINACR</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">situacaoDaOperacao</td><td class="p-2 px-4 text-blue-700">EM01_ID_SITUAC</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">dataDeInicioContrato</td><td class="p-2 px-4 text-amber-700">NÃO LOCALIZADO NO DICIONÁRIO</td><td class="p-2 px-4 text-center text-amber-600">Gap de Dados ⚠</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">dataDoFimDoContrato</td><td class="p-2 px-4 text-blue-700">EM01_DT_VCTULT</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">prazo</td><td class="p-2 px-4 text-blue-700">EM01_PZ_MCONTR</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">carencia</td><td class="p-2 px-4 text-blue-700">EM01_PZ_MCAREN</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">valorDoFinanciamento</td><td class="p-2 px-4 text-blue-700">EM01_VL_CONTRA</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">valorDesembolsado</td><td class="p-2 px-4 text-blue-700">EM01_VL_DESEMB</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">tipoTac</td><td class="p-2 px-4 text-blue-700">EM02_TP_NATARI</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">tac</td><td class="p-2 px-4 text-blue-700">EM01_VL_CONCES</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">spread</td><td class="p-2 px-4 text-blue-700">EM01_TX_CONCES</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">taxa</td><td class="p-2 px-4 text-blue-700">EM01_TX_DELCRE</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">valorDasGarantias</td><td class="p-2 px-4 text-blue-700">EM02_VL_LIMGAR</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">descricaoDasGarantias</td><td class="p-2 px-4 text-blue-700">EM38_TP_GARANT</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">percentualFundoGarantidor</td><td class="p-2 px-4 text-blue-700">EM113_PC_RISCO</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">fundoGarantidor</td><td class="p-2 px-4 text-blue-700">EM19_ID_TIPFGI</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">creditoExtraordinario</td><td class="p-2 px-4 text-amber-700 italic">NÃO LOCALIZADO NO DICIONÁRIO</td><td class="p-2 px-4 text-center text-amber-600">Gap de Dados ⚠</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">empregosGerados</td><td class="p-2 px-4 text-blue-700">EM305_QT_EMPAP - EM305_QT_EMPANT</td><td class="p-2 px-4 text-center text-amber-600">Calculado 🧮</td></tr>
+                                <tr><td class="p-2 px-4 font-bold">empregosMantidos</td><td class="p-2 px-4 text-blue-700">EM305_QT_EMPANT</td><td class="p-2 px-4 text-center text-emerald-600">Mapeado ✔</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">acoesMturFinanciamento</td><td class="p-2 px-4 text-amber-700 italic">NÃO LOCALIZADO NO DICIONÁRIO</td><td class="p-2 px-4 text-center text-amber-600">Gap de Dados ⚠</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">banco</td><td class="p-2 px-4 text-blue-700">EM01_CD_BANCOB</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">agencia</td><td class="p-2 px-4 text-blue-700">EM01_CD_AGECOB</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2 px-4 font-bold">conta</td><td class="p-2 px-4 text-blue-700">EM01_NR_CCREDI</td><td class="p-2 px-4 text-center text-rose-600">A criar ⚠</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+                <div class="bg-white border border-gf-border rounded-xl shadow-sm overflow-hidden">
+                    <div class="p-4 bg-slate-900 text-white font-semibold text-sm flex flex-col sm:flex-row sm:items-center justify-between gap-2">
+                        <div class="flex items-center gap-2">
+                            <i data-lucide="calendar-days" class="w-4 h-4 text-amber-400"></i>
+                            <span>Declarações Mensais — Webservice Declaracao Mensal Resource</span>
+                        </div>
+                    </div>
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse text-xs font-mono">
+                            <thead>
+                                <tr class="bg-slate-50 border-b border-gf-border text-[11px] font-bold uppercase text-gf-gray tracking-wider"><th class="p-2.5 px-4 w-1/3">Propriedade Swagger (JSON)</th><th class="p-2.5 px-4 w-1/3">Campo / Regra Contábil no Legado</th><th class="p-2.5 px-4 w-1/3 text-center">Origem Mapeada</th></tr>
+                            </thead>
+                            <tbody class="divide-y text-slate-700">
+                                <tr><td class="p-2.5 px-4 font-bold text-gf-dark">id</td><td class="p-2.5 px-4 text-slate-500">Chave sequencial primária identificadora da declaração</td><td class="p-2.5 px-4 text-center text-amber-600 font-sans">Gerado no Lote de Envio</td></tr>
+                                <tr><td class="p-2.5 px-4 font-bold text-gf-dark">mesReferencia</td><td class="p-2.5 px-4 text-slate-500">Mês de competência avaliado (Ex: 05)</td><td class="p-2.5 px-4 text-center text-amber-600 font-sans">Filtro de Processamento</td></tr>
+                                <tr><td class="p-2.5 px-4 font-bold text-gf-dark">anoReferencia</td><td class="p-2.5 px-4 text-slate-500">Ano de competência avaliado (Ex: 2026)</td><td class="p-2.5 px-4 text-center text-amber-600 font-sans">Filtro de Processamento</td></tr>
+                                <tr><td class="p-2.5 px-4 font-bold text-gf-dark">status</td><td class="p-2.5 px-4 text-slate-500">Estado de validação do fechamento da competência</td><td class="p-2.5 px-4 text-center text-amber-600 font-sans">Enumerador Interno</td></tr>
+                                <tr><td class="p-2.5 px-4 font-bold text-gf-dark">valorTotalContratado</td><td class="p-2.5 px-4 text-blue-700">SUM(EM01_VL_CONTRA) ativos na competência</td><td class="p-2.5 px-4 text-center text-emerald-600 font-sans">Somatória de EM01</td></tr>
+                                <tr><td class="p-2.5 px-4 font-bold text-gf-dark">valorLiberado</td><td class="p-2.5 px-4 text-blue-700">SUM(EM01_VL_DESEMB) ocorridos no mês</td><td class="p-2.5 px-4 text-center text-emerald-600 font-sans">Somatória de EM01</td></tr>
+                                <tr><td class="p-2.5 px-4 font-bold text-gf-dark">valorAmortizadoNoMes</td><td class="p-2.5 px-4 text-slate-500">Somatória real de recebimentos de parcelas recebidas</td><td class="p-2.5 px-4 text-center text-amber-600 font-sans">Apropriação de Caixa</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">amortizacaoExtraordinarias</td><td class="p-2.5 px-4 text-rose-600 italic">??? Liquidações integrais ou parciais antecipadas</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Requer Flag em Amortizações</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">contratosAnalise</td><td class="p-2.5 px-4 text-rose-600 italic">??? Lista/Array de propostas registradas em trâmite</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Mapear Banco de Propostas</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">valorTotalContratosAnalise</td><td class="p-2.5 px-4 text-rose-600 italic">??? Somatória monetária do saldo em trâmite</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Mapear Banco de Propostas</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">contratosConcluidosMes</td><td class="p-2.5 px-4 text-rose-600 italic">??? Quantidade de operações que saíram de análise para contratação</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Contagem por Gatilho de Estado</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">valorTotalContratosConcluidosMes</td><td class="p-2.5 px-4 text-rose-600 italic">??? Volume financeiro das novas contratações do mês</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Contagem por Gatilho de Estado</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">valorRecebidoFungetur</td><td class="p-2.5 px-4 text-rose-600 italic">??? Total de aportes financeiros creditados pelo repassador</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Módulo Contábil (Razão)</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">saldoFinanceiroNaInstituicao</td><td class="p-2.5 px-4 text-rose-600 italic">??? Conciliação bancária de saldo da conta vinculada</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Módulo Contábil (Razão)</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">saldoDisponivelNovosContratos</td><td class="p-2.5 px-4 text-rose-600 italic">??? Saldo disponível real livre de amarras</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Cálculo de Teto Consolidado</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">remuneracaoInpcNoMes</td><td class="p-2.5 px-4 text-rose-600 italic">??? Atualização inflacionária aplicada ao saldo</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Cálculo do Módulo de Índices</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">remuneracaoSelicNoMes</td><td class="p-2.5 px-4 text-rose-600 italic">??? Juros correntes acumulados da conta reserva</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Cálculo do Módulo de Índices</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">semContratacoesCelebradasNoMes</td><td class="p-2.5 px-4 text-rose-600 italic">??? Flag booleana indicando se o mês foi nulo de assinaturas</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Avaliação Lógica do Lote</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">semContratacoesEmAnaliseNoMes</td><td class="p-2.5 px-4 text-rose-600 italic">??? Flag booleana indicando se o mês foi nulo de propostas</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Avaliação Lógica do Lote</td></tr>
+                                <tr class="bg-rose-50/30"><td class="p-2.5 px-4 font-bold text-gf-dark">informacoesComplementares</td><td class="p-2.5 px-4 text-rose-600 italic">??? Observações ou considerações adicionais do período</td><td class="p-2.5 px-4 text-center text-rose-600 font-sans">Input Manual</td></tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </section>
+
+        </div>
+    </main>
+
+    <div id="legacy-modal" class="fixed inset-0 z-50 hidden bg-slate-900/60 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto">
+        <div class="bg-white rounded-xl shadow-xl border border-gf-border max-w-4xl w-full overflow-hidden transform transition-all flex flex-col max-h-[90vh]">
+            <div class="p-4 bg-slate-900 text-white flex items-center justify-between">
+                <div class="flex items-center gap-2">
+                    <i data-lucide="image" class="w-4 h-4 text-amber-400"></i>
+                    <span class="text-sm font-semibold">Mapeamento UX/UI: Tela Legada de Origem (Evertec)</span>
+                </div>
+                <button onclick="closeLegacyModal()" class="text-slate-400 hover:text-white transition-colors"><i data-lucide="x" class="w-5 h-5"></i></button>
+            </div>
+            <div class="p-4 bg-slate-100 flex-1 overflow-y-auto flex items-center justify-center">
+                <img id="legacy-modal-img" src="" alt="Tela Legada Mapeada" class="rounded-lg shadow border border-slate-300 max-w-full h-auto object-contain">
+            </div>
+            <div class="p-3 bg-slate-50 border-t border-gf-border flex justify-end">
+                <button onclick="closeLegacyModal()" class="bg-slate-900 hover:bg-slate-800 text-white text-xs font-semibold px-4 py-2 rounded-md transition-all">Fechar Visualização</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        function switchTab(tabId) {
+            document.querySelectorAll('.tab-content').forEach(el => {
+                el.classList.remove('block');
+                el.classList.add('hidden');
+            });
+            
+            document.getElementById('tab-' + tabId).classList.remove('hidden');
+            document.getElementById('tab-' + tabId).classList.add('block');
+
+            const buttons = ['fonte-recursos', 'clientes-cl01', 'contrato-em01', 'limites-operar', 'envio-remessa', 'declaracao-mensal', 'retorno-lotes', 'fluxo-contratacao', 'fluxo-gerenciamento', 'config-api', 'impacto-legado'];
+            buttons.forEach(bId => {
+                const btn = document.getElementById('btn-' + bId);
+                if (btn) {
+                    if (bId === tabId) {
+                        btn.classList.add('text-gf-purple', 'bg-violet-50/70');
+                        btn.classList.remove('text-gf-gray', 'hover:text-gf-dark', 'hover:bg-slate-50');
+                    } else {
+                        btn.classList.remove('text-gf-purple', 'bg-violet-50/70');
+                        btn.classList.add('text-gf-gray', 'hover:text-gf-dark', 'hover:bg-slate-50');
+                    }
+                }
+            });
+        }
+
+        function addAditivoMock() {
+            const data = document.getElementById('adt-data').value || '28/05/2026';
+            const doc = document.getElementById('adt-doc').value || 'Termo Aditivo Suplementar';
+            const valor = document.getElementById('adt-valor').value || '0,00';
+            const vigencia = document.getElementById('adt-vigencia').value || '31/12/2027';
+
+            const tableBody = document.getElementById('aditivos-body');
+            const row = document.createElement('tr');
+            row.className = "bg-violet-50/30";
+            row.innerHTML = `
+                <td class="p-2 font-mono">${data}</td>
+                <td class="p-2 font-medium text-gf-purple">${doc}</td>
+                <td class="p-2 font-mono">${vigencia}</td>
+                <td class="p-2 text-right font-mono text-gf-purple font-medium">${valor}</td>
+            `;
+            tableBody.appendChild(row);
+
+            document.getElementById('adt-doc').value = '';
+            document.getElementById('adt-valor').value = '';
+        }
+
+        function openLegacyModal(imageName) {
+            const modal = document.getElementById('legacy-modal');
+            const imgElement = document.getElementById('legacy-modal-img');
+            imgElement.src = imageName;
+            modal.classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeLegacyModal() {
+            document.getElementById('legacy-modal').classList.add('hidden');
+        }
+
+        window.onclick = function(event) {
+            const modal = document.getElementById('legacy-modal');
+            if (event.target == modal) {
+                modal.classList.add('hidden');
+            }
+        }
+
+        lucide.createIcons();
+    </script>
+</body>
+</html>
