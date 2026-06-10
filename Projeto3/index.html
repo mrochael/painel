@@ -113,8 +113,16 @@
                 id="btn-declaracao-mensal"
                 onclick="switchTab('declaracao-mensal')"
               >
-                <i class="w-4 h-4" data-lucide="calendar-range"></i> Declaração
-                Mensal
+                <i class="w-4 h-4" data-lucide="calendar-range"></i> Cadastrar
+                Declaração de Movimentação Mensal
+              </button>
+              <button
+                onclick="switchTab('visualizar-declaracao')"
+                id="btn-visualizar-declaracao"
+                class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50 text-left"
+              >
+                <i class="w-4 h-4" data-lucide="eye"></i> Visualizar Declaração
+                de Movimentação Mensal
               </button>
               <button
                 onclick="switchTab('retorno-lotes')"
@@ -122,6 +130,14 @@
                 class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50"
               >
                 <i data-lucide="receipt" class="w-4 h-4"></i> Retorno de Lotes
+              </button>
+              <button
+                onclick="switchTab('gerenciar-financiamentos')"
+                id="btn-gerenciar-financiamentos"
+                class="w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors text-gf-gray hover:text-gf-dark hover:bg-slate-50"
+              >
+                <i data-lucide="folder-search" class="w-4 h-4"></i> Gerenciar
+                Dados de Financiamento
               </button>
             </div>
           </div>
@@ -226,6 +242,27 @@
               <i data-lucide="eye" class="w-3.5 h-3.5"></i>
               <span>Ver Tela Legada (Evertec)</span>
             </button>
+          </div>
+
+          <div
+            class="bg-rose-50 border border-rose-200 rounded-xl p-4 flex items-start gap-3"
+          >
+            <i
+              data-lucide="alert-circle"
+              class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"
+            ></i>
+            <div>
+              <span class="text-sm font-bold text-rose-900 block">Nota</span>
+              <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
+                A imagem mapeada do legado, no botão ao lado, demonstra a
+                interface de manutenção ativa no CD - Cadastro.
+              </p>
+              <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
+                Os campos abaixo indicam as novas colunas necessárias para
+                suportar a validação transacional do FUNGETUR e demais Fontes
+                Recursos.
+              </p>
+            </div>
           </div>
 
           <div
@@ -580,14 +617,15 @@
               class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"
             ></i>
             <div>
-              <span class="text-sm font-bold text-rose-900 block"
-                >Nota de Engenharia</span
-              >
+              <span class="text-sm font-bold text-rose-900 block">Nota</span>
               <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
                 A imagem mapeada do legado abaixo demonstra a interface de
-                manutenção ativa. Os campos destacados em **Vermelho** indicam
-                as novas colunas e chaves estruturais necessárias para suportar
-                a validação transacional do CADASTUR.
+                manutenção ativa. Não precisa estar exatamente neste lugar.
+              </p>
+              <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
+                Os campos destacados em Vermelho indicam as novas colunas e
+                chaves estruturais necessárias para suportar a validação
+                transacional do CADASTUR.
               </p>
             </div>
           </div>
@@ -621,14 +659,15 @@
               class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"
             ></i>
             <div>
-              <span class="text-sm font-bold text-rose-900 block"
-                >Nota de Engenharia</span
-              >
+              <span class="text-sm font-bold text-rose-900 block">Nota</span>
               <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
-                Abaixo é exibida a tela legada de Propostas/Contratos. A caixa
-                marcada em **Vermelho** na aba de Dados Adicionais indica a
-                inclusão dos campos de número único do contrato da fonte,
-                destinação do recurso e ID do projeto no MTur.
+                Abaixo é exibida a tela do legado de Propostas/Contratos. Não
+                precisa estar exatamente neste lugar.
+              </p>
+              <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
+                A caixa marcada em **Vermelho** indica a inclusão dos campos de
+                número único do contrato da fonte, destinação do recurso e ID do
+                projeto no MTur.
               </p>
             </div>
           </div>
@@ -668,22 +707,75 @@
           </div>
 
           <div
+            class="bg-rose-50 border border-rose-200 rounded-xl p-4 flex items-start gap-3"
+          >
+            <i
+              data-lucide="alert-circle"
+              class="w-5 h-5 text-rose-600 shrink-0 mt-0.5"
+            ></i>
+            <div>
+              <span class="text-sm font-bold text-rose-900 block">Nota</span>
+              <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
+                A imagem mapeada do legado, no botão ao lado, demonstra a
+                interface de manutenção ativa no EM - Limite a Operar.
+              </p>
+              <p class="text-xs text-rose-700 leading-relaxed mt-0.5">
+                A interface abaixo indica a inclusão dos campos destinados a
+                atender a demanda.
+              </p>
+            </div>
+          </div>
+
+          <!-- Tabela de limites cadastrados -->
+          <div
             class="bg-white border border-gf-border rounded-xl shadow-sm overflow-hidden"
           >
+            <div
+              class="px-5 py-3 bg-slate-50/60 border-b border-gf-border flex items-center justify-between"
+            >
+              <span
+                class="text-xs font-semibold uppercase tracking-wider text-gf-gray"
+                >Limites Cadastrados</span
+              >
+              <div class="flex items-center gap-4">
+                <!-- Legenda de cores -->
+                <div class="flex items-center gap-3 text-[10px] text-gf-gray">
+                  <span class="flex items-center gap-1"
+                    ><span
+                      class="inline-block w-2 h-2 rounded-full bg-emerald-500"
+                    ></span>
+                    Saldo saudável</span
+                  >
+                  <span class="flex items-center gap-1"
+                    ><span
+                      class="inline-block w-2 h-2 rounded-full bg-amber-400"
+                    ></span>
+                    Saldo crítico</span
+                  >
+                  <span class="flex items-center gap-1"
+                    ><span
+                      class="inline-block w-2 h-2 rounded-full bg-slate-300"
+                    ></span>
+                    Sem movimentação</span
+                  >
+                </div>
+              </div>
+            </div>
             <div class="overflow-x-auto">
               <table class="w-full text-left border-collapse">
                 <thead>
                   <tr
                     class="bg-slate-50 border-b border-gf-border text-[11px] font-semibold uppercase tracking-wider text-gf-gray"
                   >
-                    <th class="py-3 px-4">Cod.</th>
+                    <th class="py-3 px-4">Código</th>
                     <th class="py-3 px-4">Nome do Limite</th>
-                    <th class="py-3 px-4 text-right">Valor Inicial</th>
-                    <th class="py-3 px-4 text-right">Total Aditivado</th>
-                    <th class="py-3 px-4 text-right">Valor Limite Total</th>
-                    <th class="py-3 px-4 text-right">Vlr. Utilizado</th>
-                    <th class="py-3 px-4 text-right">Vlr. Restante</th>
+                    <th class="py-3 px-4 text-right">Valor Inicial (R$)</th>
+                    <th class="py-3 px-4 text-right">Aditivos (R$)</th>
+                    <th class="py-3 px-4 text-right">Teto Total (R$)</th>
+                    <th class="py-3 px-4 text-right">Utilizado (R$)</th>
+                    <th class="py-3 px-4 text-right">Saldo Disponível (R$)</th>
                     <th class="py-3 px-4">Vigência</th>
+                    <th class="py-3 px-4 w-16 text-center">Ações</th>
                   </tr>
                 </thead>
                 <tbody class="divide-y divide-gf-border text-xs text-[#333d47]">
@@ -696,20 +788,30 @@
                       10.000.000,00
                     </td>
                     <td class="py-3 px-4 text-right font-mono text-purple-600">
-                      + 3.500.000,00
+                      3.500.000,00
                     </td>
-                    <td
-                      class="py-3 px-4 text-right font-mono text-emerald-600 font-semibold"
-                    >
+                    <td class="py-3 px-4 text-right font-mono font-semibold">
                       13.500.000,00
                     </td>
                     <td class="py-3 px-4 text-right font-mono">3.000.000,00</td>
-                    <td
-                      class="py-3 px-4 text-right font-mono text-emerald-600 font-semibold"
-                    >
-                      10.500.000,00
+                    <td class="py-3 px-4 text-right font-mono">
+                      <span
+                        class="inline-flex items-center gap-1.5 text-emerald-700 font-semibold"
+                      >
+                        <span
+                          class="w-1.5 h-1.5 rounded-full bg-emerald-500 shrink-0"
+                        ></span
+                        >10.500.000,00
+                      </span>
                     </td>
                     <td class="py-3 px-4 font-mono">31/12/2027</td>
+                    <td class="py-3 px-4 text-center">
+                      <button
+                        class="text-gf-gray hover:text-gf-purple transition-colors"
+                      >
+                        <i data-lucide="edit-3" class="w-4 h-4 inline"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr class="hover:bg-slate-50/60 transition-colors">
                     <td class="py-3 px-4 font-mono font-medium">L-042</td>
@@ -719,15 +821,31 @@
                     <td class="py-3 px-4 text-right font-mono">
                       15.000.000,00
                     </td>
-                    <td class="py-3 px-4 text-right font-mono">4.250.000,00</td>
-                    <td
-                      class="py-3 px-4 text-right font-mono text-emerald-600 font-semibold"
-                    >
+                    <td class="py-3 px-4 text-right font-mono text-purple-600">
+                      4.250.000,00
+                    </td>
+                    <td class="py-3 px-4 text-right font-mono font-semibold">
                       10.750.000,00
                     </td>
-                    <td class="py-3 px-4 text-right font-mono">0,00</td>
-                    <td class="py-3 px-4 text-right font-mono">0,00</td>
+                    <td class="py-3 px-4 text-right font-mono">—</td>
+                    <td class="py-3 px-4 text-right font-mono">
+                      <span
+                        class="inline-flex items-center gap-1.5 text-slate-500"
+                      >
+                        <span
+                          class="w-1.5 h-1.5 rounded-full bg-slate-300 shrink-0"
+                        ></span
+                        >—
+                      </span>
+                    </td>
                     <td class="py-3 px-4 font-mono">31/12/2026</td>
+                    <td class="py-3 px-4 text-center">
+                      <button
+                        class="text-gf-gray hover:text-gf-purple transition-colors"
+                      >
+                        <i data-lucide="edit-3" class="w-4 h-4 inline"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr class="hover:bg-slate-50/60 transition-colors">
                     <td class="py-3 px-4 font-mono font-medium">L-089</td>
@@ -735,15 +853,31 @@
                       Teto Financiamento BNDES Automotivo
                     </td>
                     <td class="py-3 px-4 text-right font-mono">8.000.000,00</td>
-                    <td class="py-3 px-4 text-right font-mono">7.100.000,00</td>
-                    <td
-                      class="py-3 px-4 text-right font-mono text-amber-600 font-semibold"
-                    >
+                    <td class="py-3 px-4 text-right font-mono text-purple-600">
+                      7.100.000,00
+                    </td>
+                    <td class="py-3 px-4 text-right font-mono font-semibold">
                       900.000,00
                     </td>
-                    <td class="py-3 px-4 text-right font-mono">0,00</td>
-                    <td class="py-3 px-4 text-right font-mono">0,00</td>
+                    <td class="py-3 px-4 text-right font-mono">—</td>
+                    <td class="py-3 px-4 text-right font-mono">
+                      <span
+                        class="inline-flex items-center gap-1.5 text-amber-700 font-semibold"
+                      >
+                        <span
+                          class="w-1.5 h-1.5 rounded-full bg-amber-400 shrink-0"
+                        ></span
+                        >900.000,00
+                      </span>
+                    </td>
                     <td class="py-3 px-4 font-mono">15/10/2026</td>
+                    <td class="py-3 px-4 text-center">
+                      <button
+                        class="text-gf-gray hover:text-gf-purple transition-colors"
+                      >
+                        <i data-lucide="edit-3" class="w-4 h-4 inline"></i>
+                      </button>
+                    </td>
                   </tr>
                   <tr class="hover:bg-slate-50/60 transition-colors">
                     <td class="py-3 px-4 font-mono font-medium">L-112</td>
@@ -751,547 +885,1044 @@
                       Fundo de Apoio ao Turismo - Fungetur Capital
                     </td>
                     <td class="py-3 px-4 text-right font-mono">5.000.000,00</td>
-                    <td class="py-3 px-4 text-right font-mono">0,00</td>
-                    <td
-                      class="py-3 px-4 text-right font-mono text-emerald-600 font-semibold"
-                    >
+                    <td class="py-3 px-4 text-right font-mono text-slate-400">
+                      —
+                    </td>
+                    <td class="py-3 px-4 text-right font-mono font-semibold">
                       5.000.000,00
                     </td>
-                    <td class="py-3 px-4 text-right font-mono">0,00</td>
-                    <td class="py-3 px-4 text-right font-mono">0,00</td>
-                    <td class="py-3 px-4 font-mono">01/06/2027</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-
-          <div
-            class="bg-white rounded-xl border border-gf-border shadow-sm p-6 space-y-6"
-          >
-            <div class="grid grid-cols-1 md:grid-cols-12 gap-5">
-              <div class="md:col-span-3">
-                <label class="block text-xs font-semibold text-gf-gray mb-1.5"
-                  >Limite <span class="text-rose-500">*</span></label
-                >
-                <input
-                  type="text"
-                  placeholder="Código"
-                  class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm focus:outline-none"
-                />
-              </div>
-              <div class="md:col-span-6">
-                <label class="block text-xs font-semibold text-gf-gray mb-1.5"
-                  >Descrição <span class="text-rose-500">*</span></label
-                >
-                <input
-                  type="text"
-                  placeholder="Nome descritivo da regra de limite"
-                  class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm focus:outline-none"
-                />
-              </div>
-              <div class="md:col-span-3">
-                <label class="block text-xs font-semibold text-gf-gray mb-1.5"
-                  >Vigência Geral <span class="text-rose-500">*</span></label
-                >
-                <input
-                  type="date"
-                  class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm text-gf-gray focus:outline-none"
-                />
-              </div>
-
-              <div class="md:col-span-4">
-                <label class="block text-xs font-semibold text-gf-gray mb-1.5"
-                  >Tipo Limite</label
-                >
-                <select
-                  class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none"
-                >
-                  <option>Por instituição</option>
-                  <option>Global</option>
-                </select>
-              </div>
-              <div class="md:col-span-4">
-                <label class="block text-xs font-semibold text-gf-gray mb-1.5"
-                  >Quando baixar limite</label
-                >
-                <select
-                  class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none"
-                >
-                  <option>Na baixa</option>
-                  <option>Na contratação</option>
-                </select>
-              </div>
-              <div class="md:col-span-4">
-                <label class="block text-xs font-semibold text-gf-gray mb-1.5"
-                  >Tp. vlr. lim.</label
-                >
-                <select
-                  class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none"
-                >
-                  <option>Valor presente</option>
-                </select>
-              </div>
-
-              <div
-                class="md:col-span-12 grid grid-cols-1 md:grid-cols-12 gap-3 bg-slate-50/50 p-4 rounded-lg border border-gf-border"
-              >
-                <div class="md:col-span-3">
-                  <label
-                    class="block text-[11px] font-semibold text-gf-gray mb-1"
-                    >Carteira</label
-                  >
-                  <div class="flex gap-1">
-                    <input
-                      type="text"
-                      class="w-12 px-2 py-1 border rounded text-sm text-center"
-                    /><input
-                      type="text"
-                      disabled
-                      class="flex-1 px-2 py-1 border rounded text-sm bg-slate-100 text-gf-gray"
-                    />
-                  </div>
-                </div>
-                <div class="md:col-span-3">
-                  <label
-                    class="block text-[11px] font-semibold text-gf-gray mb-1"
-                    >Produto</label
-                  >
-                  <div class="flex gap-1">
-                    <input
-                      type="text"
-                      class="w-12 px-2 py-1 border rounded text-sm text-center"
-                    /><input
-                      type="text"
-                      disabled
-                      class="flex-1 px-2 py-1 border rounded text-sm bg-slate-100 text-gf-gray"
-                    />
-                  </div>
-                </div>
-                <div class="md:col-span-3">
-                  <label
-                    class="block text-[11px] font-semibold text-gf-gray mb-1"
-                    >Segmento</label
-                  >
-                  <div class="flex gap-1">
-                    <input
-                      type="text"
-                      class="w-12 px-2 py-1 border rounded text-sm text-center"
-                    /><input
-                      type="text"
-                      disabled
-                      class="flex-1 px-2 py-1 border rounded text-sm bg-slate-100 text-gf-gray"
-                    />
-                  </div>
-                </div>
-                <div class="md:col-span-3">
-                  <label
-                    class="block text-[11px] font-semibold text-gf-gray mb-1"
-                    >Cond. Oper.</label
-                  >
-                  <div class="flex gap-1">
-                    <input
-                      type="text"
-                      class="w-12 px-2 py-1 border rounded text-sm text-center"
-                    /><input
-                      type="text"
-                      disabled
-                      class="flex-1 px-2 py-1 border rounded text-sm bg-slate-100 text-gf-gray"
-                    />
-                  </div>
-                </div>
-              </div>
-
-              <div
-                class="md:col-span-12 grid grid-cols-1 md:grid-cols-4 gap-4 pt-2"
-              >
-                <div>
-                  <label class="block text-xs font-semibold text-gf-gray mb-1.5"
-                    >Valor Inicial Contratado *</label
-                  ><input
-                    type="text"
-                    placeholder="10.000.000,00"
-                    class="w-full px-3 py-1.5 border rounded-md text-sm text-right"
-                  />
-                </div>
-                <div>
-                  <label class="block text-xs font-semibold text-gf-gray mb-1.5"
-                    >(-) Valor Utilizado</label
-                  ><input
-                    type="text"
-                    placeholder="3.000.000,00"
-                    class="w-full px-3 py-1.5 border rounded-md text-sm text-right"
-                  />
-                </div>
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-amber-700 mb-1.5"
-                    >(-) Propostas em Análise</label
-                  ><input
-                    type="text"
-                    placeholder="1.500.000,00"
-                    class="w-full px-3 py-1.5 border border-amber-200 bg-amber-50/20 rounded-md text-sm text-right font-medium"
-                  />
-                </div>
-                <div>
-                  <label
-                    class="block text-xs font-semibold text-emerald-700 mb-1.5"
-                    >(=) Valor Restante Disponível</label
-                  ><input
-                    type="text"
-                    placeholder="9.000.000,00"
-                    disabled
-                    class="w-full px-3 py-1.5 border border-emerald-200 bg-emerald-50/30 text-emerald-900 rounded-md text-sm text-right font-bold cursor-not-allowed"
-                  />
-                </div>
-              </div>
-            </div>
-
-            <div
-              class="bg-slate-50 p-4 rounded-xl border border-gf-border space-y-4"
-            >
-              <div>
-                <h3
-                  class="text-xs font-bold uppercase tracking-wider text-gf-dark flex items-center gap-1.5"
-                >
-                  <i
-                    data-lucide="layers-3"
-                    class="w-3.5 h-3.5 text-gf-purple"
-                  ></i>
-                  Composição Financeira (Contrato Base e Aditivos)
-                </h3>
-                <p class="text-[11px] text-gf-gray">
-                  Insira termos aditivos de aporte para somar dinamicamente ao
-                  valor total do limite contratado.
-                </p>
-              </div>
-              <div
-                class="grid grid-cols-1 sm:grid-cols-4 gap-3 bg-white p-3 rounded-lg border border-gf-border"
-              >
-                <div>
-                  <label
-                    class="block text-[10px] font-semibold text-gf-gray mb-1"
-                    >Data Lançamento</label
-                  ><input
-                    type="date"
-                    id="adt-data"
-                    class="w-full px-2 py-1 border rounded text-xs"
-                  />
-                </div>
-                <div>
-                  <label
-                    class="block text-[10px] font-semibold text-gf-gray mb-1"
-                    >Nr Documento / Aditivo</label
-                  ><input
-                    type="text"
-                    id="adt-doc"
-                    placeholder="Ex: Termo Aditivo 02/2026"
-                    class="w-full px-2 py-1 border rounded text-xs focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label
-                    class="block text-[10px] font-semibold text-gf-gray mb-1"
-                    >Valor Aporte</label
-                  ><input
-                    type="text"
-                    id="adt-valor"
-                    placeholder="0,00"
-                    class="w-full px-2 py-1 border rounded text-xs text-right focus:outline-none"
-                  />
-                </div>
-                <div>
-                  <label
-                    class="block text-[10px] font-semibold text-gf-gray mb-1"
-                    >Vigência Específica</label
-                  >
-                  <div class="flex gap-2">
-                    <input
-                      type="date"
-                      id="adt-vigencia"
-                      class="flex-1 px-2 py-1 border rounded text-xs"
-                    /><button
-                      type="button"
-                      onclick="addAditivoMock()"
-                      class="bg-gf-purple text-white px-3 py-1 rounded text-xs font-medium"
-                    >
-                      Adicionar
-                    </button>
-                  </div>
-                </div>
-              </div>
-              <div class="bg-white rounded-lg border overflow-hidden">
-                <table class="w-full text-left text-xs">
-                  <thead
-                    class="bg-slate-100 text-gf-gray font-semibold text-[10px] uppercase"
-                  >
-                    <tr>
-                      <th class="p-2">Data</th>
-                      <th class="p-2">Nº Documento / Descrição</th>
-                      <th>Vigência</th>
-                      <th class="p-2 text-right">Valor do Aporte</th>
-                    </tr>
-                  </thead>
-                  <tbody id="aditivos-body" class="divide-y text-[#444]">
-                    <tr>
-                      <td class="p-2 font-mono">10/02/2026</td>
-                      <td class="p-2 font-medium">
-                        Contrato de Repasse Mãe Principal
-                      </td>
-                      <td class="p-2 font-mono">31/12/2027</td>
-                      <td class="p-2 text-right font-mono">10.000.000,00</td>
-                    </tr>
-                  </tbody>
-                </table>
-              </div>
-            </div>
-
-            <div class="pt-4 border-t border-gf-border space-y-4">
-              <div
-                class="flex flex-col sm:flex-row sm:items-center justify-between gap-2"
-              >
-                <h2
-                  class="text-sm font-semibold uppercase tracking-wider text-gf-purple mb-1 flex items-center gap-2"
-                >
-                  <i data-lucide="shield-check" class="w-4 h-4"></i>
-                  Consistências do Sistema (Cálculo Dinâmico)
-                </h2>
-              </div>
-              <div class="space-y-3">
-                <div
-                  class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-slate-50/30 p-2.5 rounded border border-gf-border mb-3"
-                >
-                  <div class="lg:col-span-2 text-xs font-semibold">
-                    Cadastro:
-                  </div>
-                  <div class="lg:col-span-3">
-                    <select
-                      class="w-full px-2 py-1 border rounded text-sm bg-white"
-                    >
-                      <option>Não consistir</option>
-                    </select>
-                  </div>
-                  <div class="lg:col-span-3 flex items-center gap-2">
-                    <span class="text-[11px] text-gf-gray shrink-0"
-                      >% s/ Limite Aditivado</span
-                    >
-                    <input
-                      type="text"
-                      value="0,00"
-                      class="w-full px-2 py-1 border rounded text-sm text-right"
-                    />
-                  </div>
-                  <div class="lg:col-span-2 flex items-center gap-2">
-                    <span class="text-[11px] text-gf-gray shrink-0"
-                      >Cons. em:</span
-                    >
-                    <input
-                      type="text"
-                      class="w-full px-2 py-1 border rounded text-sm"
-                    />
-                  </div>
-                  <div class="lg:col-span-2 flex items-center gap-2">
-                    <span
-                      class="text-[11px] text-amber-800 font-semibold shrink-0"
-                      >Disp. Real:</span
-                    >
-                    <input
-                      type="text"
-                      value="9.000.000,00"
-                      disabled
-                      class="w-full px-2 py-1 border border-amber-200 rounded text-sm bg-amber-50/40 text-right font-mono text-amber-900"
-                    />
-                  </div>
-                </div>
-
-                <div
-                  class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-slate-50/30 p-2.5 rounded border border-gf-border mb-3"
-                >
-                  <div class="lg:col-span-2 text-xs font-semibold">
-                    Jurídico:
-                  </div>
-                  <div class="lg:col-span-3">
-                    <select
-                      class="w-full px-2 py-1 border rounded text-sm bg-white"
-                    >
-                      <option>Não consistir</option>
-                    </select>
-                  </div>
-                  <div class="lg:col-span-3 flex items-center gap-2">
-                    <span class="text-[11px] text-gf-gray shrink-0"
-                      >% s/ Limite Aditivado</span
-                    >
-                    <input
-                      type="text"
-                      value="0,00"
-                      class="w-full px-2 py-1 border rounded text-sm text-right"
-                    />
-                  </div>
-                  <div class="lg:col-span-2 flex items-center gap-2">
-                    <span class="text-[11px] text-gf-gray shrink-0"
-                      >Cons. em:</span
-                    >
-                    <input
-                      type="text"
-                      class="w-full px-2 py-1 border rounded text-sm"
-                    />
-                  </div>
-                  <div class="lg:col-span-2 flex items-center gap-2">
-                    <span
-                      class="text-[11px] text-amber-800 font-semibold shrink-0"
-                      >Disp. Real:</span
-                    >
-                    <input
-                      type="text"
-                      value="9.000.000,00"
-                      disabled
-                      class="w-full px-2 py-1 border border-amber-200 rounded text-sm bg-amber-50/40 text-right font-mono text-amber-900"
-                    />
-                  </div>
-                </div>
-
-                <div
-                  class="grid grid-cols-1 lg:grid-cols-12 gap-4 items-center bg-slate-50/30 p-2.5 rounded border border-gf-border"
-                >
-                  <div class="lg:col-span-2 text-xs font-semibold">
-                    Financeiro:
-                  </div>
-                  <div class="lg:col-span-3">
-                    <select
-                      class="w-full px-2 py-1 border rounded text-sm bg-white"
-                    >
-                      <option>Consistir e Bloquear Novo Contrato</option>
-                    </select>
-                  </div>
-                  <div class="lg:col-span-3 flex items-center gap-2">
-                    <span class="text-[11px] text-gf-gray shrink-0"
-                      >% s/ Limite Aditivado</span
-                    >
-                    <input
-                      type="text"
-                      value="0,00"
-                      class="w-full px-2 py-1 border rounded text-sm text-right"
-                    />
-                  </div>
-                  <div class="lg:col-span-2 flex items-center gap-2">
-                    <span class="text-[11px] text-gf-gray shrink-0"
-                      >Cons. em:</span
-                    >
-                    <input
-                      type="text"
-                      class="w-full px-2 py-1 border rounded text-sm"
-                    />
-                  </div>
-                  <div class="lg:col-span-2 flex items-center gap-2">
-                    <span
-                      class="text-[11px] text-amber-800 font-semibold shrink-0"
-                      >Disp. Real:</span
-                    >
-                    <input
-                      type="text"
-                      value="9.000.000,00"
-                      disabled
-                      class="w-full px-2 py-1 border border-amber-200 rounded text-sm bg-amber-50/40 text-right font-mono text-amber-900"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
-            <div class="bg-white rounded-xl border border-gf-border p-4">
-              <div class="flex items-center justify-between mb-3">
-                <h3
-                  class="text-[11px] font-bold uppercase tracking-wider text-gf-purple"
-                >
-                  <span
-                    title="Demonstra a memória de cálculo utilizada para composição do saldo disponível para contratação."
-                    >Memória de Cálulo — Disponível Contratação ⓘ</span
-                  >
-                </h3>
-                <span class="text-[10px] text-gf-gray"
-                  >Snapshot Abril/2026</span
-                >
-              </div>
-              <table class="w-full text-xs">
-                <tbody class="divide-y divide-slate-100">
-                  <tr>
-                    <td class="py-2">Repasses MTUR</td>
-                    <td class="py-2 text-right font-mono text-emerald-700">
-                      +113.398.556,40
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="py-2">Operações Contratadas</td>
-                    <td class="py-2 text-right font-mono text-rose-700">
-                      -77.019.129,96
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="py-2">
-                      Devolução de Saldo Remanescente
-
+                    <td class="py-3 px-4 text-right font-mono">—</td>
+                    <td class="py-3 px-4 text-right font-mono">
                       <span
-                        class="ml-1 text-gf-gray cursor-help"
-                        title="Saldo remanescente: crédito extraordinário devolvido ao FUNGETUR + encerramento do contrato com valor devolvido."
+                        class="inline-flex items-center gap-1.5 text-slate-500"
                       >
-                        ⓘ
+                        <span
+                          class="w-1.5 h-1.5 rounded-full bg-slate-300 shrink-0"
+                        ></span
+                        >—
                       </span>
                     </td>
-
-                    <td
-                      class="py-2 text-right font-mono font-bold text-rose-700"
-                    >
-                      -18.168.769,01
+                    <td class="py-3 px-4 font-mono">01/06/2027</td>
+                    <td class="py-3 px-4 text-center">
+                      <button
+                        class="text-gf-gray hover:text-gf-purple transition-colors"
+                      >
+                        <i data-lucide="edit-3" class="w-4 h-4 inline"></i>
+                      </button>
                     </td>
                   </tr>
                 </tbody>
               </table>
             </div>
-            <div class="bg-white rounded-xl border border-gf-border p-4">
-              <div class="flex items-center justify-between mb-3">
-                <h3
-                  class="text-[11px] font-bold uppercase tracking-wider text-gf-purple"
+          </div>
+
+          <!-- Formulário de cadastro/edição -->
+          <div
+            class="bg-white rounded-xl border border-gf-border shadow-sm overflow-hidden"
+          >
+            <!-- Cabeçalho do formulário -->
+            <div
+              class="px-6 py-4 border-b border-gf-border flex items-center justify-between bg-slate-50/40"
+            >
+              <h2
+                class="text-sm font-semibold text-gf-dark flex items-center gap-2"
+              >
+                <i data-lucide="plus-circle" class="w-4 h-4 text-gf-purple"></i>
+                Novo Limite / Editar Limite
+              </h2>
+              <div id="limite-form-actions" class="flex gap-3">
+                <button
+                  type="button"
+                  class="px-4 py-1.5 text-sm font-medium text-gf-gray hover:text-gf-dark transition-colors border border-gf-border rounded-md bg-white"
                 >
-                  <span
-                    title="Informações auxiliares utilizadas para rastreabilidade, auditoria e prestação de contas ao MTur."
-                    >Apoio Auditoria / Prestação de Contas ⓘ</span
-                  >
-                </h3>
-                <span class="text-[10px] text-gf-gray">GEFIN / GENEG</span>
-              </div>
-              <div class="space-y-2 text-xs">
-                <div
-                  class="flex justify-between border-b border-slate-100 pb-1"
+                  Cancelar
+                </button>
+                <button
+                  type="submit"
+                  class="bg-gf-purple text-white font-medium text-sm px-5 py-1.5 rounded-md shadow flex items-center gap-2"
                 >
-                  <span>Processo SEI Juros</span>
-                  <span class="font-mono font-semibold">202500059000004</span>
-                </div>
-                <div
-                  class="flex justify-between border-b border-slate-100 pb-1"
-                >
-                  <span>Origem Remuneração SELIC</span>
-                  <span class="font-semibold">GEFIN</span>
-                </div>
-                <div
-                  class="flex justify-between border-b border-slate-100 pb-1"
-                >
-                  <span>Origem Amortizações</span>
-                  <span class="font-semibold">GENEG</span>
-                </div>
-                <div
-                  class="flex justify-between border-b border-slate-100 pb-1"
-                >
-                  <span>Status Snapshot</span>
-                  <span class="text-emerald-700 font-semibold">CONGELADO</span>
-                </div>
-                <div class="flex justify-between">
-                  <span>Rastreabilidade</span>
-                  <span class="text-gf-purple font-semibold">ATIVA</span>
-                </div>
+                  <i data-lucide="save" class="w-3.5 h-3.5"></i> Salvar Limite
+                </button>
               </div>
             </div>
+
+            <!-- Sub-abas -->
+            <div
+              class="flex border-b border-gf-border bg-white px-6 overflow-x-auto"
+            >
+              <button
+                type="button"
+                onclick="switchLimiteSubTab('dados')"
+                id="limite-subtab-dados"
+                class="limite-subtab shrink-0 px-4 py-3 text-xs font-semibold border-b-2 border-gf-purple text-gf-purple -mb-px flex items-center gap-1.5 transition-colors"
+              >
+                <i data-lucide="settings-2" class="w-3.5 h-3.5"></i>
+                Dados do Limite
+              </button>
+              <button
+                type="button"
+                onclick="switchLimiteSubTab('aditivos')"
+                id="limite-subtab-aditivos"
+                class="limite-subtab shrink-0 px-4 py-3 text-xs font-semibold border-b-2 border-transparent text-gf-gray hover:text-gf-dark -mb-px flex items-center gap-1.5 transition-colors"
+              >
+                <i data-lucide="layers-3" class="w-3.5 h-3.5"></i>
+                Termos Aditivos
+                <span
+                  id="limite-aditivos-badge"
+                  class="ml-1 px-1.5 py-0.5 rounded-full bg-slate-100 text-slate-600 text-[10px] font-bold"
+                  >1</span
+                >
+              </button>
+              <button
+                type="button"
+                onclick="switchLimiteSubTab('memoria')"
+                id="limite-subtab-memoria"
+                class="limite-subtab shrink-0 px-4 py-3 text-xs font-semibold border-b-2 border-transparent text-gf-gray hover:text-gf-dark -mb-px flex items-center gap-1.5 transition-colors"
+              >
+                <i data-lucide="calculator" class="w-3.5 h-3.5"></i>
+                Memória de Cálculo ⓘ
+              </button>
+              <button
+                type="button"
+                onclick="switchLimiteSubTab('auditoria')"
+                id="limite-subtab-auditoria"
+                class="limite-subtab shrink-0 px-4 py-3 text-xs font-semibold border-b-2 border-transparent text-gf-gray hover:text-gf-dark -mb-px flex items-center gap-1.5 transition-colors"
+              >
+                <i data-lucide="file-check-2" class="w-3.5 h-3.5"></i>
+                Apoio Auditoria ⓘ
+              </button>
+            </div>
+
+            <form class="p-6 space-y-0" onsubmit="event.preventDefault()">
+              <!-- PAINEL: Dados do Limite -->
+              <div id="limite-panel-dados">
+                <!-- SEÇÃO 1: Identificação -->
+                <div class="pb-5">
+                  <h3
+                    class="text-xs font-bold uppercase tracking-wider text-gf-gray mb-4 flex items-center gap-2"
+                  >
+                    <i data-lucide="tag" class="w-3.5 h-3.5 text-gf-purple"></i>
+                    Identificação
+                  </h3>
+                  <div class="grid grid-cols-1 md:grid-cols-12 gap-4">
+                    <div class="md:col-span-2">
+                      <label
+                        class="block text-xs font-semibold text-gf-gray mb-1.5"
+                        >Código <span class="text-rose-500">*</span></label
+                      >
+                      <input
+                        type="text"
+                        placeholder="Ex: L-113"
+                        class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm focus:outline-none font-mono"
+                      />
+                    </div>
+                    <div class="md:col-span-7">
+                      <label
+                        class="block text-xs font-semibold text-gf-gray mb-1.5"
+                        >Descrição <span class="text-rose-500">*</span></label
+                      >
+                      <input
+                        type="text"
+                        placeholder="Nome descritivo da regra de limite"
+                        class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm focus:outline-none"
+                      />
+                    </div>
+                    <div class="md:col-span-3">
+                      <label
+                        class="block text-xs font-semibold text-gf-gray mb-1.5"
+                        >Vigência <span class="text-rose-500">*</span></label
+                      >
+                      <input
+                        type="date"
+                        class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm text-gf-gray focus:outline-none"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <div class="border-t border-gf-border/60 pt-5 pb-5">
+                  <!-- SEÇÃO 2: Classificação -->
+                  <h3
+                    class="text-xs font-bold uppercase tracking-wider text-gf-gray mb-4 flex items-center gap-2"
+                  >
+                    <i
+                      data-lucide="sliders-horizontal"
+                      class="w-3.5 h-3.5 text-gf-purple"
+                    ></i>
+                    Classificação
+                  </h3>
+                  <div class="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+                    <div>
+                      <label
+                        class="block text-xs font-semibold text-gf-gray mb-1.5"
+                        >Tipo de Limite</label
+                      >
+                      <select
+                        class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none"
+                      >
+                        <option>Por instituição</option>
+                        <option>Global</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label
+                        class="block text-xs font-semibold text-gf-gray mb-1.5"
+                      >
+                        Momento de Baixa do Limite
+                        <span
+                          class="ml-1 text-gf-gray cursor-help font-normal"
+                          title="Define em qual etapa do ciclo de vida do contrato o saldo disponível é debitado."
+                          >ⓘ</span
+                        >
+                      </label>
+                      <select
+                        class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none"
+                      >
+                        <option>Na baixa do contrato</option>
+                        <option>Na contratação</option>
+                      </select>
+                    </div>
+                    <div>
+                      <label
+                        class="block text-xs font-semibold text-gf-gray mb-1.5"
+                        >Tipo de Valor do Limite</label
+                      >
+                      <select
+                        class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none"
+                      >
+                        <option>Valor presente</option>
+                      </select>
+                    </div>
+                  </div>
+
+                  <!-- Vínculos operacionais -->
+                  <div
+                    class="bg-slate-50/70 p-4 rounded-lg border border-gf-border"
+                  >
+                    <p
+                      class="text-[10px] font-bold uppercase tracking-wider text-gf-gray mb-3"
+                    >
+                      Vínculos Operacionais — informe o código e o sistema
+                      preencherá o nome
+                    </p>
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                      <div>
+                        <label
+                          class="block text-xs font-semibold text-gf-gray mb-1.5"
+                          >Carteira</label
+                        >
+                        <div class="flex gap-1.5">
+                          <input
+                            type="text"
+                            placeholder="Cód."
+                            class="w-14 px-2 py-1.5 border border-gf-border rounded-md text-sm text-center focus:outline-none font-mono"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Nome da carteira"
+                            disabled
+                            class="flex-1 px-2 py-1.5 border border-gf-border rounded-md text-sm bg-slate-100 text-gf-gray"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          class="block text-xs font-semibold text-gf-gray mb-1.5"
+                          >Produto</label
+                        >
+                        <div class="flex gap-1.5">
+                          <input
+                            type="text"
+                            placeholder="Cód."
+                            class="w-14 px-2 py-1.5 border border-gf-border rounded-md text-sm text-center focus:outline-none font-mono"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Nome do produto"
+                            disabled
+                            class="flex-1 px-2 py-1.5 border border-gf-border rounded-md text-sm bg-slate-100 text-gf-gray"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          class="block text-xs font-semibold text-gf-gray mb-1.5"
+                          >Segmento</label
+                        >
+                        <div class="flex gap-1.5">
+                          <input
+                            type="text"
+                            placeholder="Cód."
+                            class="w-14 px-2 py-1.5 border border-gf-border rounded-md text-sm text-center focus:outline-none font-mono"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Nome do segmento"
+                            disabled
+                            class="flex-1 px-2 py-1.5 border border-gf-border rounded-md text-sm bg-slate-100 text-gf-gray"
+                          />
+                        </div>
+                      </div>
+                      <div>
+                        <label
+                          class="block text-xs font-semibold text-gf-gray mb-1.5"
+                          >Condição Operacional</label
+                        >
+                        <div class="flex gap-1.5">
+                          <input
+                            type="text"
+                            placeholder="Cód."
+                            class="w-14 px-2 py-1.5 border border-gf-border rounded-md text-sm text-center focus:outline-none font-mono"
+                          />
+                          <input
+                            type="text"
+                            placeholder="Descrição"
+                            disabled
+                            class="flex-1 px-2 py-1.5 border border-gf-border rounded-md text-sm bg-slate-100 text-gf-gray"
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SEÇÃO 3: Composição de Valores -->
+                <div class="border-t border-gf-border/60 pt-5 pb-5">
+                  <h3
+                    class="text-xs font-bold uppercase tracking-wider text-gf-gray mb-4 flex items-center gap-2"
+                  >
+                    <i
+                      data-lucide="calculator"
+                      class="w-3.5 h-3.5 text-gf-purple"
+                    ></i>
+                    Composição de Valores (R$)
+                  </h3>
+                  <div class="grid grid-cols-1 md:grid-cols-4 gap-4">
+                    <div>
+                      <label
+                        class="block text-xs font-semibold text-gf-gray mb-1.5"
+                        >Valor Inicial Contratado
+                        <span class="text-rose-500">*</span></label
+                      >
+                      <input
+                        type="text"
+                        placeholder="10.000.000,00"
+                        class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm text-right focus:outline-none"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-xs font-semibold text-gf-gray mb-1.5"
+                      >
+                        Valor Utilizado
+                        <span class="text-[10px] font-normal text-gf-gray ml-1"
+                          >(calculado)</span
+                        >
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="3.000.000,00"
+                        disabled
+                        class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm text-right bg-slate-50 text-gf-gray cursor-not-allowed"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-xs font-semibold text-amber-700 mb-1.5"
+                      >
+                        Propostas em Análise
+                        <span
+                          class="text-[10px] font-normal text-amber-600 ml-1"
+                          >(reservado)</span
+                        >
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="1.500.000,00"
+                        disabled
+                        class="w-full px-3 py-1.5 border border-amber-200 bg-amber-50/30 rounded-md text-sm text-right text-amber-800 cursor-not-allowed"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        class="block text-xs font-semibold text-emerald-700 mb-1.5"
+                      >
+                        Saldo Disponível
+                        <span
+                          class="text-[10px] font-normal text-emerald-600 ml-1"
+                          >(calculado)</span
+                        >
+                      </label>
+                      <input
+                        type="text"
+                        placeholder="9.000.000,00"
+                        disabled
+                        class="w-full px-3 py-1.5 border border-emerald-200 bg-emerald-50/40 text-emerald-900 rounded-md text-sm text-right font-bold cursor-not-allowed"
+                      />
+                    </div>
+                  </div>
+                </div>
+
+                <!-- SEÇÃO 5: Consistências do Sistema -->
+                <div class="border-t border-gf-border/60 pt-5">
+                  <h3
+                    class="text-sm font-semibold uppercase tracking-wider text-gf-purple mb-1 flex items-center gap-2"
+                  >
+                    <i data-lucide="shield-check" class="w-4 h-4"></i>
+                    Consistências do Sistema
+                  </h3>
+                  <p class="text-xs text-gf-gray mb-4">
+                    Define como cada etapa de análise verifica e bloqueia
+                    operações ao atingir o teto.
+                  </p>
+
+                  <div
+                    class="rounded-lg border border-gf-border overflow-hidden"
+                  >
+                    <!-- Cabeçalho da tabela de consistências -->
+                    <div
+                      class="grid grid-cols-12 gap-0 bg-slate-100 text-[10px] font-bold uppercase tracking-wider text-gf-gray border-b border-gf-border"
+                    >
+                      <div class="col-span-2 px-3 py-2">Etapa</div>
+                      <div class="col-span-4 px-3 py-2">
+                        Ação ao atingir o limite
+                      </div>
+                      <div class="col-span-2 px-3 py-2 text-right">
+                        % sobre o Teto Total
+                      </div>
+                      <div class="col-span-2 px-3 py-2">
+                        Consistir a partir de
+                      </div>
+                      <div class="col-span-2 px-3 py-2 text-right">
+                        Disponível Real (R$)
+                      </div>
+                    </div>
+
+                    <!-- Linha: Cadastro -->
+                    <div
+                      class="grid grid-cols-12 gap-0 items-center border-b border-gf-border bg-white hover:bg-slate-50/40 transition-colors"
+                    >
+                      <div
+                        class="col-span-2 px-3 py-3 text-xs font-semibold text-gf-dark"
+                      >
+                        Cadastro
+                      </div>
+                      <div class="col-span-4 px-3 py-3">
+                        <select
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs bg-white focus:outline-none"
+                        >
+                          <option>Não consistir</option>
+                          <option>Alertar operador</option>
+                          <option>Bloquear novo contrato</option>
+                        </select>
+                      </div>
+                      <div class="col-span-2 px-3 py-3">
+                        <input
+                          type="text"
+                          value="0,00"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs text-right focus:outline-none"
+                        />
+                      </div>
+                      <div class="col-span-2 px-3 py-3">
+                        <input
+                          type="text"
+                          placeholder="Ex: 01/01/2026"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs focus:outline-none"
+                        />
+                      </div>
+                      <div class="col-span-2 px-3 py-3">
+                        <input
+                          type="text"
+                          value="9.000.000,00"
+                          disabled
+                          class="w-full px-2 py-1.5 border border-amber-200 rounded-md text-xs bg-amber-50/40 text-right font-mono text-amber-900 cursor-not-allowed"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Linha: Jurídico -->
+                    <div
+                      class="grid grid-cols-12 gap-0 items-center border-b border-gf-border bg-white hover:bg-slate-50/40 transition-colors"
+                    >
+                      <div
+                        class="col-span-2 px-3 py-3 text-xs font-semibold text-gf-dark"
+                      >
+                        Jurídico
+                      </div>
+                      <div class="col-span-4 px-3 py-3">
+                        <select
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs bg-white focus:outline-none"
+                        >
+                          <option>Não consistir</option>
+                          <option>Alertar operador</option>
+                          <option>Bloquear novo contrato</option>
+                        </select>
+                      </div>
+                      <div class="col-span-2 px-3 py-3">
+                        <input
+                          type="text"
+                          value="0,00"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs text-right focus:outline-none"
+                        />
+                      </div>
+                      <div class="col-span-2 px-3 py-3">
+                        <input
+                          type="text"
+                          placeholder="Ex: 01/01/2026"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs focus:outline-none"
+                        />
+                      </div>
+                      <div class="col-span-2 px-3 py-3">
+                        <input
+                          type="text"
+                          value="9.000.000,00"
+                          disabled
+                          class="w-full px-2 py-1.5 border border-amber-200 rounded-md text-xs bg-amber-50/40 text-right font-mono text-amber-900 cursor-not-allowed"
+                        />
+                      </div>
+                    </div>
+
+                    <!-- Linha: Financeiro -->
+                    <div
+                      class="grid grid-cols-12 gap-0 items-center bg-white hover:bg-slate-50/40 transition-colors"
+                    >
+                      <div
+                        class="col-span-2 px-3 py-3 text-xs font-semibold text-gf-dark"
+                      >
+                        Financeiro
+                      </div>
+                      <div class="col-span-4 px-3 py-3">
+                        <select
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs bg-white focus:outline-none"
+                        >
+                          <option>Bloquear novo contrato</option>
+                          <option>Não consistir</option>
+                          <option>Alertar operador</option>
+                        </select>
+                      </div>
+                      <div class="col-span-2 px-3 py-3">
+                        <input
+                          type="text"
+                          value="0,00"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs text-right focus:outline-none"
+                        />
+                      </div>
+                      <div class="col-span-2 px-3 py-3">
+                        <input
+                          type="text"
+                          placeholder="Ex: 01/01/2026"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs focus:outline-none"
+                        />
+                      </div>
+                      <div class="col-span-2 px-3 py-3">
+                        <input
+                          type="text"
+                          value="9.000.000,00"
+                          disabled
+                          class="w-full px-2 py-1.5 border border-amber-200 rounded-md text-xs bg-amber-50/40 text-right font-mono text-amber-900 cursor-not-allowed"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- fim #limite-panel-dados -->
+
+              <!-- PAINEL: Termos Aditivos -->
+              <div id="limite-panel-aditivos" class="hidden">
+                <div class="space-y-4">
+                  <div class="flex items-start justify-between">
+                    <div>
+                      <h3
+                        class="text-sm font-semibold text-gf-dark flex items-center gap-2"
+                      >
+                        <i
+                          data-lucide="layers-3"
+                          class="w-4 h-4 text-gf-purple"
+                        ></i>
+                        Termos Aditivos — Contrato Base e Aportes
+                      </h3>
+                      <p class="text-xs text-gf-gray mt-0.5">
+                        Registre o contrato mãe e os aportes adicionais. O teto
+                        total é calculado automaticamente.
+                      </p>
+                    </div>
+                    <div class="text-right shrink-0 ml-4">
+                      <p
+                        class="text-[10px] text-gf-gray uppercase tracking-wider"
+                      >
+                        Teto Total Atual
+                      </p>
+                      <p class="text-lg font-bold text-emerald-700 font-mono">
+                        R$ 10.000.000,00
+                      </p>
+                    </div>
+                  </div>
+
+                  <!-- Linha de entrada do aditivo -->
+                  <div
+                    class="bg-slate-50/70 p-4 rounded-lg border border-gf-border"
+                  >
+                    <p
+                      class="text-[10px] font-bold uppercase tracking-wider text-gf-gray mb-3"
+                    >
+                      Incluir novo aditivo
+                    </p>
+                    <div class="grid grid-cols-1 sm:grid-cols-4 gap-3 mb-3">
+                      <div>
+                        <label
+                          class="block text-xs font-semibold text-gf-gray mb-1"
+                          >Data de Lançamento</label
+                        >
+                        <input
+                          type="date"
+                          id="adt-data"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs focus:outline-none bg-white"
+                        />
+                      </div>
+                      <div class="sm:col-span-2">
+                        <label
+                          class="block text-xs font-semibold text-gf-gray mb-1"
+                          >Nº Documento / Descrição do Aditivo</label
+                        >
+                        <input
+                          type="text"
+                          id="adt-doc"
+                          placeholder="Ex: Termo Aditivo 02/2026"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs focus:outline-none bg-white"
+                        />
+                      </div>
+                      <div>
+                        <label
+                          class="block text-xs font-semibold text-gf-gray mb-1"
+                          >Valor do Aporte (R$)</label
+                        >
+                        <input
+                          type="text"
+                          id="adt-valor"
+                          placeholder="0,00"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs text-right focus:outline-none bg-white"
+                        />
+                      </div>
+                    </div>
+                    <div class="flex items-end gap-3">
+                      <div class="flex-1 max-w-xs">
+                        <label
+                          class="block text-xs font-semibold text-gf-gray mb-1"
+                          >Vigência Específica deste Aditivo</label
+                        >
+                        <input
+                          type="date"
+                          id="adt-vigencia"
+                          class="w-full px-2 py-1.5 border border-gf-border rounded-md text-xs focus:outline-none bg-white"
+                        />
+                      </div>
+                      <button
+                        type="button"
+                        onclick="addAditivoMock()"
+                        class="bg-gf-purple text-white px-4 py-1.5 rounded-md text-xs font-semibold flex items-center gap-1.5"
+                      >
+                        <i data-lucide="plus" class="w-3.5 h-3.5"></i> Adicionar
+                        Aditivo
+                      </button>
+                    </div>
+                  </div>
+
+                  <!-- Tabela de aditivos -->
+                  <div
+                    class="bg-white rounded-lg border border-gf-border overflow-hidden"
+                  >
+                    <table class="w-full text-left text-xs">
+                      <thead
+                        class="bg-slate-100 text-gf-gray font-semibold text-[10px] uppercase"
+                      >
+                        <tr>
+                          <th class="p-2 px-3">Data</th>
+                          <th class="p-2 px-3">Nº Documento / Descrição</th>
+                          <th class="p-2 px-3">Vigência</th>
+                          <th class="p-2 px-3 text-right">
+                            Valor do Aporte (R$)
+                          </th>
+                        </tr>
+                      </thead>
+                      <tbody id="aditivos-body" class="divide-y text-[#444]">
+                        <tr>
+                          <td class="p-2 px-3 font-mono">10/02/2026</td>
+                          <td class="p-2 px-3 font-medium">
+                            Contrato de Repasse Mãe Principal
+                          </td>
+                          <td class="p-2 px-3 font-mono">31/12/2027</td>
+                          <td
+                            class="p-2 px-3 text-right font-mono font-semibold"
+                          >
+                            10.000.000,00
+                          </td>
+                        </tr>
+                      </tbody>
+                      <tfoot class="bg-slate-50 border-t border-gf-border">
+                        <tr>
+                          <td
+                            colspan="3"
+                            class="p-2 px-3 text-xs font-bold text-right text-gf-dark uppercase tracking-wider"
+                          >
+                            Total
+                          </td>
+                          <td
+                            class="p-2 px-3 text-right font-mono font-bold text-emerald-700"
+                          >
+                            10.000.000,00
+                          </td>
+                        </tr>
+                      </tfoot>
+                    </table>
+                  </div>
+                </div>
+              </div>
+              <!-- fim #limite-panel-aditivos -->
+
+              <!-- PAINEL: Memória de Cálculo -->
+              <div id="limite-panel-memoria" class="hidden">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-sm font-semibold text-gf-dark">
+                      Memória de Cálculo — Disponível para Contratação
+                    </h3>
+                    <p
+                      class="text-xs text-gf-gray mt-0.5"
+                      title="Composição do saldo disponível para novas contratações, calculada a partir dos repasses recebidos do MTur, das operações em carteira e das devoluções."
+                    >
+                      Composição do saldo disponível para novas contratações ⓘ
+                    </p>
+                  </div>
+                  <div class="flex items-center gap-2 shrink-0 ml-4">
+                    <span class="text-[10px] text-gf-gray"
+                      >Referência: Abril/2026</span
+                    >
+                    <span
+                      class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-slate-100 text-slate-600 border border-slate-200"
+                      >SNAPSHOT CONGELADO</span
+                    >
+                  </div>
+                </div>
+                <p class="text-[11px] text-gf-gray mb-4">
+                  Fórmula:
+                  <span class="font-mono text-gf-dark"
+                    >Repasses + Aditivos − Contratado − Devolvido − Reservado =
+                    Disponível</span
+                  >
+                </p>
+                <div
+                  class="rounded-xl border border-gf-border overflow-hidden mb-4"
+                >
+                  <table class="w-full text-xs">
+                    <thead class="bg-slate-50 border-b border-gf-border">
+                      <tr>
+                        <th
+                          class="py-2 px-4 text-left text-[10px] font-bold uppercase tracking-wider text-gf-gray"
+                        >
+                          Componente
+                        </th>
+                        <th
+                          class="py-2 px-4 text-right text-[10px] font-bold uppercase tracking-wider text-gf-gray"
+                        >
+                          Valor (R$)
+                        </th>
+                      </tr>
+                    </thead>
+                    <tbody class="divide-y divide-slate-100">
+                      <tr class="hover:bg-slate-50/40">
+                        <td class="py-2.5 px-4 text-gf-gray">
+                          Repasses recebidos (MTur)
+                        </td>
+                        <td
+                          class="py-2.5 px-4 text-right font-mono font-semibold text-emerald-700"
+                        >
+                          + 113.398.556,40
+                        </td>
+                      </tr>
+                      <tr class="hover:bg-slate-50/40">
+                        <td class="py-2.5 px-4 text-gf-gray">
+                          Aditivos de aportes registrados
+                        </td>
+                        <td
+                          class="py-2.5 px-4 text-right font-mono font-semibold text-purple-600"
+                        >
+                          + 3.500.000,00
+                        </td>
+                      </tr>
+                      <tr class="hover:bg-slate-50/40">
+                        <td class="py-2.5 px-4 text-gf-gray">
+                          (−) Operações contratadas em carteira
+                        </td>
+                        <td
+                          class="py-2.5 px-4 text-right font-mono text-rose-700"
+                        >
+                          − 77.019.129,96
+                        </td>
+                      </tr>
+                      <tr class="hover:bg-slate-50/40">
+                        <td class="py-2.5 px-4 text-gf-gray">
+                          (−) Devolução de saldo remanescente
+                          <span
+                            class="ml-1 cursor-help text-slate-400"
+                            title="Crédito extraordinário devolvido ao FUNGETUR + encerramentos de contratos com saldo residual."
+                            >ⓘ</span
+                          >
+                        </td>
+                        <td
+                          class="py-2.5 px-4 text-right font-mono text-rose-700"
+                        >
+                          − 18.168.769,01
+                        </td>
+                      </tr>
+                      <tr class="hover:bg-slate-50/40">
+                        <td class="py-2.5 px-4 text-amber-700 font-medium">
+                          (−) Propostas em análise
+                          <span
+                            class="ml-1 cursor-help text-amber-400"
+                            title="Valor reservado para propostas em fase de análise de crédito — não contratadas, mas já comprometidas do limite."
+                            >ⓘ</span
+                          >
+                        </td>
+                        <td
+                          class="py-2.5 px-4 text-right font-mono text-amber-700 font-medium"
+                        >
+                          − 1.500.000,00
+                        </td>
+                      </tr>
+                    </tbody>
+                    <tfoot class="bg-emerald-50/40 border-t-2 border-gf-border">
+                      <tr>
+                        <td class="py-3 px-4 font-bold text-gf-dark">
+                          (=) Saldo disponível para contratação
+                        </td>
+                        <td
+                          class="py-3 px-4 text-right font-mono font-bold text-emerald-700 text-sm"
+                        >
+                          20.210.657,43
+                        </td>
+                      </tr>
+                    </tfoot>
+                  </table>
+                </div>
+                <!-- Barra de utilização -->
+                <div
+                  class="bg-slate-50/60 rounded-xl border border-gf-border p-4"
+                >
+                  <div
+                    class="flex justify-between text-[10px] text-gf-gray mb-1.5"
+                  >
+                    <span>Utilização do teto total (R$ 116.898.556,40)</span>
+                    <span class="font-semibold text-gf-dark"
+                      >82,7% comprometido</span
+                    >
+                  </div>
+                  <div
+                    class="w-full bg-slate-200 rounded-full h-2.5 overflow-hidden"
+                  >
+                    <div
+                      class="h-2.5 rounded-full bg-gradient-to-r from-gf-purple to-violet-400"
+                      style="width: 82.7%"
+                    ></div>
+                  </div>
+                  <div class="flex justify-between text-[10px] mt-1.5">
+                    <span class="text-rose-600"
+                      >R$ 96.687.898,97 comprometido</span
+                    >
+                    <span class="text-emerald-600 font-semibold"
+                      >R$ 20.210.657,43 livre</span
+                    >
+                  </div>
+                </div>
+              </div>
+              <!-- fim #limite-panel-memoria -->
+
+              <!-- PAINEL: Apoio Auditoria -->
+              <div id="limite-panel-auditoria" class="hidden">
+                <div class="flex items-center justify-between mb-4">
+                  <div>
+                    <h3 class="text-sm font-semibold text-gf-dark">
+                      Apoio Auditoria / Prestação de Contas
+                    </h3>
+                    <p
+                      class="text-xs text-gf-gray mt-0.5"
+                      title="Informações de rastreabilidade, processos SEI e responsáveis contábeis utilizados na prestação de contas ao MTur e órgãos de controle."
+                    >
+                      Rastreabilidade, processos SEI e responsáveis contábeis ⓘ
+                    </p>
+                  </div>
+                  <span
+                    class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-50 text-emerald-700 border border-emerald-200 shrink-0 ml-4"
+                    >RASTREABILIDADE ATIVA</span
+                  >
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+                  <!-- Coluna 1: Processos SEI -->
+                  <div>
+                    <p
+                      class="text-[10px] font-bold uppercase tracking-wider text-gf-gray mb-3 flex items-center gap-1.5"
+                    >
+                      <i data-lucide="folder-open" class="w-3 h-3"></i>
+                      Processos SEI
+                    </p>
+                    <div class="space-y-2 text-xs">
+                      <div
+                        class="p-3 rounded-lg border border-gf-border bg-slate-50/50"
+                      >
+                        <p class="text-[10px] text-gf-gray mb-0.5">
+                          Juros e Remuneração
+                        </p>
+                        <p class="font-mono font-semibold text-gf-dark">
+                          20250.005900/0004
+                        </p>
+                      </div>
+                      <div
+                        class="p-3 rounded-lg border border-gf-border bg-slate-50/50"
+                      >
+                        <p class="text-[10px] text-gf-gray mb-0.5">
+                          Contrato Principal
+                        </p>
+                        <p class="font-mono font-semibold text-gf-dark">
+                          20240.005200/0011
+                        </p>
+                      </div>
+                      <div
+                        class="p-3 rounded-lg border border-gf-border bg-slate-50/50"
+                      >
+                        <p class="text-[10px] text-gf-gray mb-0.5">
+                          Prestação de Contas
+                        </p>
+                        <p class="font-mono font-semibold text-gf-dark">
+                          20260.003100/0007
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Coluna 2: Centros Responsáveis -->
+                  <div>
+                    <p
+                      class="text-[10px] font-bold uppercase tracking-wider text-gf-gray mb-3 flex items-center gap-1.5"
+                    >
+                      <i data-lucide="building-2" class="w-3 h-3"></i> Centros
+                      Responsáveis
+                    </p>
+                    <div class="space-y-2 text-xs">
+                      <div
+                        class="flex items-start gap-2.5 p-3 rounded-lg border border-gf-border bg-slate-50/50"
+                      >
+                        <span
+                          class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-violet-100 text-violet-700 shrink-0"
+                          >GEFIN</span
+                        >
+                        <div>
+                          <p class="font-semibold text-gf-dark leading-tight">
+                            Gerência Financeira
+                          </p>
+                          <p class="text-[10px] text-gf-gray mt-0.5">
+                            Remuneração SELIC e rendimentos do fundo
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="flex items-start gap-2.5 p-3 rounded-lg border border-gf-border bg-slate-50/50"
+                      >
+                        <span
+                          class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-blue-100 text-blue-700 shrink-0"
+                          >GENEG</span
+                        >
+                        <div>
+                          <p class="font-semibold text-gf-dark leading-tight">
+                            Gerência de Negócios
+                          </p>
+                          <p class="text-[10px] text-gf-gray mt-0.5">
+                            Amortizações, liquidações e baixas de contratos
+                          </p>
+                        </div>
+                      </div>
+                      <div
+                        class="flex items-start gap-2.5 p-3 rounded-lg border border-gf-border bg-slate-50/50"
+                      >
+                        <span
+                          class="px-1.5 py-0.5 rounded text-[10px] font-bold bg-emerald-100 text-emerald-700 shrink-0"
+                          >GEINF</span
+                        >
+                        <div>
+                          <p class="font-semibold text-gf-dark leading-tight">
+                            Gerência de Informações
+                          </p>
+                          <p class="text-[10px] text-gf-gray mt-0.5">
+                            Transmissão, payloads e logs de auditoria
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Coluna 3: Status de Transmissão -->
+                  <div>
+                    <p
+                      class="text-[10px] font-bold uppercase tracking-wider text-gf-gray mb-3 flex items-center gap-1.5"
+                    >
+                      <i data-lucide="activity" class="w-3 h-3"></i> Status de
+                      Transmissão
+                    </p>
+                    <div class="space-y-2 text-xs">
+                      <div
+                        class="flex justify-between items-center border-b border-slate-100 pb-2"
+                      >
+                        <span class="text-gf-gray">Competência</span>
+                        <span class="font-semibold text-gf-dark"
+                          >Abril / 2026</span
+                        >
+                      </div>
+                      <div
+                        class="flex justify-between items-center border-b border-slate-100 pb-2"
+                      >
+                        <span class="text-gf-gray">Snapshot</span>
+                        <span
+                          class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-slate-100 text-slate-600"
+                          >CONGELADO</span
+                        >
+                      </div>
+                      <div
+                        class="flex justify-between items-center border-b border-slate-100 pb-2"
+                      >
+                        <span class="text-gf-gray">Último payload enviado</span>
+                        <span class="font-mono font-semibold text-gf-dark"
+                          >29/05/2026</span
+                        >
+                      </div>
+                      <div
+                        class="flex justify-between items-center border-b border-slate-100 pb-2"
+                      >
+                        <span class="text-gf-gray">Retorno MTur</span>
+                        <span
+                          class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-emerald-50 text-emerald-700"
+                          >ACEITO</span
+                        >
+                      </div>
+                      <div
+                        class="flex justify-between items-center border-b border-slate-100 pb-2"
+                      >
+                        <span class="text-gf-gray">Próxima declaração</span>
+                        <span class="font-semibold text-amber-700"
+                          >Maio / 2026</span
+                        >
+                      </div>
+                      <div class="flex justify-between items-center">
+                        <span class="text-gf-gray">Fiscalização TCU/MTur</span>
+                        <span
+                          class="px-2 py-0.5 text-[10px] font-bold rounded-full bg-violet-50 text-gf-purple"
+                          >ATIVA</span
+                        >
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- fim #limite-panel-auditoria -->
+            </form>
           </div>
         </section>
 
@@ -1937,7 +2568,7 @@
         >
           <div>
             <h1 class="text-2xl font-semibold tracking-tight">
-              Declaração Mensal FUNGETUR
+              Cadastrar declaração de Movimentação Mensal
             </h1>
             <p class="text-sm text-gf-gray mt-1">
               Fechamento regulatório mensal e integração da declaração via API.
@@ -2244,6 +2875,339 @@ Declaração consolidada da competência.</textarea
           </div>
         </section>
 
+        <section
+          id="tab-visualizar-declaracao"
+          class="tab-content hidden space-y-6"
+        >
+          <div
+            class="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4"
+          >
+            <div>
+              <h1 class="text-2xl font-semibold tracking-tight text-gf-dark">
+                Visualizar Declaração de Movimentação Mensal
+              </h1>
+              <p class="text-sm text-gf-gray mt-1">
+                Gestão e monitoramento de repasses contratuais do Ministério do
+                Turismo.
+              </p>
+            </div>
+            <div>
+              <button
+                type="button"
+                onclick="switchTab('declaracao-mensal')"
+                class="inline-flex items-center justify-center px-4 py-2.5 text-sm font-semibold text-white bg-gf-purple hover:bg-violet-700 active:bg-violet-800 rounded shadow-sm transition-all transform active:scale-95"
+              >
+                <i data-lucide="plus" class="w-4 h-4 mr-1.5"></i> Cadastrar
+                Declaração
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="bg-white border border-gf-border rounded-xl shadow-sm p-6 space-y-6"
+          >
+            <div
+              class="flex items-center gap-2 text-sm text-gf-gray font-semibold border-b border-slate-100 pb-3"
+            >
+              <i data-lucide="filter" class="w-4 h-4 text-gf-purple"></i>
+              Por período de Referência das Declarações
+            </div>
+
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+              <div
+                class="relative border-b border-gf-border pb-2 group focus-within:border-gf-purple transition-colors"
+              >
+                <label
+                  class="block text-xs font-semibold text-gf-gray mb-1 group-focus-within:text-gf-purple"
+                  >Ano de Referência</label
+                >
+                <input
+                  type="text"
+                  value="2026"
+                  placeholder="Ex: 2026"
+                  class="w-full bg-transparent text-sm font-medium text-gf-dark focus:outline-none placeholder-slate-400"
+                />
+              </div>
+
+              <div
+                class="relative border-b border-gf-border pb-2 group focus-within:border-gf-purple transition-colors"
+              >
+                <label
+                  class="block text-xs font-semibold text-gf-gray mb-1 group-focus-within:text-gf-purple"
+                  >Mês de Referência</label
+                >
+                <div class="flex items-center justify-between">
+                  <select
+                    class="w-full bg-transparent text-sm font-medium text-gf-dark focus:outline-none appearance-none cursor-pointer pr-6"
+                  >
+                    <option value="" disabled>Mês de Referência</option>
+                    <option value="05" selected>Maio</option>
+                    <option value="01">Janeiro</option>
+                    <option value="02">Fevereiro</option>
+                    <option value="03">Março</option>
+                    <option value="04">Abril</option>
+                  </select>
+                  <i
+                    data-lucide="chevron-down"
+                    class="w-4 h-4 text-gf-gray absolute right-0 pointer-events-none"
+                  ></i>
+                </div>
+              </div>
+            </div>
+
+            <div class="flex flex-wrap items-center justify-end gap-2.5 pt-2">
+              <button
+                type="button"
+                class="px-4 py-2 text-xs font-semibold text-white bg-gf-purple hover:bg-violet-700 rounded transition-colors shadow-sm"
+              >
+                Exportar
+              </button>
+
+              <button
+                type="button"
+                class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-white bg-gf-purple hover:bg-violet-700 rounded transition-colors shadow-sm"
+              >
+                <i data-lucide="search" class="w-3.5 h-3.5"></i> Pesquisar
+              </button>
+              <button
+                type="button"
+                class="inline-flex items-center gap-1.5 px-4 py-2 text-xs font-semibold text-gf-gray bg-white border border-gf-border hover:bg-slate-50 rounded transition-colors"
+              >
+                <i data-lucide="x" class="w-3.5 h-3.5"></i> Limpar
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="bg-white border border-gf-border rounded-xl shadow-sm overflow-hidden"
+          >
+            <div
+              class="px-5 py-4 bg-slate-50/50 border-b border-gf-border flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3"
+            >
+              <div
+                class="text-xs text-gf-gray font-medium flex items-center gap-1"
+              >
+                Exibindo
+                <select
+                  class="mx-1 px-2 py-1 border border-gf-border rounded bg-white text-xs font-semibold text-gf-dark focus:outline-none focus:border-gf-purple cursor-pointer"
+                >
+                  <option>10</option>
+                  <option>25</option>
+                  <option>50</option>
+                </select>
+                registros por página
+              </div>
+            </div>
+
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse min-w-[1250px]">
+                <thead>
+                  <tr
+                    class="bg-slate-50 border-b border-gf-border text-[11px] font-semibold uppercase tracking-wider text-gf-gray"
+                  >
+                    <th
+                      class="py-4 px-5 w-32 border-r border-gf-border bg-slate-50/50"
+                    >
+                      <div class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          id="selectAll"
+                          onclick="toggleAllCheckboxes(this)"
+                          class="w-3.5 h-3.5 rounded border-slate-300 text-gf-purple focus:ring-gf-purple cursor-pointer"
+                        />
+                        <label
+                          for="selectAll"
+                          class="cursor-pointer normal-case text-xs font-medium tracking-normal text-gf-gray whitespace-nowrap"
+                          >Select All</label
+                        >
+                      </div>
+                    </th>
+                    <th class="py-4 px-5">Instituição Financeira</th>
+                    <th class="py-4 px-4 text-center">Ano</th>
+                    <th class="py-4 px-4">Mês</th>
+                    <th class="py-4 px-4 text-right">Repassado pelo MTur</th>
+                    <th class="py-4 px-4 text-right">Valor Contratado</th>
+                    <th class="py-4 px-4 text-right">Disponível Contratação</th>
+                    <th class="py-4 px-4 text-center">Qtd Concl.</th>
+                    <th class="py-4 px-4 text-right">Total Concluído</th>
+                    <th class="py-4 px-4 text-center">Qtd Anál.</th>
+                    <th class="py-4 px-4 text-right">Total Análise</th>
+                    <th class="py-4 px-4 text-center">Status</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gf-border text-xs text-gf-gray">
+                  <tr
+                    class="hover:bg-slate-50/70 transition-colors bg-white group"
+                  >
+                    <td
+                      class="py-3.5 px-5 text-center border-r border-gf-border bg-slate-50/30"
+                    >
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="w-3.5 h-3.5 rounded border-slate-300 text-gf-purple focus:ring-gf-purple cursor-pointer"
+                      />
+                    </td>
+                    <td
+                      class="py-3.5 px-5 font-bold text-gf-dark group-hover:text-gf-purple"
+                    >
+                      AGENCIA DE FOMENTO DE GOIAS S/A
+                    </td>
+                    <td
+                      class="py-3.5 px-4 text-center font-mono text-slate-500"
+                    >
+                      2026
+                    </td>
+                    <td class="py-3.5 px-4 font-semibold text-slate-700">
+                      Maio
+                    </td>
+                    <td
+                      class="py-3.5 px-4 text-right font-mono text-gf-dark font-medium"
+                    >
+                      R$ 113.398.556,40
+                    </td>
+                    <td class="py-3.5 px-4 text-right font-mono text-gf-dark">
+                      R$ 78.049.528,08
+                    </td>
+                    <td
+                      class="py-3.5 px-4 text-right font-mono text-emerald-700 font-bold bg-emerald-50/30"
+                    >
+                      R$ 18.694.718,26
+                    </td>
+                    <td class="py-3.5 px-4 text-center font-mono font-medium">
+                      5
+                    </td>
+                    <td class="py-3.5 px-4 text-right font-mono text-gf-dark">
+                      R$ 683.378,63
+                    </td>
+                    <td
+                      class="py-3.5 px-4 text-center font-mono text-slate-400"
+                    >
+                      0
+                    </td>
+                    <td class="py-3.5 px-4 text-right font-mono text-slate-400">
+                      R$ 0,00
+                    </td>
+                    <td class="py-3.5 px-4 text-center">
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 text-[10px] font-bold bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200 shadow-sm"
+                      >
+                        Enviado
+                      </span>
+                    </td>
+                  </tr>
+
+                  <tr
+                    class="hover:bg-slate-50/70 transition-colors bg-white group"
+                  >
+                    <td
+                      class="py-3.5 px-5 text-center border-r border-gf-border bg-slate-50/30"
+                    >
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="w-3.5 h-3.5 rounded border-slate-300 text-gf-purple focus:ring-gf-purple cursor-pointer"
+                      />
+                    </td>
+                    <td
+                      class="py-3.5 px-5 font-bold text-gf-dark group-hover:text-gf-purple"
+                    >
+                      AGENCIA DE FOMENTO DE GOIAS S/A
+                    </td>
+                    <td
+                      class="py-3.5 px-4 text-center font-mono text-slate-500"
+                    >
+                      2026
+                    </td>
+                    <td class="py-3.5 px-4 font-semibold text-slate-700">
+                      Abril
+                    </td>
+                    <td
+                      class="py-3.5 px-4 text-right font-mono text-gf-dark font-medium"
+                    >
+                      R$ 113.398.556,40
+                    </td>
+                    <td class="py-3.5 px-4 text-right font-mono text-gf-dark">
+                      R$ 77.019.129,96
+                    </td>
+                    <td
+                      class="py-3.5 px-4 text-right font-mono text-emerald-700 font-bold bg-emerald-50/30"
+                    >
+                      R$ 18.210.657,43
+                    </td>
+                    <td class="py-3.5 px-4 text-center font-mono font-medium">
+                      2
+                    </td>
+                    <td class="py-3.5 px-4 text-right font-mono text-slate-400">
+                      R$ 0,00
+                    </td>
+                    <td
+                      class="py-3.5 px-4 text-center font-mono text-slate-400"
+                    >
+                      0
+                    </td>
+                    <td class="py-3.5 px-4 text-right font-mono text-slate-400">
+                      R$ 0,00
+                    </td>
+                    <td class="py-3.5 px-4 text-center">
+                      <span
+                        class="inline-flex items-center px-2.5 py-0.5 text-[10px] font-bold bg-emerald-50 text-emerald-700 rounded-full border border-emerald-200 shadow-sm"
+                      >
+                        Enviado
+                      </span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <div
+              class="px-5 py-4 bg-slate-50/30 border-t border-gf-border flex items-center justify-between text-xs text-gf-gray"
+            >
+              <div>Mostrando 1 a 2 de 2 registros</div>
+              <div class="flex items-center gap-1">
+                <button
+                  class="px-2.5 py-1.5 border border-gf-border rounded bg-white hover:bg-slate-50 disabled:opacity-50 font-medium"
+                  disabled
+                >
+                  Anterior
+                </button>
+                <button
+                  class="px-3 py-1.5 border border-gf-border rounded bg-gf-purple text-white font-bold"
+                >
+                  1
+                </button>
+                <button
+                  class="px-2.5 py-1.5 border border-gf-border rounded bg-white hover:bg-slate-50 disabled:opacity-50 font-medium"
+                  disabled
+                >
+                  Próximo
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Ações da Declaração -->
+          <div class="flex items-center gap-3 pt-2">
+            <button
+              onclick="
+                openLegacyModal(
+                  'visualizar_declaracao_detalhe.png',
+                  'Visualizar Declaração de Movimentação Mensal',
+                )
+              "
+              class="px-4 py-2 text-xs font-semibold text-white bg-gf-purple hover:bg-violet-700 rounded transition-colors shadow-sm"
+            >
+              Visualizar Detalhes
+            </button>
+            <button
+              class="px-4 py-2 text-xs font-semibold text-white bg-gf-purple hover:bg-violet-700 rounded transition-colors shadow-sm"
+            >
+              Reenvio do Lote
+            </button>
+          </div>
+        </section>
+
         <section id="tab-config-api" class="tab-content hidden space-y-6">
           <div>
             <h1 class="text-2xl font-semibold tracking-tight">
@@ -2398,11 +3362,14 @@ Declaração consolidada da competência.</textarea
                 <tbody class="divide-y text-slate-700">
                   <tr>
                     <td class="p-2 px-4 font-bold">empresa</td>
-                    <td class="p-2 px-4 text-blue-700">CL01_NR_CLIENT</td>
+                    <td class="p-2 px-4 text-blue-700">
+                      CL01_NR_CLIENT/CL01_NM_CLIENT
+                    </td>
                     <td class="p-2 px-4 text-center text-emerald-600">
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">cnpj</td>
                     <td class="p-2 px-4 text-blue-700">CL01_NR_CPFCNPJ</td>
@@ -2410,13 +3377,17 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr class="bg-amber-50/30">
                     <td class="p-2 px-4 font-bold">cpfPrestador</td>
-                    <td class="p-2 px-4 text-blue-700">CO763_NR_CNPJ</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
+                    <td class="p-2 px-4 text-orange-700">
+                      NÃO LOCALIZADO NO DICIONÁRIO
+                    </td>
+                    <td class="p-2 px-4 text-center text-orange-600">
+                      Gap de Dados ⚠
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">porteDaEmpresa</td>
                     <td class="p-2 px-4 text-blue-700">CL03_CD_PORTBC</td>
@@ -2424,6 +3395,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">estado</td>
                     <td class="p-2 px-4 text-blue-700">CL13_SG_ESTADO</td>
@@ -2431,6 +3403,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">municipio</td>
                     <td class="p-2 px-4 text-blue-700">CL13_NM_CIDAD</td>
@@ -2438,6 +3411,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">codigoIBGE</td>
                     <td class="p-2 px-4 text-blue-700">CL13_CD_CIDADE</td>
@@ -2445,6 +3419,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">
                       identificadorUnicoDoContrato
@@ -2454,15 +3429,17 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr class="bg-amber-50/30">
                     <td class="p-2 px-4 font-bold">
                       projetoFinalidadeDoFinanciamento
                     </td>
                     <td class="p-2 px-4 text-blue-700">EM396_CD_FINACR</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
+                    <td class="p-2 px-4 text-center text-amber-600">
+                      Mapeado (Validar Negócio) ⚠
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">situacaoDaOperacao</td>
                     <td class="p-2 px-4 text-blue-700">EM01_ID_SITUAC</td>
@@ -2470,7 +3447,8 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
-                  <tr>
+
+                  <tr class="bg-amber-50/30">
                     <td class="p-2 px-4 font-bold">dataDeInicioContrato</td>
                     <td class="p-2 px-4 text-amber-700">
                       NÃO LOCALIZADO NO DICIONÁRIO
@@ -2479,6 +3457,7 @@ Declaração consolidada da competência.</textarea
                       Gap de Dados ⚠
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">dataDoFimDoContrato</td>
                     <td class="p-2 px-4 text-blue-700">EM01_DT_VCTULT</td>
@@ -2486,6 +3465,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">prazo</td>
                     <td class="p-2 px-4 text-blue-700">EM01_PZ_MCONTR</td>
@@ -2493,6 +3473,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">carencia</td>
                     <td class="p-2 px-4 text-blue-700">EM01_PZ_MCAREN</td>
@@ -2500,6 +3481,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">valorDoFinanciamento</td>
                     <td class="p-2 px-4 text-blue-700">EM01_VL_CONTRA</td>
@@ -2507,6 +3489,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">valorDesembolsado</td>
                     <td class="p-2 px-4 text-blue-700">EM01_VL_DESEMB</td>
@@ -2514,13 +3497,15 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr>
                     <td class="p-2 px-4 font-bold">tipoTac</td>
                     <td class="p-2 px-4 text-blue-700">EM02_TP_NATARI</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
+                    <td class="p-2 px-4 text-center text-emerald-600">
+                      Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">tac</td>
                     <td class="p-2 px-4 text-blue-700">EM01_VL_CONCES</td>
@@ -2528,6 +3513,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">spread</td>
                     <td class="p-2 px-4 text-blue-700">EM01_TX_CONCES</td>
@@ -2535,6 +3521,7 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">taxa</td>
                     <td class="p-2 px-4 text-blue-700">EM01_TX_DELCRE</td>
@@ -2542,45 +3529,47 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr>
                     <td class="p-2 px-4 font-bold">valorDasGarantias</td>
-                    <td class="p-2 px-4 text-blue-700">EM02_VL_LIMGAR</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
+                    <td class="p-2 px-4 text-blue-700">GA03_VL_GARANT</td>
+                    <td class="p-2 px-4 text-center text-emerald-600">
+                      Mapeado ✔
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr>
                     <td class="p-2 px-4 font-bold">descricaoDasGarantias</td>
-                    <td class="p-2 px-4 text-blue-700">EM38_TP_GARANT</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
+                    <td class="p-2 px-4 text-blue-700">
+                      CB09_DS_GARBND (via GA03_TP_GARDEF)
+                    </td>
+                    <td class="p-2 px-4 text-center text-emerald-600">
+                      Mapeado ✔
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr class="bg-amber-50/30">
                     <td class="p-2 px-4 font-bold">
                       percentualFundoGarantidor
                     </td>
-                    <td class="p-2 px-4 text-blue-700">EM113_PC_RISCO</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
-                    </td>
-                  </tr>
-                  <tr class="bg-rose-50/30">
-                    <td class="p-2 px-4 font-bold">fundoGarantidor</td>
-                    <td class="p-2 px-4 text-blue-700">EM19_ID_TIPFGI</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
-                    </td>
-                  </tr>
-                  <tr class="bg-rose-50/30">
-                    <td class="p-2 px-4 font-bold">creditoExtraordinario</td>
-                    <td class="p-2 px-4 text-amber-700 italic">
+                    <td class="p-2 px-4 text-amber-700">
                       NÃO LOCALIZADO NO DICIONÁRIO
                     </td>
                     <td class="p-2 px-4 text-center text-amber-600">
                       Gap de Dados ⚠
                     </td>
                   </tr>
+
+                  <tr class="bg-amber-50/30">
+                    <td class="p-2 px-4 font-bold">fundoGarantidor</td>
+                    <td class="p-2 px-4 text-amber-700">
+                      NÃO LOCALIZADO NO DICIONÁRIO
+                    </td>
+                    <td class="p-2 px-4 text-center text-amber-600">
+                      Gap de Dados ⚠
+                    </td>
+                  </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">empregosGerados</td>
                     <td class="p-2 px-4 text-blue-700">
@@ -2590,6 +3579,7 @@ Declaração consolidada da competência.</textarea
                       Calculado 🧮
                     </td>
                   </tr>
+
                   <tr>
                     <td class="p-2 px-4 font-bold">empregosMantidos</td>
                     <td class="p-2 px-4 text-blue-700">EM305_QT_EMPANT</td>
@@ -2597,7 +3587,8 @@ Declaração consolidada da competência.</textarea
                       Mapeado ✔
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr class="bg-amber-50/30">
                     <td class="p-2 px-4 font-bold">acoesMturFinanciamento</td>
                     <td class="p-2 px-4 text-amber-700 italic">
                       NÃO LOCALIZADO NO DICIONÁRIO
@@ -2606,25 +3597,34 @@ Declaração consolidada da competência.</textarea
                       Gap de Dados ⚠
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr class="bg-amber-50/30">
                     <td class="p-2 px-4 font-bold">banco</td>
-                    <td class="p-2 px-4 text-blue-700">EM01_CD_BANCOB</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
+                    <td class="p-2 px-4 text-amber-700 italic">
+                      NÃO LOCALIZADO NO DICIONÁRIO
+                    </td>
+                    <td class="p-2 px-4 text-center text-amber-600">
+                      Gap de Dados ⚠
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr class="bg-amber-50/30">
                     <td class="p-2 px-4 font-bold">agencia</td>
-                    <td class="p-2 px-4 text-blue-700">EM01_CD_AGECOB</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
+                    <td class="p-2 px-4 text-amber-700 italic">
+                      NÃO LOCALIZADO NO DICIONÁRIO
+                    </td>
+                    <td class="p-2 px-4 text-center text-amber-600">
+                      Gap de Dados ⚠
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+
+                  <tr class="bg-amber-50/30">
                     <td class="p-2 px-4 font-bold">conta</td>
-                    <td class="p-2 px-4 text-blue-700">EM01_NR_CCREDI</td>
-                    <td class="p-2 px-4 text-center text-rose-600">
-                      A criar ⚠
+                    <td class="p-2 px-4 text-amber-700 italic">
+                      NÃO LOCALIZADO NO DICIONÁRIO
+                    </td>
+                    <td class="p-2 px-4 text-center text-amber-600">
+                      Gap de Dados ⚠
                     </td>
                   </tr>
                 </tbody>
@@ -2740,154 +3740,459 @@ Declaração consolidada da competência.</textarea
                       Apropriação de Caixa
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       amortizacaoExtraordinarias
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Liquidações integrais ou parciais antecipadas
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Liquidações integrais ou parciais antecipadas
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Requer Flag em Amortizações
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       contratosAnalise
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Lista/Array de propostas registradas em trâmite
+                    <td class="p-2.5 px-4 text-blue-700">
+                      (EM01_NR_CONTRA) em situação de proposta
                     </td>
                     <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
                       Mapear Banco de Propostas
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       valorTotalContratosAnalise
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Somatória monetária do saldo em trâmite
+                    <td class="p-2.5 px-4 text-blue-700">
+                      SUM(EM01_VL_CONTRA) em situação de proposta
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
-                      Mapear Banco de Propostas
+                    <td
+                      class="p-2.5 px-4 text-center text-emerald-600 font-sans"
+                    >
+                      Somatória de EM01
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       contratosConcluidosMes
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Quantidade de operações que saíram de análise para
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Quantidade de operações que saíram de análise para
                       contratação
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Contagem por Gatilho de Estado
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       valorTotalContratosConcluidosMes
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Volume financeiro das novas contratações do mês
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Volume financeiro das novas contratações do mês
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Contagem por Gatilho de Estado
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       valorRecebidoFungetur
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Total de aportes financeiros creditados pelo
-                      repassador
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Total de aportes financeiros creditados pelo repassador
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Módulo Contábil (Razão)
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       saldoFinanceiroNaInstituicao
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Conciliação bancária de saldo da conta vinculada
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Conciliação bancária de saldo da conta vinculada
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Módulo Contábil (Razão)
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       saldoDisponivelNovosContratos
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Saldo disponível real livre de amarras
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Saldo disponível real livre de amarras
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Cálculo de Teto Consolidado
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       remuneracaoInpcNoMes
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Atualização inflacionária aplicada ao saldo
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Atualização inflacionária aplicada ao saldo
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Cálculo do Módulo de Índices
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       remuneracaoSelicNoMes
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Juros correntes acumulados da conta reserva
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Juros correntes acumulados da conta reserva
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Cálculo do Módulo de Índices
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       semContratacoesCelebradasNoMes
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Flag booleana indicando se o mês foi nulo de
-                      assinaturas
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Flag booleana indicando se o mês foi nulo de assinaturas
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Avaliação Lógica do Lote
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       semContratacoesEmAnaliseNoMes
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Flag booleana indicando se o mês foi nulo de propostas
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Flag booleana indicando se o mês foi nulo de propostas
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Avaliação Lógica do Lote
                     </td>
                   </tr>
-                  <tr class="bg-rose-50/30">
+                  <tr>
                     <td class="p-2.5 px-4 font-bold text-gf-dark">
                       informacoesComplementares
                     </td>
-                    <td class="p-2.5 px-4 text-rose-600 italic">
-                      ??? Observações ou considerações adicionais do período
+                    <td class="p-2.5 px-4 text-slate-500">
+                      Observações ou considerações adicionais do período
                     </td>
-                    <td class="p-2.5 px-4 text-center text-rose-600 font-sans">
+                    <td class="p-2.5 px-4 text-center text-amber-600 font-sans">
                       Input Manual
                     </td>
                   </tr>
                 </tbody>
               </table>
+            </div>
+          </div>
+        </section>
+
+        <section id="tab-gerenciar-financiamentos" class="tab-content hidden space-y-6">
+          <div>
+            <h1 class="text-2xl font-semibold tracking-tight">
+              Gerenciar Dados de Financiamento
+            </h1>
+            <p class="text-sm text-gf-gray mt-1">
+              Consulte os dados de financiamento importados por instituição financeira.
+            </p>
+          </div>
+
+          <div class="flex justify-start">
+            <button
+              onclick="openLegacyModal('importar_financiamento.png', 'Importar Financiamento')"
+              class="bg-gf-purple text-white font-medium text-sm px-5 py-2 rounded-md shadow flex items-center gap-2 hover:opacity-90 transition-opacity"
+            >
+              <i data-lucide="plus" class="w-4 h-4"></i> Importar Financiamento
+            </button>
+          </div>
+
+          <div
+            class="bg-white border border-gf-border rounded-xl shadow-sm overflow-hidden"
+          >
+            <!-- Filtros -->
+            <div class="p-4 border-b border-gf-border bg-slate-50/40">
+              <form class="flex flex-col sm:flex-row gap-4 items-end" onsubmit="event.preventDefault()">
+                <div class="flex-1">
+                  <label class="block text-xs font-semibold text-gf-gray mb-1.5"
+                    >Arquivo</label
+                  >
+                  <input
+                    type="text"
+                    placeholder="Buscar por nome do arquivo..."
+                    class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm focus:outline-none"
+                  />
+                </div>
+                <div class="flex-1">
+                  <label class="block text-xs font-semibold text-gf-gray mb-1.5"
+                    >Situação</label
+                  >
+                  <select
+                    class="w-full px-3 py-1.5 border border-gf-border rounded-md text-sm bg-white focus:outline-none"
+                  >
+                    <option value="">Todas</option>
+                    <option>Processado</option>
+                    <option>Falha no Processamento</option>
+                  </select>
+                </div>
+                <div class="flex gap-2 shrink-0">
+                  <button
+                    type="submit"
+                    class="bg-gf-purple text-white font-medium text-sm px-5 py-1.5 rounded-md shadow flex items-center gap-2"
+                  >
+                    <i data-lucide="search" class="w-4 h-4"></i> Pesquisar
+                  </button>
+                  <button
+                    type="button"
+                    class="px-4 py-1.5 text-sm font-medium text-gf-gray hover:text-gf-dark transition-colors border border-gf-border rounded-md bg-white flex items-center gap-2"
+                  >
+                    <i data-lucide="x" class="w-4 h-4"></i> Limpar
+                  </button>
+                </div>
+              </form>
+            </div>
+
+            <!-- Indicador de registros -->
+            <div class="px-5 py-2 border-b border-gf-border flex items-center justify-between bg-white">
+              <span class="text-xs text-gf-gray">
+                Ver <span class="font-semibold text-gf-dark">10</span> registros
+              </span>
+            </div>
+
+            <!-- Tabela -->
+            <div class="overflow-x-auto">
+              <table class="w-full text-left border-collapse">
+                <thead>
+                  <tr
+                    class="bg-slate-50 border-b border-gf-border text-[11px] font-semibold uppercase tracking-wider text-gf-gray"
+                  >
+                    <th class="py-3 px-5 w-32">
+                      <div class="flex items-center gap-2">
+                        <input
+                          type="checkbox"
+                          onclick="toggleAllCheckboxes(this)"
+                          class="rounded text-gf-purple"
+                        />
+                        <span class="normal-case">Select All</span>
+                      </div>
+                    </th>
+                    <th class="py-3 px-5">Instituição Financeira</th>
+                    <th class="py-3 px-5">Data Importação</th>
+                    <th class="py-3 px-5">Arquivo</th>
+                    <th class="py-3 px-5">Usuário</th>
+                    <th class="py-3 px-5 text-center">Situação</th>
+                  </tr>
+                </thead>
+                <tbody class="divide-y divide-gf-border text-sm text-[#333d47]">
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">04/03/2026</td>
+                    <td class="py-3.5 px-5 text-xs">PLANILHA OPERAÇÕES FUNGETUR FE...</td>
+                    <td class="py-3.5 px-5 text-xs">cintya.garcez@goiasfomento.com</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">Processado</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">09/02/2026</td>
+                    <td class="py-3.5 px-5 text-xs">PLANILHA OPERAÇÕES FUNGETUR J...</td>
+                    <td class="py-3.5 px-5 text-xs">raphaella.guimaraes@goiasfomento.com</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">Processado</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">13/11/2025</td>
+                    <td class="py-3.5 px-5 text-xs">OUTUBRO 2025 FOMENTO GO...xlsx ...</td>
+                    <td class="py-3.5 px-5 text-xs">aline.vale</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">Processado</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">07/11/2025</td>
+                    <td class="py-3.5 px-5 text-xs">OUTUBRO 2025 FOMENTO GO.xlsx</td>
+                    <td class="py-3.5 px-5 text-xs">aline.vale</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">Processado</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">06/11/2025</td>
+                    <td class="py-3.5 px-5 text-xs">SETEMBRO 2025 FOMENTO GO.xlsx ...</td>
+                    <td class="py-3.5 px-5 text-xs">aline.vale</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">Processado</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">24/01/2025</td>
+                    <td class="py-3.5 px-5 text-xs">FUNGETUR DEZEMBRO 2024 - AJUST...</td>
+                    <td class="py-3.5 px-5 text-xs">orlando.santos</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">Processado</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">24/01/2025</td>
+                    <td class="py-3.5 px-5 text-xs">FUNGETUR DEZEMBRO 2024 - AJUST...</td>
+                    <td class="py-3.5 px-5 text-xs">orlando.santos</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-rose-50 text-rose-700 rounded-full border border-rose-100">Falha no Processamento</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">24/01/2025</td>
+                    <td class="py-3.5 px-5 text-xs">FUNGETUR DEZEMBRO 2024 WEB EM...</td>
+                    <td class="py-3.5 px-5 text-xs">orlando.santos</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-rose-50 text-rose-700 rounded-full border border-rose-100">Falha no Processamento</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">15/12/2024</td>
+                    <td class="py-3.5 px-5 text-xs">NOVEMBRO 2024 FOMENTO GO.xlsx</td>
+                    <td class="py-3.5 px-5 text-xs">aline.vale</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">Processado</span>
+                    </td>
+                  </tr>
+                  <tr class="hover:bg-slate-50/60 transition-colors">
+                    <td class="py-3.5 px-5">
+                      <input
+                        type="checkbox"
+                        name="rowSelect"
+                        class="rounded text-gf-purple"
+                      />
+                    </td>
+                    <td class="py-3.5 px-5 font-medium text-gf-dark">AGENCIA DE FOMENTO DE GOIAS S/A</td>
+                    <td class="py-3.5 px-5 font-mono text-xs">10/11/2024</td>
+                    <td class="py-3.5 px-5 text-xs">OUTUBRO 2024 FOMENTO GO.xlsx</td>
+                    <td class="py-3.5 px-5 text-xs">aline.vale</td>
+                    <td class="py-3.5 px-5 text-center">
+                      <span class="px-2 py-0.5 text-xs font-medium bg-emerald-50 text-emerald-700 rounded-full border border-emerald-100">Processado</span>
+                    </td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+
+            <!-- Paginação -->
+            <div class="px-5 py-3 border-t border-gf-border bg-slate-50/40 flex items-center justify-between">
+              <span class="text-xs text-gf-gray">
+                Exibindo <span class="font-semibold text-gf-dark">1</span> a <span class="font-semibold text-gf-dark">10</span> de <span class="font-semibold text-gf-dark">15</span> registros
+              </span>
+              <div class="flex items-center gap-1">
+                <button class="px-2 py-1 text-xs text-gf-gray hover:text-gf-dark border border-gf-border rounded bg-white transition-colors">
+                  <i data-lucide="chevrons-left" class="w-3.5 h-3.5"></i>
+                </button>
+                <button class="px-2 py-1 text-xs text-gf-gray hover:text-gf-dark border border-gf-border rounded bg-white transition-colors">
+                  <i data-lucide="chevron-left" class="w-3.5 h-3.5"></i>
+                </button>
+                <button class="px-2.5 py-1 text-xs font-bold text-white bg-gf-purple rounded border border-gf-purple">
+                  1
+                </button>
+                <button class="px-2.5 py-1 text-xs font-medium text-gf-gray hover:text-gf-dark border border-gf-border rounded bg-white transition-colors">
+                  2
+                </button>
+                <button class="px-2 py-1 text-xs text-gf-gray hover:text-gf-dark border border-gf-border rounded bg-white transition-colors">
+                  <i data-lucide="chevron-right" class="w-3.5 h-3.5"></i>
+                </button>
+                <button class="px-2 py-1 text-xs text-gf-gray hover:text-gf-dark border border-gf-border rounded bg-white transition-colors">
+                  <i data-lucide="chevrons-right" class="w-3.5 h-3.5"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Botões de Ação -->
+            <div class="px-5 py-3.5 border-t border-gf-border bg-white flex items-center gap-3">
+              <button
+                id="btn-visualizar-detalhes"
+                class="px-4 py-2 text-xs font-semibold text-white bg-gf-purple hover:bg-violet-700 rounded transition-colors shadow-sm"
+              >
+                Visualizar Detalhes
+              </button>
+              <button
+                id="btn-baixar-arquivo"
+                class="px-4 py-2 text-xs font-semibold text-white bg-gf-purple hover:bg-violet-700 rounded transition-colors shadow-sm"
+              >
+                Baixar Arquivo
+              </button>
             </div>
           </div>
         </section>
@@ -2920,7 +4225,7 @@ Declaração consolidada da competência.</textarea
           </button>
         </div>
         <div
-          class="p-4 bg-slate-100 flex-1 overflow-y-auto flex items-center justify-center"
+          class="p-4 bg-slate-100 flex-1 overflow-y-auto flex flex-col items-center justify-start"
         >
           <img
             id="legacy-modal-img"
@@ -2957,7 +4262,9 @@ Declaração consolidada da competência.</textarea
           "limites-operar",
           "envio-remessa",
           "declaracao-mensal",
+          "visualizar-declaracao",
           "retorno-lotes",
+          "gerenciar-financiamentos",
           "fluxo-contratacao",
           "fluxo-gerenciamento",
           "config-api",
@@ -2983,6 +4290,36 @@ Declaração consolidada da competência.</textarea
             }
           }
         });
+      }
+
+      function switchLimiteSubTab(tab) {
+        const tabs = ["dados", "aditivos", "memoria", "auditoria"];
+        const activeClasses = ["border-gf-purple", "text-gf-purple"];
+        const inactiveClasses = [
+          "border-transparent",
+          "text-gf-gray",
+          "hover:text-gf-dark",
+        ];
+
+        tabs.forEach((t) => {
+          const panel = document.getElementById("limite-panel-" + t);
+          const btn = document.getElementById("limite-subtab-" + t);
+          if (!panel || !btn) return;
+          const isActive = t === tab;
+          panel.classList.toggle("hidden", !isActive);
+          btn.classList.toggle("border-gf-purple", isActive);
+          btn.classList.toggle("text-gf-purple", isActive);
+          btn.classList.toggle("border-transparent", !isActive);
+          btn.classList.toggle("text-gf-gray", !isActive);
+          btn.classList.toggle("hover:text-gf-dark", !isActive);
+        });
+
+        // botões Salvar/Cancelar só fazem sentido na aba de dados
+        document
+          .getElementById("limite-form-actions")
+          .classList.toggle("hidden", tab !== "dados");
+
+        lucide.createIcons();
       }
 
       function addAditivoMock() {
@@ -3033,6 +4370,13 @@ Declaração consolidada da competência.</textarea
           modal.classList.add("hidden");
         }
       };
+
+      function toggleAllCheckboxes(master) {
+        const checkboxes = document.getElementsByName("rowSelect");
+        checkboxes.forEach((cb) => {
+          cb.checked = master.checked;
+        });
+      }
 
       lucide.createIcons();
     </script>
